@@ -40,7 +40,7 @@ function build(k) {
   const r = k.rng('lighthouse');
 
   // ---- seabed and reef
-  k.box(-140, -14, 0, 140, -11, 260, mat({ c: '#6a6450', c2: '#7a7460', pat: 'rock', cut: '#4a4436' }));
+  k.box(-600, -60, 0, 600, -11, 900, mat({ c: '#6a6450', c2: '#7a7460', pat: 'rock', cut: '#4a4436' }));
   const prof = [];
   for (let x = -42; x <= 42; x += 1.5) prof.push([x, reefTop(x)]);
   prof.push([42, -11], [-42, -11]);
@@ -80,7 +80,7 @@ function build(k) {
   const inside = (x, z) => reefTop(x, z) > SEA + 0.2 || Math.hypot(x, z) < R(BASE) + 0.2;
   k.object(makeSea({ level: SEA, x0: -60, x1: 60, detailX0: -60, detailX1: 60, step: 1.2, mask: inside, maskBox: [-45, 0, 45, 22], deep: '#25546e', shallow: '#3f8494' }));
   // Water cut face where the section passes through the sea.
-  k.sheet(-200, 200, -11, SEA, 0.01, { c: '#2a6a7a', alpha: 0.33 });
+  k.sheet(-600, 600, -11, SEA, 0.01, { c: '#2a6a7a', alpha: 0.33 });
 
   // ---- captions
   k.label({ x: -2, y: 8, z: 0, title: 'Solid base', text: 'The lowest storeys are solid granite, the blocks dovetailed together so the sea cannot prise them apart.', min: 3, body: 'The first storeys of a rock tower are solid masonry. Each granite block was cut to interlock with its neighbours above, below and beside it, so the whole base acts as one mass against the waves. The technique goes back to John Smeaton’s Eddystone tower of 1759.', source: 'https://www.britannica.com/biography/John-Smeaton' });
@@ -368,7 +368,8 @@ XS.scenes.register({
   daySeconds: 720,
   wind: 1.6,
   slice: false,
-  view: { yaw: -0.5, pitch: 0.22 },
+  view: { yaw: -0.5, pitch: 0.2 },
+  thumb: { hour: 19.4, angle: [-0.5, 0.1], zoom: [0, 20, 105, 2] },
   focusDepth: 1.5,
   fog: [140, 900, 0.7],
   ambience: { sea: 0.9, wind: 0.5, reverb: 0.12, size: 1.2 },

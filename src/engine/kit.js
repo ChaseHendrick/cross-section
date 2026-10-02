@@ -549,18 +549,18 @@ export function bakeLamps(lamps, bounds) {
   const pad = 2;
   const x0 = bounds.x0 - pad, y0 = bounds.y0 - pad, z0 = (bounds.z0 != null ? bounds.z0 : -2) - pad;
   const x1 = bounds.x1 + pad, y1 = bounds.y1 + pad, z1 = (bounds.z1 != null ? bounds.z1 : 40) + pad;
-  const maxDim = Math.max(x1 - x0, y1 - y0, z1 - z0);
-  const cell = Math.max(0.35, maxDim / 230);
-  const nx = Math.max(2, Math.ceil((x1 - x0) / cell)), ny = Math.max(2, Math.ceil((y1 - y0) / cell)), nz = Math.max(2, Math.ceil((z1 - z0) / cell));
+  // Finer cells vertically, where decks and floors stack, so lamp light stays in its room.
+  const cx = Math.max(0.35, (x1 - x0) / 256), cy = Math.max(0.3, (y1 - y0) / 112), cz = Math.max(0.35, (z1 - z0) / 56);
+  const nx = Math.max(2, Math.ceil((x1 - x0) / cx)), ny = Math.max(2, Math.ceil((y1 - y0) / cy)), nz = Math.max(2, Math.ceil((z1 - z0) / cz));
   const data = new Float32Array(nx * ny * nz * 4);
   for (const L of lamps) {
     const c = toRgb(L.color);
     const r = L.r;
-    const ix0 = Math.max(0, Math.floor((L.x - r - x0) / cell)), ix1 = Math.min(nx - 1, Math.ceil((L.x + r - x0) / cell));
-    const iy0 = Math.max(0, Math.floor((L.y - r - y0) / cell)), iy1 = Math.min(ny - 1, Math.ceil((L.y + r * 0.5 - y0) / cell));
-    const iz0 = Math.max(0, Math.floor((L.z - r - z0) / cell)), iz1 = Math.min(nz - 1, Math.ceil((L.z + r - z0) / cell));
+    const ix0 = Math.max(0, Math.floor((L.x - r - x0) / cx)), ix1 = Math.min(nx - 1, Math.ceil((L.x + r - x0) / cx));
+    const iy0 = Math.max(0, Math.floor((L.y - r - y0) / cy)), iy1 = Math.min(ny - 1, Math.ceil((L.y + r * 0.5 - y0) / cy));
+    const iz0 = Math.max(0, Math.floor((L.z - r - z0) / cz)), iz1 = Math.min(nz - 1, Math.ceil((L.z + r - z0) / cz));
     for (let k = iz0; k <= iz1; k++) for (let j = iy0; j <= iy1; j++) for (let i = ix0; i <= ix1; i++) {
-      const px = x0 + (i + 0.5) * cell, py = y0 + (j + 0.5) * cell, pz = z0 + (k + 0.5) * cell;
+      const px = x0 + (i + 0.5) * cx, py = y0 + (j + 0.5) * cy, pz = z0 + (k + 0.5) * cz;
       const dx = px - L.x, dy = py - L.y, dz = pz - L.z;
       const d = Math.hypot(dx, dy * 1.15, dz);
       if (d > r) continue;
@@ -580,7 +580,7 @@ export function bakeLamps(lamps, bounds) {
   tex.magFilter = THREE.LinearFilter;
   tex.unpackAlignment = 1;
   tex.needsUpdate = true;
-  return { tex, min: new THREE.Vector3(x0, y0, z0), size: new THREE.Vector3(nx * cell, ny * cell, nz * cell) };
+  return { tex, min: new THREE.Vector3(x0, y0, z0), size: new THREE.Vector3(nx * cx, ny * cy, nz * cz) };
 }
 
 XS.Kit = Kit;
