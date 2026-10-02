@@ -10,11 +10,11 @@ Every subject starts from a dossier in [`research/`](research/). A dossier gives
 | The Express | [train.md](research/train.md) | The LNER Coronation, July 1937, behind A4 No. 4489 |
 | The Coal Mine | [mine.md](research/mine.md) | Big Pit, Blaenavon, October 1910 |
 | The Cathedral | [cathedral.md](research/cathedral.md) | Salisbury Cathedral, June 1245 |
-| The Jumbo Jet | [jet.md](research/jet.md) | A Boeing 747-100 in early 1970s airline service |
-| The Space Station | [station.md](research/station.md) | The International Space Station after assembly |
-| The Submarine | [submarine.md](research/submarine.md) | See the dossier's subject section |
-| The Car Factory | [factory.md](research/factory.md) | The Ford Highland Park plant, 1914 to 1915 |
-| The Opera House | [opera.md](research/opera.md) | The Palais Garnier, 1875 to about 1890 |
+| The Jumbo Jet | [jet.md](research/jet.md) | A Pan Am Boeing 747-121 on Flight 102, New York to London, a June night in 1970 (flight and passengers composite) |
+| The Space Station | [station.md](research/station.md) | The International Space Station on 22 May 2011, during Endeavour's mission STS-134 |
+| The Submarine | [submarine.md](research/submarine.md) | USS Pampanito (SS-383), charging batteries on the surface, the night of 11 to 12 March 1945 |
+| The Car Factory | [factory.md](research/factory.md) | The Ford Highland Park plant, a weekday in late autumn 1914 (buildings set out in production order, a labelled composite) |
+| The Opera House | [opera.md](research/opera.md) | The Paris Opéra (now the Palais Garnier) on 8 March 1876, a gas-lit night of Gounod's Faust |
 
 The Rock Lighthouse is a composite of the granite rock towers of the British and Irish coasts, drawn as an engine demonstration; its few fact cards cite their sources directly.
 
