@@ -78,7 +78,7 @@ The subjects are drawn from real places and machines, researched from museum, ar
 | Step back | <kbd>Esc</kbd> closes the top panel, leaves the slice tool, ends the tour, or lets the person you follow go |
 | Help | <kbd>?</kbd> |
 
-On a phone the main tools sit in one row with the clock above them; **More** holds captions, viewing angle, whole view, picture and full screen.
+On a phone the main tools sit in one row with the clock above them; **More** opens a second row with captions, viewing angle, whole view, picture and full screen. <kbd>Space</kbd> pauses even after you click a toolbar button or the clock; a button reached with <kbd>Tab</kbd> takes <kbd>Space</kbd> and <kbd>Enter</kbd> itself.
 
 The address bar carries the view and keeps up with the clock: `#liner?cuts=60,120,180&open=1&h=21.5&w=rain` opens the liner, cut in three places, opened, at half past nine on a rainy night. Cuts are ignored for a subject shown whole.
 

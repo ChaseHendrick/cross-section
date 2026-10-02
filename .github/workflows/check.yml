@@ -1,0 +1,56 @@
+name: check
+
+# Two jobs. The structural checks are instant and gate everything: lint (house rules,
+# scene registration, caption sources) and a reproducible build of the portable edition.
+# The browser job then loads every subject in the portable edition under software
+# rendering, exercises the interface (follow, slice, tour, captions, sound, picture,
+# contents) and fails on any console error or blown budget.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  structure:
+    name: lint and portable build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Lint
+        run: node tools/lint.js
+      - name: Portable edition is up to date
+        run: node tools/build.js --check
+
+  browser:
+    name: every subject in a browser
+    needs: structure
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Install Chromium
+        run: npx playwright-core install --with-deps chromium
+      - name: Desktop, portable edition
+        run: node tools/check.cjs --dist
+      - name: Phone viewport, portable edition
+        run: node tools/check.cjs --dist --mobile lighthouse
