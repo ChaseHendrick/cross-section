@@ -2,12 +2,16 @@
 import { XS, mat } from '../engine/index.js';
 import { DOORS } from './jet/common.js';
 import { buildShell, buildDecks, buildFairing, buildWings, buildTail, buildEngines, buildLights } from './jet/airframe.js';
+import { buildMainDeck, buildStair, buildUpperDeck, buildFlightDeck } from './jet/cabin.js';
+import { buildBelow } from './jet/below.js';
 
 const P = { fans: [] };
-const S = { DOORS };
+const S = {};
+function resetS() { Object.assign(S, { DOORS, seats: [], galleys: [], windows: [], rows: {}, lounge: [], fd: [] }); }
 
 function build(k) {
   P.fans = [];
+  resetS();
   buildShell(k, S);
   buildDecks(k);
   buildFairing(k);
@@ -15,6 +19,11 @@ function build(k) {
   buildTail(k);
   buildEngines(k, P);
   buildLights(k, P);
+  buildMainDeck(k, S);
+  buildStair(k);
+  buildUpperDeck(k, S);
+  buildFlightDeck(k, S);
+  buildBelow(k, S);
   void mat;
 }
 

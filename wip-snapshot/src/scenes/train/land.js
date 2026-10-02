@@ -100,7 +100,7 @@ function terrain(k) {
   const grass = [mat({ c: '#7e8c52', c2: '#6a7a44', pat: 'speckle' }), mat({ c: '#8a9658', c2: '#76844a', pat: 'speckle' }), mat({ c: '#a8a060', c2: '#c4b46a', pat: 'stripes', s: 3.5 }), mat({ c: '#9aa262', c2: '#7a8a4a', pat: 'stripes', s: 2.8 }), mat({ c: '#b8a868', c2: '#a89458', pat: 'stripes', s: 4.0 })];
   const mud = mat({ c: '#9a8a68', c2: '#8a7a58', pat: 'speckle' });
   const bed = mat({ c: '#6a6450', c2: '#5a5440', pat: 'rock' });
-  const earth = mat({ c: '#8a7458', c2: '#7a6448', pat: 'speckle', cut: '#54463a' });
+  const earth = mat({ c: '#8a7256', c2: '#74604a', pat: 'stone', s: 1.8, cut: '#54463a' });
   for (let j = 0; j < zs.length - 1; j++) for (let i = 0; i < xs.length - 1; i++) {
     const a = [xs[i], G[j][i], zs[j]], b = [xs[i + 1], G[j][i + 1], zs[j]], c = [xs[i + 1], G[j + 1][i + 1], zs[j + 1]], d = [xs[i], G[j + 1][i], zs[j + 1]];
     const y = (a[1] + b[1] + c[1] + d[1]) / 4;
@@ -110,7 +110,7 @@ function terrain(k) {
   }
   // Close a thin slab behind the cut so the section shows earth (kept small: big hidden faces
   // still cost fragment shading in a software renderer).
-  const yB = -60, zb = 9;
+  const yB = -48, zb = 9;
   for (let i = 0; i < xs.length - 1; i++) {
     if (xs[i + 1] < -60 || xs[i] > 260) continue;
     const g0 = ground(xs[i], zb), g1 = ground(xs[i + 1], zb);

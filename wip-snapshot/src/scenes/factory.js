@@ -80,7 +80,7 @@ XS.scenes.register({
   clouds: 0.8,
   fog: [260, 1500, 0.55],
   focusDepth: 4,
-  lampGain: 2.1,
+  lampGain: 2.4,
   suggestedCuts: CUTS,
   cutRange: [2, 410],
   sliceGap: 14,

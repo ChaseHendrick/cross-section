@@ -80,8 +80,10 @@ export function front(k) {
     L(x, 8.3, z, { r: 6, i: 0.7, color: '#ffd48a', bulb: false, halo: 0.5, flicker: true });
   }
   // Double doors forming draught lobbies between portico and vestibule (N p.69).
-  for (const z of [4.0, 11.2, 18.4]) props.door(k, 8.45, Y.vest, z, { w: 2.2, h: 4.2, color: '#5a3420' });
-  k.box(8.5, Y.vest, 1.6, 8.52, 7.4, 1.65, MT.stone);
+  for (const z of [4.0, 11.2, 18.4]) {
+    k.box(8.42, Y.vest, z - 1.1, 8.5, Y.vest + 4.2, z + 1.1, MT.mahogany);
+    k.box(8.4, Y.vest + 4.2, z - 1.3, 8.5, Y.vest + 4.5, z + 1.3, MT.gilt);
+  }
   // The grand vestibule: Lully, Rameau, Gluck and Handel in marble (N p.69).
   seated(k, 13.2, Y.vest, 5.6, MT.marbleW, -1);
   seated(k, 13.2, Y.vest, 14.8, MT.marbleW, -1);

@@ -27,14 +27,14 @@
  *   Cuts: 21 (facade block), 50 (staircase/auditorium), 87.5 (proscenium), 116 (back wall), 139.
  */
 import { XS } from '../engine/index.js';
-import { ground, frontBlock, stairHall, houseShell, stageShell, backShell, statues } from './opera/shell.js';
+import { ground, frontBlock, stairHall, houseShell, stageShell, backShell, statues, pavilion } from './opera/shell.js';
 import { house } from './opera/house.js';
 import { stagehouse, scenery } from './opera/stagehouse.js';
 import { front } from './opera/front.js';
 import { back } from './opera/back.js';
 import { people } from './opera/people.js';
 import { lifeParts, lifeSetup, lifeUpdate, lifeHalos } from './opera/life.js';
-import { Y, AX, showAt, ring, stageY, ST0 } from './opera/common.js';
+import { Y, AX, showAt, ring, stageY, ST0, inH } from './opera/common.js';
 
 const PARTS = {};
 const CUTS = [21, 50, 87.5, 116.5, 139];
@@ -47,6 +47,7 @@ function build(k) {
   stageShell(k);
   backShell(k);
   statues(k);
+  pavilion(k);
   house(k);
   stagehouse(k);
   front(k);
@@ -146,6 +147,7 @@ function captions(k) {
   L({ x: 143.5, y: 4.6, z: 2.5, title: 'Battery laboratory', text: 'Six oak tables topped with thick glass, seventy Bunsen cells, vats of acid. Its exact place here is a guess.', min: m });
   L({ x: 155.5, y: 4.8, z: 1.4, title: 'The stage door', text: 'Every trade arrives here in turn: machinists, firemen, gasmen, the claque, dressers, extras, chorus, dancers with their mothers, singers, musicians.', min: 8 });
   L({ x: 147, y: 28.5, z: 2, title: 'Administration', text: 'The director, the accounts and the stage staff. The dressing rooms placed here are an assumption of this drawing.', min: 8 });
+  L({ x: 71.5, y: 36, z: 37.5, title: 'The Emperor’s pavilion', text: 'Linked to the head of state’s box beside the stage, on this (jardin) side. In 1876 it is still unfinished, its stones left rough.', min: 7 });
   L({ x: -30, y: 5.6, z: 4, title: 'Place de l’Opéra', text: 'Cleared of four to five hundred houses. Its gas candelabra burned until 1954.', min: 6 });
   L({ x: 24.5, y: 17.6, z: 9.6, title: 'Not finished', text: 'Rooms left unfinished for lack of money were closed off with hangings.', min: 30 });
   L({ x: 112.5, y: Y.gril[2] + 0.8, z: 6, title: 'The gril cat', text: 'An invention of this drawing: no record of an Opéra cat has been found.', min: 40 });
@@ -173,8 +175,25 @@ function setup(W, stage) {
   W.stop({ x: 72, y: 15, z: 4, w: 190, hour: 1.6, title: 'After midnight', text: 'The carriages have gone and the gas is down to the night-light jets. A fireman makes his round with a lantern, from the grils to the water of the cistern.', hold: 12 });
 }
 
+// Put everyone where their routine says they should be at this hour (at load, and after
+// the clock jumps, as it does between tour stops), so nobody spends an act walking in.
+function warp(W) {
+  for (const p of W.people) {
+    if (!p.routine) continue;
+    const i = p.routine.findIndex((st) => !st.when || inH(W.hour, st.when[0], st.when[1]));
+    if (i < 0) continue;
+    const at = p.routine[i].at, pos = W.resolve(at);
+    p.x = pos.x; p.y = pos.y; p.z = pos.z;
+    p.node = typeof at === 'string' && W.nav.get(at) ? at : null;
+    p.step = -1; p.moving = false; p.path = null; p.stepT = 0;
+  }
+}
+
 function update(W, dt, t) {
   const h = W.hour, S = showAt(h);
+  const last = W.data.lastHour;
+  if (last == null || Math.abs(((h - last + 36) % 24) - 12) > 0.3) warp(W);
+  W.data.lastHour = h;
   for (const p of W.people) {
     const off = p.x < -53 || p.x > 173 || p.z < -1.5;
     p.hidden = off || (p.vis ? !p.vis(h, S) : false);

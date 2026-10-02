@@ -176,8 +176,10 @@ export function setupPeople(W, k) {
   };
   const AWAY = { at: 'town', act: 'stand', away: true, label: 'At home in the town' };
   const away = (when) => Object.assign({}, AWAY, { when });
-  const lamp = (when, label = 'Collecting his numbered lamp at the lamp room') => ({ at: 'lampQ', act: 'stand', face: 'in', dur: M(4), label, when });
-  const giveBack = (when) => ({ at: 'lampQ', act: 'stand', face: 'in', dur: M(4), label: 'Handing his lamp back in', when, prop: null });
+  let qn = 0;
+  const qspot = () => { const i = qn++; return [113.2 + (i % 7) * 1.9, 0, 0.55 + (i % 3) * 0.35]; };
+  const lamp = (when, label = 'Collecting his numbered lamp at the lamp-room window') => ({ at: qspot(), act: 'stand', face: 'in', prop: 'lamp', dur: M(4), label, when });
+  const giveBack = (when) => ({ at: qspot(), act: 'stand', face: 'in', prop: null, dur: M(4), label: 'Handing his lamp back in', when });
   const faceX = (i) => FACE.x0 + 1.0 + i * 1.45;
   const people = [];
   const P = (def) => { const p = add(def); people.push(p); return p; };

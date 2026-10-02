@@ -367,7 +367,7 @@ export function buildCast(W, r) {
     [23.2, 8.0, B.crew[8].feet, 'lie', 'Asleep', { face: 0 }],
     [8.0, 19.3, [31.9, DECK.fb, 0.6], 'sitWrite', 'Ship’s office', { seat: 0.46, face: 'out' }],
   ]);
-  add('PhM1 Arthur Lindell', 'Pharmacist’s mate', 'The crew call him “Doc”. The boat’s only medical man (S42).', C.dung({ skin: SK.fair, hair: '#9a9a9a', top: '#e8e4da' }), [
+  add('PhM1 Arthur Lindell', 'Pharmacist’s mate', 'The crew call him “Doc”: the only medical man aboard.', C.dung({ skin: SK.fair, hair: '#9a9a9a', top: '#e8e4da' }), [
     [19.5, 20.2, 'mess:c', 'talk', 'Sick call in the crew’s mess', { face: 'out' }],
     [20.2, 20.6, 'atr:a', 'talk', 'Checking a man with a fever aft', { face: 'in' }],
     [20.6, 21.2, [26.4, DECK.fb, 0.3], 'talk', 'Issuing library books, one at a time', { prop: 'book', face: 'in' }],

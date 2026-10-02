@@ -82,7 +82,8 @@ export function cast(W, S) {
   const st = (zone, name) => zone + ':' + name;
   const bay = (zone, i) => { const s = S.seats[zone].filter((q) => q.bay === i); const x = s.reduce((a, q) => a + q.x, 0) / s.length; return [x, FL, AISLE + 0.02]; };
   const add = (def) => W.addPerson(def);
-  const hideAfterYork = (p) => { p.hidden = inHours(W.hour, 18.62, 22.3); };
+  // The scene loops one day of the run: those who leave at York are gone until morning.
+  const hideAfterYork = (p) => { p.hidden = inHours(W.hour, 18.62, 6); };
   for (const i of [1, 2, 3, 4, 9, 10, 12, 13]) taken.add('Z38:s' + i);
   taken.add('Z24:s11');
 
@@ -108,9 +109,10 @@ export function cast(W, S) {
   add({ name: 'Frederick Tasker', role: 'locomotive inspector', bio: 'Hates the corridor: he is six foot two and the passage is five foot.', costume: man(r, { suit: '#2a2a30', coat: 'long', hat: 'bowler', hatColor: '#1a1a1e', hair: '#5a5a5a', skin: '#e6b48f' }), H: 1.88,
     routine: [
       { at: st('Z18', 'desk'), act: 'sitWrite', face: 'in', dur: [60, 90], label: 'Writing up his pocket book in the van', when: [6, 18.4] },
-      { at: 'tc3', act: 'stand', face: -1, dur: [2, 3], walkAnim: 'stoop', label: 'Stooping through the corridor tender to the footplate', when: [18.4, 22.5] },
-      { at: 'cabStand', act: 'handsBehind', face: -1, dur: [50, 80], label: 'On the footplate, watching the water gauge and the road', when: [18.4, 22.5] },
-      { at: 'tc3', act: 'stand', face: 1, dur: [2, 3], walkAnim: 'stoop', label: 'Back through the corridor, bent double', when: [22.5, 6] },
+      { at: 'tc3', act: 'stand', face: -1, dur: [2, 3], walkAnim: 'stoop', label: 'Stooping through the corridor tender to the footplate', when: [18.4, 18.6] },
+      { at: 'cabStand', act: 'handsBehind', face: -1, dur: [50, 80], label: 'On the footplate, watching the road ahead', when: [18.4, 22.5] },
+      { at: 'cabGauge', act: 'stand', face: -1, dur: [12, 20], label: 'Watching the water level in the gauge glasses', when: [18.4, 22.5] },
+      { at: 'tc3', act: 'stand', face: 1, dur: [2, 3], walkAnim: 'stoop', label: 'Back through the corridor, bent double', when: [22.5, 22.7] },
       { at: st('Z18', 'desk'), act: 'sleepSit', face: 'in', dur: [80, 120], label: 'Dozing in the van', when: [22.5, 6] },
     ] });
 
@@ -127,7 +129,8 @@ export function cast(W, S) {
     ] });
 
   // ---------------- kitchens
-  const kitchenCrew = (name, role, bio, zone, cos, steps) => add({ name, role, bio, costume: cos, routine: steps });
+  // Cooks work turned three-quarters to the bench, so their faces show (left- or right-handed).
+  const kitchenCrew = (name, role, bio, zone, cos, steps, turn = 0.8) => add({ name, role, bio, costume: cos, routine: steps.map((q) => (q.face === 'in' ? Object.assign({}, q, { face: turn }) : q)) });
   kitchenCrew('Tom Ridsdale', 'chef, kitchen B', 'Grew up in a York bakery.', 'Z23', Object.assign({}, CHEF, { skin: '#f1c9a5', hair: '#8d5a2b' }), [
     { at: st('Z23', 'bench'), act: 'workBench', face: 'in', dur: [30, 50], label: 'Scones and teacakes for afternoon tea', when: [13, 17.6] },
     { at: st('Z23', 'range'), act: 'stir', face: 'in', dur: [30, 50], label: 'At the electric range: roasts for dinner', when: [17.6, 20.8] },
@@ -141,13 +144,13 @@ export function cast(W, S) {
     { at: st('Z24', 'pass'), act: 'carry', prop: 'tray', face: 1, dur: [6, 10], walkAnim: 'carry', label: 'Carrying a tray through to the seats', when: [16.1, 20.8] },
     { at: st('Z23', 'sink'), act: 'workBench', face: 'in', dur: [30, 60], label: 'Washing up after dinner', when: [18.6, 23] },
     { at: st('Z23', 'pantry'), act: 'sleepSit', face: 'in', dur: [80, 120], label: 'Asleep sitting up in the pantry', when: [23, 6] },
-  ]);
+  ], Math.PI - 0.8);
   kitchenCrew('Luigi Bertolini', 'chef, kitchen D', 'Misses gas flames but praises the electric ovens.', 'Z32', Object.assign({}, CHEF, { skin: '#d9a27a', hair: '#2b1d14' }), [
     { at: st('Z32', 'range'), act: 'stir', face: 'in', dur: [40, 60], label: 'Soups and fish for the first-class dinner', when: [14, 20.8] },
     { at: st('Z32', 'bench'), act: 'workBench', face: 'in', dur: [20, 35], label: 'Dressing the fish', when: [14, 20.8] },
     { at: st('Z32', 'range'), act: 'scrub', face: 'in', dur: [40, 60], label: 'Cleaning the ranges', when: [20.8, 23] },
     { at: st('Z32', 'pantry'), act: 'sleepSit', face: 'in', dur: [80, 120], label: 'Resting his feet', when: [23, 14] },
-  ]);
+  ], Math.PI - 0.8);
   kitchenCrew('Stanley Keld', 'second cook, kitchen D', 'Sends money home to his mother in Hull.', 'Z32', Object.assign({}, CHEF, { hat: null, skin: '#f1c9a5', hair: '#4a3020' }), [
     { at: st('Z32', 'bench'), act: 'workBench', face: 'in', dur: [30, 50], label: 'Preparing the vegetables', when: [6, 18.75] },
     { at: st('Z32', 'fridge'), act: 'workBench', face: 'in', dur: [10, 16], label: 'At the refrigerator', when: [6, 18.75] },
@@ -269,7 +272,7 @@ export function cast(W, S) {
   meal('Z24', 7, man(r, { suit: '#3a3a40', skin: '#8a5634', hair: '#1a1410' }), 'Rajan Menon', 'third-class passenger, medical student', 'First time seeing the Border.', { act: 'sitRead', prop: 'book', label: 'Deep in an anatomy textbook' });
   meal('Z33', 2, woman(r, { frock: '#1e2a4a', hat: 'beret', hatColor: '#1e2a4a', hair: '#4a3020' }), 'Winifred Hoyle', 'third-class passenger, nurse', 'Returning to an Edinburgh hospital.', { act: 'sleepSit', label: 'Asleep after a night shift' });
   const ada = meal('Z33', 11, woman(r, { frock: '#7a6a9a', hat: 'cloche', hatColor: '#4a3a5a', hair: '#9a9a9a', skin: '#ecc19c' }), 'Ada Scorer', 'third-class passenger, joined at York', 'Visiting her sister in Portobello.', { act: 'sitTalk', label: 'Telling her neighbour about her sister' });
-  ada.onUpdate = (p) => { p.hidden = !inHours(W.hour, 18.67, 23.5); };
+  ada.onUpdate = (p) => { p.hidden = !inHours(W.hour, 18.67, 6); };
   const cairns = (i, cos, name, bio, extraLabel) => meal('Z35', i, cos, name, 'third-class passenger, honeymooner', bio, { act: 'sitTalk', label: 'Holding hands under the table' },
     [{ at: 'Z38:s' + (i === 6 ? 12 : 13), act: 'sitTalk', face: 0.05, dur: [50, 70], label: extraLabel, when: [20.95, 21.6] }]);
   cairns(6, man(r, { suit: '#3a3a40', hair: '#7a2c14' }), 'Donald Cairns', 'Spent their savings on the supplement.', 'At the tail window for the crossing at Berwick');

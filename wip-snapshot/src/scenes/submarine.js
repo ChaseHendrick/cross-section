@@ -34,34 +34,34 @@ import { buildNav, buildCast, settle } from './submarine/cast.js';
 function captions(k) {
   const L = (d) => k.label(d);
   // The whole boat (margins at the overview).
-  L({ x: 47, y: 7.4, z: 0, title: 'USS Pampanito (SS-383)', text: 'A Balao-class fleet submarine, 311 ft 8 in (95.0 m) long and 27 ft 3 1/2 in (8.3 m) wide.', priority: 6, side: 'left',
+  L({ x: 48, y: -5, z: 0, title: 'USS Pampanito (SS-383)', text: 'A Balao-class fleet submarine, 311 ft 8 in (95.0 m) long and 27 ft 3 1/2 in (8.3 m) wide.', priority: 6, side: 'left',
     body: 'USS Pampanito is 311 ft 8 in (95.0 m) long and 27 ft 3 1/2 in (8.3 m) wide, by the general information book her builder, Portsmouth Navy Yard, compiled in 1943. She is drawn here as she was in March 1945.', source: 'https://legacy.maritime.org/doc/pdf/ss383-general-info.pdf' });
-  L({ x: 20, y: 9.5, z: 0, title: 'Sixth war patrol', text: '25 February to 24 April 1945. On her return it was called “a hard and boring patrol.”', priority: 5, side: 'left',
+  L({ x: 12, y: 12.5, z: 0, title: 'Sixth war patrol', text: '25 February to 24 April 1945. On her return it was called “a hard and boring patrol.”', priority: 5, side: 'left',
     body: 'Pampanito’s sixth war patrol ran from 25 February to 24 April 1945, off the Malay Peninsula. On her return the captain and crew were congratulated on “a hard and boring patrol.”', source: 'http://legacy.maritime.org/pamphist/patrol6.php' });
-  L({ x: 64, y: 7.5, z: 0, title: 'About eighty men', text: 'On war patrols the average officer was about 27 years old, the average sailor about 22.', priority: 5, side: 'right',
-    body: 'About 80 men lived aboard. A wartime Navy study of 1,471 patrol reports found the average officer was about 27 years old and the average enlisted man about 22.', source: 'https://legacy.maritime.org/doc/pdf/duff.pdf' });
-  L({ x: 37, y: 13.5, z: 0, title: 'No snorkel', text: 'To run her diesels and charge her batteries she had to surface, usually at night.', priority: 5, side: 'right',
+  L({ x: 80, y: -5, z: 0, title: 'About eighty men', text: 'On war patrols the average officer was about 27 years old, the average sailor about 22.', priority: 5, side: 'right',
+    body: 'About 80 men lived aboard. A wartime Navy study of 1,471 patrol reports found the average officer was about 27 years old and the average enlisted man about 22.', source: ['http://legacy.maritime.org/tour/cm.php?pano=nr', 'https://legacy.maritime.org/doc/pdf/duff.pdf'] });
+  L({ x: 60, y: 14.5, z: 0, title: 'No snorkel', text: 'To run her diesels and charge her batteries she had to surface, usually at night.', priority: 5, side: 'right',
     body: 'Pampanito had no snorkel. To run her diesels and charge her batteries she had to come to the surface, so she stayed submerged by day and ran on the surface at night.', source: 'http://legacy.maritime.org/pamphist/patrol2.php' });
   // Forward torpedo room.
   L({ x: 16.5, y: 5.4, z: 0.8, title: 'Forward torpedo room', text: 'About 14 men slept here alongside 16 torpedoes: six in the tubes and ten reloads.', min: 24,
     body: 'About 14 men slept in the forward torpedo room alongside 16 torpedoes: six in the tubes and ten reloads, two for each upper tube on racks and one for each lower tube below the deck.', source: 'http://legacy.maritime.org/tour/ftr.php?pano=nr' });
   L({ x: 14.0, y: 3.7, z: 1.4, title: 'Mark 14 torpedo', text: '20 ft 6 in long and about 3,000 lb. Reloads were moved by hand with block and tackle.', min: 60,
-    body: 'A Mark 14 torpedo was 20 ft 6 in long and weighed about 3,000 lb. Reloads were moved by hand with block and tackle and chain falls.', source: 'https://en.wikipedia.org/wiki/Mark_14_torpedo' });
-  L({ x: 18.3, y: 4.0, z: 0.4, title: 'Movie night', text: 'Films were a great comfort; one boat showed them in alternate torpedo rooms.', min: 90 });
+    body: 'A Mark 14 torpedo was 20 ft 6 in long and weighed about 3,000 lb. Reloads were moved by hand with block and tackle and chain falls.', source: ['https://en.wikipedia.org/wiki/Mark_14_torpedo', 'http://legacy.maritime.org/tour/atr.php?pano=nr'] });
+  L({ x: 18.3, y: 4.0, z: 0.4, title: 'Movie night', text: 'Films were a great comfort on patrol; one boat showed them in alternate torpedo rooms. Whether Pampanito had a projector is not known.', min: 90 });
   // Officers' country and the battery.
   L({ x: 25.6, y: 5.2, z: 1.0, title: 'Wardroom', text: 'Officers’ dining room, office, chart room and meeting room in one, with the chronometers and a record player.', min: 30,
-    body: 'The wardroom was the officers’ mess, recreation room, workspace and meeting room. The ship’s chronometers and charts were kept here, and a record player.', source: 'http://legacy.maritime.org/tour/fbc-wardroom.php?pano=nr' });
+    body: 'The wardroom was the officers’ mess, recreation room, workspace and meeting room. The ship’s chronometers and charts were kept here, and a record player.', source: ['http://legacy.maritime.org/tour/fbc.php?pano=nr', 'http://legacy.maritime.org/tour/fbc-wardroom.php?pano=nr'] });
   L({ x: 29.2, y: 5.4, z: 0.9, title: 'Captain’s stateroom', text: 'The only private room aboard. Gauges at the foot of the bunk let him check the boat without getting up.', min: 40,
-    body: 'The captain’s stateroom was the only private room aboard. A depth gauge and course repeater at the foot of the bunk let him check the boat without getting up.', source: 'http://legacy.maritime.org/tour/fbc-captain.php?pano=nr' });
+    body: 'The captain’s stateroom was the only private room aboard. A depth gauge and course repeater at the foot of the bunk let him check the boat without getting up.', source: ['http://legacy.maritime.org/tour/fbc-captain.php?pano=nr', 'http://legacy.maritime.org/tour/fbc.php?pano=nr'] });
   L({ x: 31.8, y: 4.7, z: 0.7, title: 'Christmas in March', text: 'On 11 March another boat handed over 34 sacks of overdue mail. Some of the cookies were moldy.', min: 45,
     body: 'On 11 March 1945 USS Sea Robin passed over 34 sacks of long overdue mail. Christmas had finally caught up with Pampanito, though some of the cookies were moldy.', source: 'http://legacy.maritime.org/pamphist/patrol6.php' });
   L({ x: 27.5, y: 2.2, z: 0.6, title: 'Forward battery', text: '126 cells under the officers’ feet, each about 4 1/2 ft tall and about 1,650 lb.', min: 28,
-    body: 'The forward battery holds 126 cells in six rows of 21. Each cell is about 4 1/2 ft tall and weighs about 1,650 lb.', source: 'http://legacy.maritime.org/doc/fleetsub/elect/chap5.php' });
+    body: 'The forward battery holds 126 cells in six rows of 21. Each cell is about 4 1/2 ft tall and weighs about 1,650 lb.', source: ['http://legacy.maritime.org/doc/fleetsub/elect/chap5.php', 'https://legacy.maritime.org/doc/pdf/ss383-general-info.pdf'] });
   // Control room, conning tower, bridge.
   L({ x: 33.7, y: 5.4, z: 1.2, title: 'Diving station', text: 'One wheel for the bow planes, one for the stern planes. The stern planes hold the angle; the bow planes control depth.', min: 34,
     body: 'At the diving station one man works the bow planes and another the stern planes. The stern planes hold the boat’s angle; the bow planes control her depth.', source: 'http://legacy.maritime.org/tour/cr.php?pano=nr' });
   L({ x: 35.2, y: 5.7, z: 1.6, title: 'The Christmas tree', text: 'A red or green light for every hull opening. A “green board” means all are shut and she can dive.', min: 50,
-    body: 'The hull opening indicator panel shows a red or green light for every hatch, valve and opening in the hull. A “green board” means all are shut and the boat can dive.', source: 'http://legacy.maritime.org/tour/cr.php?pano=nr' });
+    body: 'The hull opening indicator panel shows a red or green light for every hatch, valve and opening in the hull. A “green board” means all are shut and the boat can dive.', source: ['http://legacy.maritime.org/tour/cr.php?pano=nr', 'http://legacy.maritime.org/doc/fleetsub/chap18.php'] });
   L({ x: 37.4, y: 4.4, z: 0.2, title: 'Red goggles', text: 'Before a night watch a lookout wore red goggles for at least 20 minutes.', min: 70,
     body: 'Before going up for a night watch, lookouts wore red dark-adaptation goggles for at least 20 minutes.', source: 'http://legacy.maritime.org/doc/fleetsub/chap20.php' });
   L({ x: 36.0, y: 2.0, z: 0.8, title: 'Pump room', text: 'Air compressors, trim and drain pumps, hydraulics, the air conditioning. Nobody stood watch here unless something needed fixing.', min: 34,
@@ -69,11 +69,11 @@ function captions(k) {
   L({ x: 36.4, y: 8.5, z: 0.3, title: 'Conning tower', text: 'A steel cylinder 8 ft across and 17 ft long: the captain’s battle station.', min: 30,
     body: 'The conning tower is a steel cylinder 8 ft across and 17 ft long, the captain’s battle station, where up to ten men could work.', source: 'http://legacy.maritime.org/tour/ct.php?pano=nr' });
   L({ x: SHEARS.x1, y: 17.5, z: 0, title: 'Periscopes', text: 'The larger forward one for night use; the slim after one, harder to see, for attacks.', min: 16,
-    body: 'The larger forward periscope was for night use; the slim after one, harder to see, for attacks. Raised, their tops stood about 66 ft above the keel.', source: 'http://legacy.maritime.org/tour/ct.php?pano=nr' });
+    body: 'The larger forward periscope was for night use; the slim after one, harder to see, for attacks. Raised, their tops stood about 66 ft above the keel.', source: ['http://legacy.maritime.org/tour/ct.php?pano=nr', 'https://legacy.maritime.org/doc/pdf/ss383-general-info.pdf'] });
   L({ x: 38.3, y: 14.9, z: 0, title: 'SJ radar', text: 'Used 10 cm waves to find ships on the surface, even on a black night.', min: 22,
     body: 'The SJ radar used 10 cm waves to find ships on the surface and give their range and bearing, even on a black night.', source: 'https://en.wikipedia.org/wiki/SJ_radar' });
   L({ x: 36.3, y: 11.4, z: 0.9, title: 'Lookouts', text: 'On platforms either side of the shears, each searching his own slice of sea and sky.', min: 22,
-    body: 'Lookouts stood on raised platforms either side of the periscope shears, each searching his own sector of sea and sky.', source: 'http://legacy.maritime.org/tour/fdeck.php?pano=nr' });
+    body: 'Lookouts stood on raised platforms either side of the periscope shears, each searching his own sector of sea and sky.', source: ['http://legacy.maritime.org/tour/fdeck.php?pano=nr', 'http://legacy.maritime.org/doc/fleetsub/chap20.php'] });
   L({ x: 33.2, y: 10.4, z: 0.4, title: 'Completely darkened', text: '“This ship will run completely darkened at night.” No smoking topside.', min: 26,
     body: 'A sister boat’s orders: “This ship will run completely darkened at night.” No smoking was allowed topside when darkened.', source: 'https://legacy.maritime.org/doc/pdf/suborders.pdf' });
   L({ x: 26.5, y: 8.9, z: 0, title: '4-inch deck gun', text: 'Carried forward of the conning tower on all six patrols; a 5-inch gun aft replaced it in mid-1945.', min: 20,
@@ -82,7 +82,7 @@ function captions(k) {
   L({ x: 41.6, y: 5.5, z: 1.0, title: 'Galley', text: 'Square pots on rectangular hot plates. The bakers worked overnight, and a pie locker held pie for the whole crew.', min: 30,
     body: 'Square pots sit on rectangular hot plates because they hold more. The bakers worked overnight, and a special pie locker held pie for the whole crew.', source: 'http://legacy.maritime.org/tour/cm-galley.php' });
   L({ x: 44.6, y: 5.3, z: 1.2, title: 'Crew’s mess', text: 'Four tables fed the crew in sittings; the watch going on duty ate first.', min: 30,
-    body: 'Four tables fed the crew in sittings. The watch section going on duty ate first. The coffee pot was always on.', source: 'http://legacy.maritime.org/tour/cm-mess.php' });
+    body: 'Four tables fed the crew in sittings. The watch section going on duty ate first. The coffee pot was always on.', source: ['http://legacy.maritime.org/tour/cm-mess.php', 'http://legacy.maritime.org/tour/cm.php?pano=nr'] });
   L({ x: 43.5, y: 2.3, z: 0.6, title: 'Cold stores and potatoes', text: 'Food for a 60 to 90 day patrol filled the cold rooms, then the showers, the engine rooms, even the deck.', min: 36,
     body: 'Food for a 60 to 90 day patrol filled the freezer and cold rooms, then the shower stalls, the spaces behind the engines and even the deck, under cardboard.', source: 'http://legacy.maritime.org/tour/cm.php?pano=nr' });
   L({ x: 49.5, y: 5.6, z: 1.0, title: 'Hot bunks', text: '36 bunks for many more men: three men shared two bunks, sleeping in turn.', min: 28,
@@ -90,22 +90,22 @@ function captions(k) {
   L({ x: 46.4, y: 4.6, z: 1.2, title: 'Ice cream', text: 'An ice cream freezer, perhaps “the only luxury on the whole boat.”', min: 70,
     body: 'An ice cream freezer stood in the crew’s berthing, perhaps “the only luxury on the whole boat.”', source: 'http://legacy.maritime.org/tour/abc.php?pano=nr' });
   L({ x: 53.3, y: 5.3, z: 0.8, title: 'Washroom', text: 'About 70 men shared two toilets, two showers and one washing machine.', min: 46,
-    body: 'About 70 men shared two toilets, two showers and one washing machine. Fresh water was so precious that a man might shower once in ten days.', source: 'http://legacy.maritime.org/tour/abc-head.php?pano=nr' });
+    body: 'About 70 men shared two toilets, two showers and one washing machine. Fresh water was so precious that a man might shower once in ten days.', source: ['http://legacy.maritime.org/tour/abc-head.php?pano=nr', 'http://legacy.maritime.org/tour/fer.php?pano=nr'] });
   L({ x: 49.0, y: 2.2, z: 0.6, title: 'Smoking lamp out', text: 'Charging cells give off hydrogen. When the charge reached its finishing rate, no smoking.', min: 36,
     body: 'Charging cells give off hydrogen. A sister boat’s orders said it must never exceed 3 per cent in the ducts, and put the smoking lamp out when the charge reached its finishing rate.', source: 'https://legacy.maritime.org/doc/pdf/suborders.pdf' });
   // Engines and motors.
   L({ x: 58.0, y: 5.4, z: 1.3, title: 'Four diesels', text: 'Fairbanks-Morse engines of 1,600 horsepower at 720 rpm, with two pistons in every cylinder.', min: 22,
-    body: 'Four Fairbanks-Morse diesels, each 1,600 horsepower at 720 rpm. They are opposed-piston engines: two pistons in every cylinder move towards each other.', source: 'https://legacy.maritime.org/doc/pdf/ss383-general-info.pdf' });
+    body: 'Four Fairbanks-Morse diesels, each 1,600 horsepower at 720 rpm. They are opposed-piston engines: two pistons in every cylinder move towards each other.', source: ['https://legacy.maritime.org/doc/pdf/ss383-general-info.pdf', 'http://legacy.maritime.org/doc/fleetsub/diesel/chap3.php'] });
   L({ x: 66.2, y: 5.2, z: 1.0, title: 'Diesel-electric', text: 'The engines never turned the propellers: they drove generators that charged the batteries, ran the motors, or both.', min: 24,
-    body: 'Diesel-electric drive: the engines never turned the propellers. They drove generators, and the electricity charged the batteries, ran the motors, or both.', source: 'http://legacy.maritime.org/tour/aer.php?pano=nr' });
+    body: 'Diesel-electric drive: the engines never turned the propellers. They drove generators, and the electricity charged the batteries, ran the motors, or both.', source: ['http://legacy.maritime.org/tour/aer.php?pano=nr', 'https://en.wikipedia.org/wiki/Balao-class_submarine'] });
   L({ x: 72.5, y: 5.2, z: 1.0, title: 'Maneuvering room', text: 'Every change of speed was ordered from forward and set here by electricians at the control stand.', min: 30,
     body: 'Every change of speed was ordered from the bridge, conning tower or control room, and set here by electricians at the control stand.', source: 'http://legacy.maritime.org/tour/man.php?pano=nr' });
   L({ x: 73.0, y: 2.0, z: 1.2, title: 'Motor room', text: 'Four electric motors, two to each shaft, geared down to turn the propellers at up to 280 rpm.', min: 30,
-    body: 'Four electric motors, two to each shaft, drove the propellers through reduction gears at up to 280 rpm. The gears were the boat’s loudest noise under water.', source: 'http://legacy.maritime.org/tour/mot.php?pano=nr' });
+    body: 'Four electric motors, two to each shaft, drove the propellers through reduction gears at up to 280 rpm. The gears were the boat’s loudest noise under water.', source: ['https://legacy.maritime.org/doc/pdf/ss383-general-info.pdf', 'http://legacy.maritime.org/tour/mot.php?pano=nr'] });
   L({ x: 82.0, y: 5.4, z: 0.8, title: 'After torpedo room', text: 'Four tubes, four reloads on skids, bunks for 12 men and three more that could be rigged.', min: 26,
     body: 'The after torpedo room has four tubes, four reloads on skids, and bunks for 12 men with three more that could be rigged.', source: 'http://legacy.maritime.org/tour/atr.php?pano=nr' });
   // Hidden details (no fact cards: small stories, some invented and said so).
-  L({ x: 41.4, y: 4.75, z: 0.9, title: 'The night baker', text: 'Bread and pies baked through the night, under the only white light forward of the engines.', min: 110 });
+  L({ x: 41.4, y: 4.75, z: 0.9, title: 'The night baker', text: 'The bakers worked through the night.', min: 110 });
   L({ x: 72.0, y: 4.75, z: 1.1, title: 'A cricket', text: 'Pure invention: an electrician’s pet cricket lives in a matchbox by the control stand.', min: 150 });
 }
 
@@ -238,6 +238,8 @@ function setup(W, stage, k) {
   // phosphorescence in the wake [illustrative], bubbles from the screws submerged.
   W.emitter({ kind: 'spray', x: 0.6, y: WL + 0.2, z: 1.2, w: 1.6, d: 2.2, rate: (w) => (surf() ? 7 : 0), vx: -1.2, vy: 1.4, size: [0.3, 1.2] });
   W.emitter({ kind: 'spray', x: 96.5, y: WL + 0.1, z: 1.5, w: 4, d: 3, rate: (w) => (surf() ? 3 : 0), vx: 1.4, vy: 0.4, size: [0.4, 1.4] });
+  W.emitter({ kind: 'spray', x: 104, y: WL + 0.05, z: 2.5, w: 16, d: 4, rate: (w) => (surf() ? 5 : 0), vx: 0.8, vy: 0.15, size: [0.6, 2.2], alpha: 0.35, life: 3 });
+  W.emitter({ kind: 'spray', x: 3.5, y: WL + 0.05, z: 4.2, w: 6, d: 1.5, rate: (w) => (surf() ? 4 : 0), vx: 0.6, vy: 0.3, size: [0.4, 1.4], alpha: 0.45 });
   for (const x of [61.9, 69.9]) {
     W.emitter({ kind: 'steam', x, y: 5.4, z: outerZ(x, 5.3) + 0.3, w: 0.4, d: 0.4, rate: (w) => (running() ? 2.5 + 2 * Math.max(0, Math.sin(w.time * 5 + x)) : 0), vx: 0.9, vy: 0.9, size: [0.4, 2.2], color: '#a8a8a4' });
     W.emitter({ kind: 'spray', x, y: 5.1, z: outerZ(x, 5.2) + 0.3, w: 0.3, d: 0.3, rate: (w) => (running() ? 4 : 0), vx: 0.6, vy: 1.2, size: [0.2, 0.8] });
@@ -262,13 +264,13 @@ function setup(W, stage, k) {
   W.stop({ x: 47, y: 7, z: 2, w: 112, title: 'USS Pampanito, 11 March 1945', text: 'A Sunday night in the South China Sea, off the Malay Peninsula. The boat runs on the surface in the dark, her diesels charging the batteries for tomorrow’s dive. About eighty men live inside this steel tube. Zoom in anywhere, or click a man to follow him.', hold: 12, hour: 21.4 });
   W.stop({ x: 36.5, y: 10.4, z: 0.6, w: 15, title: 'The bridge', text: 'The boat runs completely darkened. The officer of the deck stands forward; lookouts on their platforms each search one slice of sea and sky. Below them the radar sweeps the dark.', hold: 11, hour: 21.5 });
   W.stop({ x: 36.2, y: 6.0, z: 1.0, w: 11, title: 'Control room and conning tower', text: 'Red light keeps the men’s night vision. At the ladder a lookout waits out his twenty minutes in red goggles; above, the helmsman, talker and radar operator keep the watch.', hold: 12, hour: 21.6 });
-  W.stop({ x: 43.6, y: 4.8, z: 1.0, w: 8, title: 'Galley and mess', text: 'Under the only white light forward of the engines, the baker kneads tomorrow’s bread. In the mess a game of acey-deucey has drawn a crowd.', hold: 12, hour: 22.1 });
-  W.stop({ x: 49.6, y: 4.6, z: 1.0, w: 8, title: 'Hot bunks', text: 'Thirty-six bunks for many more men: they sleep in turns. Tonight the bunks are full of letters, three months of mail that came aboard today.', hold: 11, hour: 22.4 });
+  W.stop({ x: 43.6, y: 4.8, z: 1.0, w: 8, title: 'Galley and mess', text: 'Under the galley light the baker kneads tomorrow’s bread. In the mess a game of acey-deucey has drawn a crowd.', hold: 12, hour: 22.1 });
+  W.stop({ x: 49.6, y: 4.6, z: 1.0, w: 8, title: 'Hot bunks', text: 'Thirty-six bunks for many more men: they sleep in turns. Tonight there are letters in the bunks: the overdue mail came aboard today.', hold: 11, hour: 22.4 });
   W.stop({ x: 62.3, y: 3.8, z: 1.0, w: 17, title: 'The engine rooms', text: 'Four diesels roar so loudly that the men talk in hand signals. They drive generators: some current turns the propellers, the rest charges the batteries.', hold: 12, hour: 22.7 });
   W.stop({ x: 27.6, y: 2.6, z: 0.8, w: 10, title: 'The battery', text: 'Under the officers’ feet stand 126 cells as tall as a child. An electrician crawls along the top reading each one as the charge goes in.', hold: 11, hour: 21.6 });
-  W.stop({ x: 16.8, y: 4.4, z: 1.0, w: 12, title: 'Forward torpedo room', text: 'Men sleep among the torpedoes. Tonight a torpedo is drawn half out of its tube for routine checks, and off-watch men watch a film on a sheet.', hold: 12, hour: 20.9 });
+  W.stop({ x: 16.8, y: 4.4, z: 1.0, w: 12, title: 'Forward torpedo room', text: 'Men sleep among the torpedoes. Tonight a torpedo is drawn half out of its tube for routine checks, and off-watch men watch a film on a sheet, as on many boats.', hold: 12, hour: 20.9 });
   W.stop({ x: 47, y: 7, z: 2, w: 112, title: 'Dive, dive', text: 'Before first light: two blasts on the alarm. The diesels stop, the vents open, the bow planes swing out, and in about thirty seconds she is at periscope depth.', hold: 13, hour: 5.42 });
-  W.stop({ x: 47, y: 9, z: 2, w: 112, title: 'A day under the sea', text: 'All day she runs slowly on her batteries at periscope depth, raising a periscope now and then for a look round. At dusk she will surface and begin again.', hold: 12, hour: 12.0 });
+  W.stop({ x: 47, y: 9, z: 2, w: 112, title: 'A day under the sea', text: 'All day she stays submerged, running slowly on her batteries; at periscope depth a periscope goes up now and then for a look round. At dusk she will surface and begin again.', hold: 12, hour: 12.0 });
   void LOW; void outerSection;
 }
 

@@ -304,6 +304,21 @@ export function houseShell(k) {
   k.sphere(AX, yt + 6.8, 0, 0.35, mat({ c: '#e0bc5a', whole: true }), { seg: 8, rings: 6 });
 }
 
+// The Emperor's pavilion on the west side of the auditorium, still unfinished in 1876, its
+// stones left rough-cut (fr.wikipedia). Seen beyond the cut, behind the drum of the house.
+export function pavilion(k) {
+  const rough = mat({ c: '#d8c8a0', c2: '#bfae84', pat: 'stone', s: 1.1, cut: '#a89870' });
+  k.box(64, 0, 22.5, 79, 18, 29, rough);
+  k.box(60, 0, 29, 83, 24, 46, rough);
+  k.box(59.4, 24, 28.4, 83.6, 25.4, 46.6, MT.stoneD);
+  for (const z of [31, 36, 41]) for (const x of [61.6, 81.4]) k.box(x - 0.8, 2, z - 0.8, x + 0.8, 24, z + 0.8, MT.stone);
+  k.lathe([[7.6, 25.4], [7.6, 28.5], [6.9, 31.2], [5.2, 33.6], [2.6, 35.2], [0.6, 35.6]], 71.5, 37.5, MT.copper, { seg: 18 });
+  k.lathe([[1.0, 35.5], [0.9, 37.4], [0.2, 38.2]], 71.5, 37.5, MT.giltD, { seg: 10 });
+  // Scaffold poles where the masons were still at work [illustrative].
+  for (let x = 60.5; x < 83; x += 2.8) k.box(x, 0, 28.3, x + 0.14, 26, 28.44, MT.timber);
+  for (let y = 4; y < 26; y += 4) k.box(60.4, y, 28.1, 83, y + 0.12, 28.3, MT.timber);
+}
+
 // A slab (or wall) on the horseshoe between radii r0..r1 and heights y0..y1, angle range a0..a1.
 export function annulus(k, r0, r1, y0, y1, a0, a1, m, mTop) {
   const seg = Math.max(4, Math.round(((a1 - a0) / PI) * 22));

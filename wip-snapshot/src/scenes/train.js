@@ -23,7 +23,9 @@
  * summer time), by warping the engine's generic sun. The train stays on the bridge at
  * every hour; routines follow the booked day of the run (tea from 4.10, dinner 6.45 to 8.45).
  */
-import { XS, mat, sun as sunAt } from '../engine/index.js';
+import { XS, U, mat, sun as sunAt } from '../engine/index.js';
+
+const { smoothstep } = XS.math;
 import { FL, AISLE, SPEED, B, LEN } from './train/common.js';
 import { buildLoco, locoParts, animateLoco, CAB, TENDER } from './train/loco.js';
 import { buildCars, carParts, COACH_WHEEL_R } from './train/cars.js';
@@ -141,7 +143,15 @@ function captions(k) {
 
 // ------------------------------------------------------------------ setup
 function setup(W, stage, k) {
-  W.sun = () => sunAt(warp(W.hour));
+  // Carriage lamps were lit through a summer dusk. The engine keys lamp light (U.uNight) to
+  // how dark the sky is; here the lamps come up a little sooner than the sky darkens. The sky
+  // reads the sun again after the lighting is applied, so that second read sets the lamp level
+  // (see docs/requests/train.md, request 3). If the engine changes, this simply does nothing.
+  W.sun = () => {
+    const s = sunAt(warp(W.hour));
+    U.uNight.value = Math.max(U.uNight.value, smoothstep(0.25, 0.85, 1 - Math.pow(s.day, 1.7)));
+    return s;
+  };
   const nav = W.nav;
   // The gangway that runs the length of the train.
   const STEP = 1.0, AX0 = 21.95, AX1 = 176.9;
@@ -156,7 +166,7 @@ function setup(W, stage, k) {
   // Footplate and tender corridor.
   const cf = CAB.floor;
   nav.node('cab', 13.95, cf, 0.15);
-  for (const [id, x, z] of [['driver', 13.58, -0.76], ['fireman', 13.72, 0.1], ['fireSeat', 13.58, 0.86], ['lookL', 13.25, -1.0], ['lookR', 13.25, 1.0], ['gaugeL', 13.12, -0.35], ['gaugeR', 13.12, 0.6], ['coalHose', 14.95, 0.3], ['cabStand', 14.15, -0.35], ['tcFront', 14.6, 0.95]]) { nav.node(id, x, cf, z); nav.link('cab', id); }
+  for (const [id, x, z] of [['driver', 13.58, -0.76], ['fireman', 13.72, 0.1], ['fireSeat', 13.58, 0.86], ['lookL', 13.25, -1.0], ['lookR', 13.25, 1.0], ['gaugeL', 13.12, -0.35], ['gaugeR', 13.12, 0.6], ['coalHose', 14.95, 0.3], ['cabStand', 14.15, -0.35], ['cabGauge', 14.2, 0.45], ['tcFront', 14.6, 0.95]]) { nav.node(id, x, cf, z); nav.link('cab', id); }
   const T = TENDER, tc = [];
   for (let i = 0; i <= 5; i++) tc.push(nav.node('tc' + i, 15.1 + i * 1.2, T.corrY0, (T.corrZ0 + T.corrZ1) / 2));
   nav.chain(tc);
@@ -169,30 +179,43 @@ function setup(W, stage, k) {
   cast(W, S);
 
   // The spaniel in the front van: lies by her water bowl, gets up and wags for visitors.
+  // Two poses (lying, standing) swap when someone kneels beside her; the tail wags.
   const dogAt = S.stations.Z18.dog;
-  const dog = k.part(dogAt[0] + 0.55, FL, dogAt[1], (q) => {
-    const liver = mat({ c: '#6a3a24' }), white = mat({ c: '#efe8dc' });
-    q.boulder(0, 0.32, 0, 0.32, 0.15, 0.13, white, 3, 0.05);
-    q.boulder(-0.08, 0.36, 0, 0.18, 0.12, 0.135, liver, 4, 0.05);
-    q.boulder(-0.36, 0.48, 0, 0.11, 0.1, 0.09, liver, 5, 0.05);
-    q.boulder(-0.47, 0.44, 0, 0.07, 0.05, 0.05, white, 6, 0.05);
-    for (const s of [-1, 1]) q.boulder(-0.33, 0.42, s * 0.09, 0.05, 0.1, 0.03, liver, 7, 0.05);
-    for (const [x, s] of [[-0.2, -1], [-0.2, 1], [0.2, -1], [0.2, 1]]) q.box(x - 0.03, 0, s * 0.07 - 0.025, x + 0.03, 0.26, s * 0.07 + 0.025, white);
+  const liver = mat({ c: '#6a3a24' }), white = mat({ c: '#efe8dc' }), nose = mat({ c: '#2a1a14' });
+  const head = (q, x, y, tilt) => {
+    q.boulder(x, y, 0, 0.1, 0.085, 0.075, liver, 5, 0.08);                       // skull
+    q.boulder(x - 0.1, y - 0.03 + tilt, 0, 0.065, 0.045, 0.045, white, 6, 0.06); // muzzle
+    q.sphere(x - 0.16, y - 0.025 + tilt, 0, 0.02, nose, { seg: 6, rings: 4 });
+    for (const s of [-1, 1]) q.boulder(x + 0.02, y - 0.08, s * 0.08, 0.04, 0.09, 0.02, liver, 7, 0.06); // long ears
+  };
+  const dogX = dogAt[0] + 0.6;
+  const lying = k.part(dogX, FL, dogAt[1], (q) => {
+    q.boulder(0.02, 0.12, 0, 0.28, 0.11, 0.13, white, 3, 0.06);
+    q.boulder(-0.06, 0.15, 0.02, 0.16, 0.09, 0.12, liver, 4, 0.06);              // saddle patch
+    for (const s of [-1, 1]) q.box(-0.42, 0.0, s * 0.06 - 0.025, -0.18, 0.05, s * 0.06 + 0.025, white); // forelegs stretched out
+    q.boulder(0.2, 0.06, 0.1, 0.1, 0.06, 0.06, white, 9, 0.06);                  // hind leg tucked in
+    head(q, -0.32, 0.17, 0.0);
   });
-  const tail = k.part(0, 0, 0, (q) => q.boulder(0.12, 0, 0, 0.13, 0.03, 0.03, mat({ c: '#efe8dc' }), 8, 0.05));
-  W.addActor({ object: dog, update(dt, t) {
-    const visit = W.people.some((p) => p.anim === 'pat' && Math.abs(p.x - dogAt[0]) < 1.6 && Math.abs(p.y - FL) < 0.3);
+  const standing = k.part(dogX, FL, dogAt[1], (q) => {
+    q.boulder(0.0, 0.36, 0, 0.27, 0.12, 0.12, white, 3, 0.06);
+    q.boulder(-0.06, 0.4, 0, 0.15, 0.09, 0.125, liver, 4, 0.06);
+    for (const [x, s] of [[-0.18, -1], [-0.18, 1], [0.18, -1], [0.18, 1]]) q.box(x - 0.03, 0, s * 0.065 - 0.025, x + 0.03, 0.32, s * 0.065 + 0.025, white);
+    for (const [x, s] of [[-0.18, -1], [-0.18, 1], [0.18, -1], [0.18, 1]]) q.box(x - 0.035, 0, s * 0.065 - 0.03, x + 0.04, 0.04, s * 0.065 + 0.03, liver); // paws
+    q.boulder(-0.26, 0.47, 0, 0.06, 0.07, 0.06, liver, 8, 0.05);                 // neck
+    head(q, -0.33, 0.55, 0.02);
+  });
+  const tail = k.part(0, 0, 0, (q) => q.boulder(0.1, 0, 0, 0.11, 0.025, 0.025, white, 8, 0.05));
+  W.addActor({ object: lying, update(dt, t) {
+    const visit = W.people.some((p) => p.anim === 'pat' && !p.moving && Math.abs(p.x - dogAt[0]) < 1.6 && Math.abs(p.y - FL) < 0.3);
     W.data.dogUp = (W.data.dogUp || 0) + ((visit ? 1 : 0) - (W.data.dogUp || 0)) * Math.min(1, dt * 3);
-    const u = W.data.dogUp;
-    dog.position.y = FL - 0.24 * (1 - u);
-    dog.rotation.z = (1 - u) * 0.0;
-    dog.scale.y = 1 - 0.0 * u;
-    tail.position.set(dog.position.x + 0.3, dog.position.y + 0.42, dog.position.z);
-    tail.rotation.y = Math.sin(t * (u > 0.5 ? 14 : 2)) * (u > 0.5 ? 0.7 : 0.15);
-    tail.rotation.z = 0.5 + u * 0.3;
+    const up = W.data.dogUp > 0.5;
+    lying.visible = !up; standing.visible = up;
+    tail.position.set(dogX + 0.26, FL + (up ? 0.42 : 0.15), dogAt[1]);
+    tail.rotation.y = Math.sin(t * (up ? 14 : 1.5)) * (up ? 0.7 : 0.12);
+    tail.rotation.z = up ? 0.6 : 0.1;
   } });
+  W.addActor({ object: standing, update() {} });
   W.addActor({ object: tail, update() {} });
-
 
   // ---------------- machines
   W.data.door = 0;

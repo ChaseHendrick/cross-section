@@ -41,9 +41,9 @@ export function groundH(x, z) {
   y += hill(x, z, -900, 900, 30, 420, 320) + hill(x, z, 1100, 800, 28, 400, 320);
   // The Avon in its channel east of the town.
   // (beyond the meadows it runs out of sight among the downs)
-  const d = Math.abs(x - riverX(z)), fade = Math.min(1, Math.max(0, (520 - z) / 120));
+  const d = Math.abs(x - riverX(z)), fade = Math.min(1, Math.max(0, (700 - z) / 260));
   if (d < 9 && fade > 0) { const t = Math.max(0, (d - 5.5) / 3.5); y = Math.min(y, y + (-2.6 + (y + 2.6) * t * t - y) * fade); }
-  else if (d < 22 && z < 520) y = Math.min(y, -0.15 - noise(x, z, 9) * 0.05);
+  else if (d < 22 && z < 700) y = Math.min(y, -0.15 - noise(x, z, 9) * 0.05);
   return y;
 }
 

@@ -101,7 +101,7 @@ export function reflector(k, x, yC, z, o = {}) {
   k.cyl(x, y, z, 0.01, drop, M.iron, { seg: 3, caps: false });
   k.cyl(x, y - 0.14, z, o.big ? 0.32 : 0.24, 0.14, M.shadeW, { r2: 0.05, seg: 7 });
   k.cyl(x, y - 0.2, z, 0.05, 0.08, o.blue ? M.bulbBlue : M.bulb, { seg: 5 });
-  return k.lamp(x, y - 0.2, z, { r: o.r || 5.5, i: o.i != null ? o.i : 0.85, color: o.color || '#ffd890', bulb: false, halo: o.halo != null ? o.halo : 0.45 });
+  return k.lamp(x, y - 0.2, z, { r: (o.r || 5.5) * 1.15, i: (o.i != null ? o.i : 0.85) * 1.3, color: o.color || '#ffd890', bulb: false, halo: o.halo != null ? o.halo : 0.45 });
 }
 
 // A wall along x at depth z (thickness t) between y0 and y1, with glazed bays between piers.

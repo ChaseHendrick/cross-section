@@ -38,9 +38,11 @@ function conningTowerInterior(k) {
 function shears(k) {
   const y0 = BRIDGE.deck;
   // Two tapered periscope shears, joined by webs (S45).
-  const sh = mat({ c: '#8c9398', c2: '#7c8388', pat: 'plates', s: 0.6, whole: true });
-  for (const px of [SHEARS.x1, SHEARS.x2]) k.lathe([[0.3, y0], [0.27, y0 + 2.2], [0.2, SHEARS.top - 0.2], [0.16, SHEARS.top]], px, 0, sh, { seg: 14, capTop: false, capBot: false });
-  k.box(SHEARS.x1, y0 + 1.2, -0.04, SHEARS.x2, SHEARS.top - 0.6, 0.04, sh);
+  const sh = mat({ c: '#a4abb0', c2: '#949ba0', pat: 'plates', s: 0.6, whole: true });
+  for (const px of [SHEARS.x1, SHEARS.x2]) k.lathe([[0.25, y0], [0.23, y0 + 2.2], [0.18, SHEARS.top - 0.2], [0.15, SHEARS.top]], px, 0, sh, { seg: 14, capTop: false, capBot: false });
+  for (const yy of [y0 + 1.9, y0 + 3.2, SHEARS.top - 1.0]) k.box(SHEARS.x1, yy, -0.05, SHEARS.x2, yy + 0.12, 0.05, sh);
+  k.beam([SHEARS.x1, y0 + 1.9, 0], [SHEARS.x2, y0 + 3.3, 0], 0.07, sh);
+  k.beam([SHEARS.x1, y0 + 3.3, 0], [SHEARS.x2, SHEARS.top - 1.0, 0], 0.07, sh);
   k.box(SHEARS.x1 - 0.25, SHEARS.top - 0.15, -0.18, SHEARS.x2 + 0.25, SHEARS.top, 0.18, sh);
   // Lookout platforms either side of the shears, with rails (S22).
   for (const s of [1, -1]) {

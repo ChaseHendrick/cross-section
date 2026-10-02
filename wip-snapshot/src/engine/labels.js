@@ -108,9 +108,10 @@ class Labels {
   }
 
   // Captions in two margin columns, each sorted by height and joined to its anchor by an elbow
-  // leader. An open card or panel (a reserved rectangle) is stepped around within its column, so
-  // captions keep their side. Only when a column runs out of room is its least important caption
-  // moved to the other column, and dropped if that is full too. The active caption is never dropped.
+  // leader. Open cards and panels (reserved rectangles) are kept clear: only the captions they
+  // cover move, the rest keep their place and side. When a column runs out of room its least
+  // important caption moves to the other column, or is dropped if that is full too. The active
+  // caption (its card is open) is never dropped.
   _margins(ctx, view, cand, theme, left, right, gutL, gutR) {
     const mid = (left + right) / 2;
     const cols = { L: [], R: [] };
@@ -163,6 +164,18 @@ class Labels {
       }
       return out;
     };
+    // A caption whose own place is under a card or panel crosses to the other column at the
+    // same height when that place is free, rather than shoving its whole column down; a small
+    // overlap is just stepped around. Captions clear of the card do not move at all.
+    const ideal = (c) => Math.max(top, c.sy - c.h / 2);
+    const push = (side, c) => { let y = ideal(c); for (let k = 0, q; k < 8 && (q = blocker(rectAt(side, c, y))); k++) y = q[3] + 4; return y - ideal(c); };
+    for (const [from, to] of [['L', 'R'], ['R', 'L']]) {
+      for (const c of cols[from].slice()) {
+        if (push(from, c) < 48 || !fits(to, c) || push(to, c) >= 48) continue;
+        cols[from].splice(cols[from].indexOf(c), 1);
+        cols[to].push(c);
+      }
+    }
     const outL = fit('L'), outR = fit('R');
     // What one column could not hold may stand in the other, if it fits there.
     for (const [from, to, out] of [['L', 'R', outL], ['R', 'L', outR]]) {

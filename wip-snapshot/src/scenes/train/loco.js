@@ -150,10 +150,14 @@ export function buildLoco(k, S) {
   k.glass([[FX1 - 0.13, 1.02, 0.012], [FX1 - 0.04, 1.02, 0.012], [FX1 - 0.04, 3.46, 0.012], [FX1 - 0.13, 3.46, 0.012]], W);
   // Grate and fire bed, sloping down towards the front.
   k.boxR((FX0 + FX1) / 2 + 0.03, 1.3, 0.35, FX1 - FX0 - 0.42, 0.06, 1.3, mat({ c: '#3a3230', pat: 'bars', s: 0.06 }), { z: -0.05 });
+  // The fire: a saucer-shaped bed, glowing orange, white-hot in the middle, black where fresh coal lies.
+  k.boxR((FX0 + FX1) / 2 + 0.03, 1.4, 0.45, FX1 - FX0 - 0.5, 0.1, 1.05, M.fireBed, { z: -0.05 });
   const fb = k.rng('firebed');
-  for (let i = 0; i < 16; i++) {
-    const x = FX0 + 0.35 + i * 0.16 + fb() * 0.05, z = 0.05 + fb() * 0.8;
-    k.boulder(x, 1.38 + (x - FX0) * 0.05, z, 0.16, 0.08 + fb() * 0.05, 0.18, i % 3 ? M.fireBed : M.fireHot, i + 3, 0.35);
+  for (let i = 0; i < 22; i++) {
+    const x = FX0 + 0.35 + (i % 11) * 0.2 + fb() * 0.06, z = 0.08 + fb() * 0.8;
+    const mid = Math.abs(x - (FX0 + FX1) / 2) < 0.6 && z > 0.25 && z < 0.7;
+    const m = mid ? M.fireHot : (i % 5 === 0 ? M.fireCoal : M.fireBed);
+    k.boulder(x, 1.45 + (x - FX0) * 0.04 + (mid ? -0.02 : 0.03), z, 0.11, 0.05 + fb() * 0.03, 0.12, m, i + 3, 0.3);
   }
   k.boxR(FX0 + 1.05, 2.15, 0.35, 1.65, 0.12, 1.3, M.brick, { z: 0.36 });                 // brick arch
   k.box(FX0 + 0.25, 0.86, -0.3, FX1 - 0.2, 1.18, 1.0, mat({ c: '#3a3634', c2: '#5a5652', pat: 'speckle', cut: '#2e2422' })); // ashpan
@@ -273,8 +277,10 @@ function buildTender(k, S) {
   k.box(17.65, 1.05, -1.3, 17.72, T.top, T.corrZ0, M.tank);                     // coal-space back plate
   k.box(17.65, T.top - 0.06, -1.3, x1, T.top, 1.37, M.tank);                     // tank top
   k.box(x1 - 0.06, 0.95, -1.3, x1, T.top, 1.37, M.tank, { front: false });       // rear plate
-  k.glass([[17.75, 1.06, 0.012], [x1 - 0.08, 1.06, 0.012], [x1 - 0.08, 3.3, 0.012], [17.75, 3.3, 0.012]], { c: '#7ab4cc', alpha: 0.24 });
-  k.glass([[x0 + 0.1, 1.06, 0.012], [17.6, 1.06, 0.012], [17.6, 1.4, 0.012], [x0 + 0.1, 1.4, 0.012]], { c: '#6aa4c0', alpha: 0.34 });
+  // Water in the tank (a translucent cut face) up to its level, an air space above it.
+  k.glass([[17.75, 1.06, 0.012], [x1 - 0.08, 1.06, 0.012], [x1 - 0.08, 2.95, 0.012], [17.75, 2.95, 0.012]], { c: '#3a7c94', alpha: 0.3 });
+  k.box(17.75, 2.94, 0.0, x1 - 0.08, 2.96, 0.05, mat({ c: '#cfe4ec', noEdge: true }));
+  k.glass([[x0 + 0.1, 1.06, 0.012], [17.6, 1.06, 0.012], [17.6, 1.4, 0.012], [x0 + 0.1, 1.4, 0.012]], { c: '#3a7c94', alpha: 0.34 });
   // Water scoop riser and its deflecting dome.
   k.cyl(18.3, 0.35, 0.1, 0.11, 3.0, M.steel, { seg: 10 });
   k.sphere(18.3, 3.35, 0.1, 0.32, M.steel, { seg: 12, rings: 6, t0: Math.PI / 2 });
@@ -292,7 +298,9 @@ function buildTender(k, S) {
   k.box(x0 + 0.1, cy0 - 0.08, cz0, x1 - 0.1, cy0, 1.27, M.cabFloor);                // corridor floor
   k.box(x0 + 0.1, cy1, cz0, x1 - 0.1, cy1 + 0.05, 1.27, M.tank);                     // its roof
   // The tank-side wall of the corridor, drawn as a translucent plate so the passage reads.
-  k.glass([[x0 + 0.1, cy0, cz0], [x1 - 0.1, cy0, cz0], [x1 - 0.1, cy1, cz0], [x0 + 0.1, cy1, cz0]], { c: '#8a9298', alpha: 0.14 });
+  k.glass([[x0 + 0.1, cy0, cz0], [x1 - 0.1, cy0, cz0], [x1 - 0.1, cy1, cz0], [x0 + 0.1, cy1, cz0]], { c: '#8a9298', alpha: 0.1 });
+  // The passage's own walls are painted light, so it reads as a lit slot in the dark tank.
+  k.box(x0 + 0.1, cy0, 1.255, x1 - 0.1, cy1, 1.27, mat({ c: '#b8c0b4', c2: '#a8b0a4', pat: 'plates', s: 0.7 }));
   k.box(x0 + 0.1, cy0, cz0 - 0.03, x1 - 0.1, cy0 + 0.04, cz0, M.steel);
   k.box(x0 + 0.1, cy1 - 0.04, cz0 - 0.03, x1 - 0.1, cy1, cz0, M.steel);
   for (const sx of [x0 + 0.15, x1 - 0.55]) { k.box(sx, 1.05, cz0, sx + 0.4, 1.3, 1.27, M.steel); k.box(sx + (sx < 17 ? 0.2 : 0), 1.3, cz0, sx + (sx < 17 ? 0.4 : 0.2), 1.52, 1.27, M.steel); }

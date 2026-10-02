@@ -69,8 +69,10 @@ function shell(k, b, S) {
     const [hi, lo] = zoneColours(zone);
     const zw = wins.filter((w) => w.x0 > zx0 && w.x1 < zx1);
     const holes = zw.map((w) => [[w.x0, w.y0], [w.x1, w.y0], [w.x1, w.y1], [w.x0, w.y1]]);
-    k.extrude([[zx0, 0.3], [zx1, 0.3], [zx1, SILL - 0.04], [zx0, SILL - 0.04]], ZI, ZW, mat({ c: lo, c2: shade(lo, -0.1), pat: 'panels', s: 1.1, cut: '#a8783e' }), { back: M.sideLo, side: M.sideLo });
-    k.extrude([[zx0, SILL - 0.04], [zx1, SILL - 0.04], [zx1, CANT], [zx0, CANT]], ZI, ZW, mat({ c: hi, c2: shade(hi, -0.08), pat: zone.kind === 'kitchen' ? 'tiles' : 'none', s: 0.15, cut: '#a8783e' }), { holes, back: M.sideHi, side: M.sideHi, reveal: mat({ c: shade(hi, -0.1) }) });
+    // The observation saloon's big windows come down lower than the others.
+    const sill = zone.kind === 'obs' ? SILL - 0.25 : SILL;
+    k.extrude([[zx0, 0.3], [zx1, 0.3], [zx1, sill - 0.04], [zx0, sill - 0.04]], ZI, ZW, mat({ c: lo, c2: shade(lo, -0.1), pat: 'panels', s: 1.1, cut: '#a8783e' }), { back: M.sideLo, side: M.sideLo });
+    k.extrude([[zx0, sill - 0.04], [zx1, sill - 0.04], [zx1, CANT], [zx0, CANT]], ZI, ZW, mat({ c: hi, c2: shade(hi, -0.08), pat: zone.kind === 'kitchen' ? 'tiles' : 'none', s: 0.15, cut: '#a8783e' }), { holes, back: M.sideHi, side: M.sideHi, reveal: mat({ c: shade(hi, -0.1) }) });
   }
   for (const w of wins) {
     k.glass([[w.x0, w.y0, ZW - 0.04], [w.x1, w.y0, ZW - 0.04], [w.x1, w.y1, ZW - 0.04], [w.x0, w.y1, ZW - 0.04]], { c: '#b8d4e4', alpha: 0.2 });
@@ -169,8 +171,8 @@ function third(k, zone, S, r) {
     }
   }
   luggageRack(k, x0 + 0.2, x1 - 0.2, r);
-  // Coat hooks with a hat or two on the partitions.
-  for (let x = x0 + 1.0; x < x1; x += 4.4) props.picture(k, x, 2.2, ZI - 0.005, { w: 0.55, h: 0.36, color: r.pick(['#7a9aa8', '#a8946a', '#6a8a6a']), frame: '#8a7a5a' });
+  // Small framed views on the wall piers between the windows (where no partition stands).
+  for (let j = 1; j < zone.bays; j += 2) props.picture(k, x0 + j * P, 2.12, ZI - 0.005, { w: 0.4, h: 0.3, color: r.pick(['#7a9aa8', '#a8946a', '#6a8a6a']), frame: '#8a7a5a' });
 }
 
 // First class: two swivelling armchairs at each tapered table, turned towards the window;
@@ -313,7 +315,7 @@ function guardVan(k, zone, S, r, front) {
     k.boxR(rx, FL + 0.65, ZI - 0.12, 0.1, 1.3, 0.06, mat({ c: i % 2 ? '#5a3a20' : '#7a6a4a' }), { z: 0.12 });
   }
   for (let i = 0; i < 3; i++) k.beam([lx1 - 0.2 - i * 0.15, FL, ZI - 0.1], [lx1 - 0.6 - i * 0.15, FL + 2.3, ZI - 0.08], 0.025, mat({ c: '#6a4a2a' }));
-  if (front) { k.cyl(x0 + 1.75, FL, 0.35, 0.12, 0.06, mat({ c: '#8a8e94' }), { seg: 12 }); k.cyl(x0 + 1.75, FL + 0.05, 0.35, 0.1, 0.012, mat({ c: '#7ab0c8' }), { seg: 12 }); } // the dog's water bowl
+  if (front) { k.cyl(x0 + 1.45, FL, 0.66, 0.12, 0.06, mat({ c: '#8a8e94' }), { seg: 12 }); k.cyl(x0 + 1.45, FL + 0.05, 0.66, 0.1, 0.012, mat({ c: '#7ab0c8' }), { seg: 12 }); k.box(x0 + 0.95, FL, 0.12, x0 + 1.75, FL + 0.03, 0.5, mat({ c: '#8a6a4a', c2: '#6a4a2a', pat: 'stripes', s: 0.1 })); } // the dog's water bowl and blanket
   k.lamp((x0 + x1) / 2, CEIL - 0.1, 0.5, { color: '#ffd9a0', r: 3.2, i: 0.75, bulbR: 0.05, halo: 0.4 });
   S.stations[zone.z] = { desk: [gx, 0.45], brake: [gx + (front ? 0.75 : -0.75), 0.4], dog: [front ? x0 + 0.75 : x1 - 1.0, 0.3], lug: [(lx0 + lx1) / 2, 0.3] };
 }
@@ -334,7 +336,7 @@ function obsEnd(k, zone, S) {
 
 function obsSaloon(k, zone, S) {
   const x0 = zone.x0, x1 = zone.x1;
-  k.box(x0, FL, 0.0, x1 + 2.2, FL + 0.012, ZI - 0.01, mat({ c: '#5a6a7a', c2: '#6a7a8a', pat: 'carpet', s: 0.5 }));
+  k.box(x0, FL, 0.0, x1, FL + 0.012, ZI - 0.01, mat({ c: '#5a6a7a', c2: '#6a7a8a', pat: 'carpet', s: 0.5 }));
   k.box(x0, FL, ZI - 0.015, x1, SILL - 0.25, ZI, mat({ c: '#a88a62', c2: '#987a52', pat: 'panels', s: 1.0 }));
   const seats = (S.seats[zone.z] = []);
   const n = 8, P = (x1 - x0 - 0.4) / n;
@@ -363,21 +365,31 @@ function tail(k, S) {
     const inner = out.map(([z, y]) => [Math.min(z, ZW * w - 0.06), Math.max(base + 0.06, y - 0.06)]);
     return out.concat(inner.reverse());
   };
-  const glassBand = mat({ c: '#8aa8c0', c2: '#ffd890', pat: 'panes', s: 0.45, glow: 'night', cut: '#a8783e' });
+  // Outer segments 0-13 run over the roof and down the far side; inner segments 14-27 come back.
+  // The sloping windows wrap the roof shoulder and the side (outer 5-11, inner 15-21).
+  const glassOut = mat({ c: '#9cb6c6', c2: '#ffd890', pat: 'panes', s: 0.42, glow: 'night', cut: '#a8783e' });
+  const glassIn = mat({ c: '#b4cedc', c2: '#ffe2a8', pat: 'panes', s: 0.42, glow: 'night', cut: '#a8783e' });
+  const lining = mat({ c: '#ddd0b0', c2: '#cfc09c', cut: '#a8783e' });
+  const dado = mat({ c: '#a88a62', c2: '#987a52', pat: 'panels', s: 0.8, cut: '#a8783e' });
   k.loft(xs.map((x) => ({ x, pts: sec(x) })), M.roof, {
     matFn: (s, i) => {
-      if (i >= 14) return i >= 14 && i < 18 ? mat({ c: '#cfe0ea', c2: '#ffd890', pat: 'panes', s: 0.45, glow: 'night' }) : mat({ c: '#e8dcc0', cut: '#a8783e' });
-      if (i >= 5 && i <= 11) return glassBand;
+      if (i >= 14) return i === 14 ? dado : i <= 21 ? glassIn : lining;
+      if (i >= 5 && i <= 11) return glassOut;
       return i > 11 ? M.sideLo : M.roof;
     },
   });
-  // The CORONATION name across the back is on the far end; seen here as a stainless band.
-  k.box(177.6, 0.75, 0.0, 177.9, 0.8, 0.9, M.stainless);
-  // Chairs in the tail facing out through the sloping glass.
+  // The floor carries on under the curve, with the carpet.
+  k.box(TAIL0, FL - 0.22, -1.3, 177.4, FL, 1.12, M.floorSlab, { top: false });
+  k.box(TAIL0, FL, 0.0, 177.3, FL + 0.012, 1.1, mat({ c: '#5a6a7a', c2: '#6a7a8a', pat: 'carpet', s: 0.5 }));
+  // Chairs in the tail facing out through the sloping glass, with a low table between.
   const seats = S.seats.Z38;
   for (const z of [0.35, 0.95]) seats.push(Object.assign(seatH(k, 176.0, FL, z, 0.05, { color: '#5a7a8a', back: 1.0 }), { face: 0.05 }));
+  k.cyl(176.75, FL, 0.65, 0.16, 0.5, mat({ c: '#7a5232' }), { seg: 12 });
+  k.cyl(176.75, FL + 0.5, 0.6, 0.035, 0.1, mat({ c: '#d8e8ee' }), { seg: 8 });
+  k.lamp(176.0, 2.9, 0.5, { color: '#ffd9a0', r: 2.0, i: 0.5, bulbR: 0.04, halo: 0.3 });
   // A red tail lamp at the very end of the train.
-  k.lamp(177.95, 0.95, 0.5, { color: '#ff3a2a', r: 1.2, i: 0.5, bulbR: 0.06, halo: 0.35 });
+  k.lamp(177.98, 0.8, 0.45, { color: '#ff3a2a', r: 1.0, i: 0.5, bulb: false, halo: 0.3 });
+  k.sphere(177.96, 0.8, 0.45, 0.06, mat({ c: '#8a2a22', c2: '#ff4a3a', glow: 'night', noEdge: true }), { seg: 8, rings: 5 });
 }
 
 // ------------------------------------------------------------------ underneath

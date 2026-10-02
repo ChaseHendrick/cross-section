@@ -229,7 +229,7 @@ function bank(k) {
   // shaft gates
   for (const x of [SHAFT.x0 - 0.3, SHAFT.x1 + 0.3]) k.box(x - 0.04, y, 0.2, x + 0.04, y + 1.1, 2.4, P('#4a4a4a', { pat: 'bars', s: 0.15 }));
   // stair from the yard to the deck
-  props.stairs(k, 118, 0, 125.8, y - 0.28, 3.65, 4.6, { color: '#6a5a46' });
+  props.stairs(k, 133.4, 0, 127.0, y - 0.28, 3.7, 4.6, { color: '#6a5a46' });
   props.lamp(k, 138, 10.9, 2.0, { drop: 0.6, r: 6, i: 1.0, kind: 'lantern', light: '#ffc878', flicker: true });
   props.lamp(k, 131, 10.9, 2.0, { drop: 0.6, r: 5, i: 0.8, kind: 'lantern', light: '#ffc878', flicker: true });
 }

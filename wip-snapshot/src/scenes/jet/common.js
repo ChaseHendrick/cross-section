@@ -51,6 +51,7 @@ export const botY = (x) => tab(BOT, x);
 
 // The fuselage section at x: a main lobe (round above, deeper ellipse below, as Boeing's
 // constant-section drawing) with the upper-deck hump as a smaller circle on top.
+const LOWP = 2.4;
 export function sec(x) {
   const B = botY(x), T = topY(x), M = Math.min(T, tab(MAIN, x)), W = tab(WID, x);
   const yc = B + (M - B) * tab(YCF, x);
@@ -62,7 +63,8 @@ export function sec(x) {
 export function rad(S, th, t = 0) {
   const c = Math.cos(th), s = Math.sin(th);
   const w = Math.max(0.02, S.W - t), h = Math.max(0.02, (s >= 0 ? S.uh : S.lh) - t);
-  let r = 1 / Math.sqrt((c / w) ** 2 + (s / h) ** 2);
+  const p = s >= 0 ? 2 : LOWP; // the lower lobe is fuller than an ellipse, so two containers fit side by side
+  let r = 1 / Math.pow(Math.pow(Math.abs(c) / w, p) + Math.pow(Math.abs(s) / h, p), 1 / p);
   if (S.hump) {
     const dy = S.hump.y - S.yc, R = S.hump.r - t;
     const b = -s * dy, cc = dy * dy - R * R, disc = b * b - cc;
@@ -79,8 +81,8 @@ export function shellPt(S, th, t = 0) {
 export function wallZ(x, y, t = SKIN) {
   const S = sec(x);
   const h = (y >= S.yc ? S.uh : S.lh) - t, w = S.W - t;
-  const v = (y - S.yc) / h;
-  let z = Math.abs(v) < 1 ? w * Math.sqrt(1 - v * v) : 0;
+  const v = (y - S.yc) / h, p = y >= S.yc ? 2 : LOWP;
+  let z = Math.abs(v) < 1 ? w * Math.pow(1 - Math.pow(Math.abs(v), p), 1 / p) : 0;
   if (S.hump) {
     const R = S.hump.r - t, d = y - S.hump.y;
     if (Math.abs(d) < R) z = Math.max(z, Math.sqrt(R * R - d * d));

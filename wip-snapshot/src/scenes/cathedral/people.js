@@ -191,7 +191,7 @@ export function buildPeople(W, k) {
     work2: [S([-12.4, 0, 2.2], 'scrub', [8.6, 11.0], 50, 'Polishing with a finer stone', { face: 'in' })],
     work3: [S([27.9, 0, 5.0], 'scrub', [12.5, 15.0], 50, 'Polishing a shaft in place in bay 5', { face: 'in' })] }));
   // 10 Martin the Fleming, itinerant mason.
-  P('Martin the Fleming', 'itinerant mason', 'Itinerant masons were given a few days\' work to pay for their onward travel.', C.mason({ top: '#5a6a7e', hat: 'beret', hatColor: '#3a3a4a', beard: '#c9a160' }), [
+  P('Martin the Fleming', 'itinerant mason', 'Has been given a few days\' work to pay for his journey on.', C.mason({ top: '#5a6a7e', hat: 'beret', hatColor: '#3a3a4a', beard: '#c9a160' }), [
     S(W.data.exitW, 'walk', [4.0, 4.4], 1, 'Arriving on the road with his tools'),
     S([-15.8, 0, 2.15], 'talk', [4.4, 5.0], 15, 'Asking the warden for work', { face: 'in' }),
     S(bank(3).at, 'chisel', [5.0, 8.0], 50, 'Given three days\' work dressing ashlar', { face: 'out' }),

@@ -379,8 +379,12 @@ export function buildDeckFittings(k) {
 // so the sea can rise over the boat when she dives at dawn.
 export function buildWater(k) {
   const C = { c: '#1f5e70', alpha: 0.36 };
+  // Deeper water reads darker: a few bands below the keel with rising opacity.
+  const deep = [[-200, -18, 0.63]];
+  for (let y = -18; y < 0.6 - 1e-6; y += 1.0) deep.push([y, Math.min(0.6, y + 1.0), 0.37 + 0.26 * Math.pow(Math.max(0, (0.6 - (y + 0.5)) / 18.6), 0.9)]);
+  for (const [y0, y1, a] of deep) k.sheet(-400, 400, y0, y1, 0.01, { c: '#1a5466', alpha: a });
   const bands = [];
-  for (let y = -200; y < WL - 1e-6; ) { const y1 = y < 0.6 ? Math.min(0.6, WL) : Math.min(WL, y + 0.25); bands.push([y, y1]); y = y1; }
+  for (let y = 0.6; y < WL - 1e-6; ) { const y1 = Math.min(WL, y + 0.25); bands.push([y, y1]); y = y1; }
   for (const [y0, y1] of bands) {
     const ym = (y0 + y1) / 2;
     const dry = drySpanAt(ym);
