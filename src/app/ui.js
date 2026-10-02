@@ -22,6 +22,7 @@ function parseHash() {
     if (k === 'cuts') out.cuts = v ? v.split(',').map(Number).filter((n) => isFinite(n)) : [];
     if (k === 'open') out.open = v === '1';
     if (k === 'h') out.hour = Math.max(0, Math.min(23.99, parseFloat(v) || 0));
+    if (k === 'w') out.weather = v;
   }
   return out;
 }
@@ -32,6 +33,7 @@ function writeHash() {
   const q = [];
   if (stage.cuts.length) q.push('cuts=' + stage.cuts.map((x) => +x.toFixed(2)).join(','));
   if (stage.explodeTarget) q.push('open=1');
+  if (stage.weather && stage.weather.kind !== 'clear') q.push('w=' + stage.weather.kind);
   if (q.length) h += '?' + q.join('&');
   hashLock = true;
   history.replaceState(null, '', h);
@@ -174,6 +176,11 @@ $('cutOpen').onclick = () => stage.setOpen(!stage.explodeTarget);
 $('bOpen').onclick = () => stage.setOpen(!stage.explodeTarget);
 
 // ------------------------------------------------------------ toolbar
+const WNAMES = { clear: 'Clear', rain: 'Rain', storm: 'Storm', fog: 'Fog', snow: 'Snow' };
+const WORDER = ['clear', 'rain', 'storm', 'fog', 'snow'];
+function setWeather(k) { stage.weather.set(k); $('weatherName').textContent = WNAMES[stage.weather.kind]; writeHash(); }
+$('bWeather').onclick = () => setWeather(WORDER[(WORDER.indexOf(stage.weather.kind) + 1) % WORDER.length]);
+XS.bus.on('scene', () => { $('weatherName').textContent = WNAMES[stage.weather.kind] || 'Clear'; });
 $('bSound').onclick = () => { const on = stage.setSound(!stage.audio.on); $('bSound').setAttribute('aria-pressed', String(on)); };
 $('bTour').onclick = () => (stage.tourIndex >= 0 ? stage.tourStop() : stage.tourStart());
 $('bLabels').onclick = () => { stage.showLabels = !stage.showLabels; $('bLabels').setAttribute('aria-pressed', String(stage.showLabels)); };
@@ -234,6 +241,7 @@ setInterval(() => {
 // ------------------------------------------------------------ keyboard
 window.addEventListener('keydown', (e) => {
   if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+  if (ambient && e.key !== 'a' && e.key !== 'A') { setAmbient(false); return; }
   if (e.metaKey || e.ctrlKey || e.altKey) return;
   const cam = stage.camera;
   const k = e.key;
@@ -251,6 +259,8 @@ window.addEventListener('keydown', (e) => {
   else if (k === 'v' || k === 'V') $('bAngle').click();
   else if (k === 'm' || k === 'M') $('bSound').click();
   else if (k === 'w' || k === 'W') togglePeople();
+  else if (k === 'r' || k === 'R') $('bWeather').click();
+  else if (k === 'a' || k === 'A') setAmbient(!ambient);
   else if (k === 'ArrowLeft') cam.panBy(120, 0);
   else if (k === 'ArrowRight') cam.panBy(-120, 0);
   else if (k === 'ArrowUp') cam.panBy(0, 120);
@@ -304,6 +314,42 @@ $('openPeople').onclick = togglePeople;
 $('closePeople').onclick = () => { hide('people'); clearInterval(peopleTimer); };
 $('peopleFilter').addEventListener('input', renderPeople);
 XS.bus.on('scene', () => { if ($('people').classList.contains('on')) renderPeople(); });
+
+// ------------------------------------------------------------ ambient mode
+// Drift unattended through the subjects: a tour stop every half minute, a new subject every
+// few stops, at a varied hour and in varied weather. Any key or click returns control.
+let ambient = null;
+function ambientStep() {
+  if (!ambient) return;
+  const real = XS.scenes.list.filter((q) => !q.hidden && !q.placeholder);
+  ambient.n++;
+  const hours = [7.5, 11, 16.5, 19.2, 21.5, 23];
+  if (ambient.n % 4 === 1 || !stage.world || !stage.world.tour.length) {
+    const next = real[(real.indexOf(stage.scene) + 1) % real.length] || real[0];
+    if (next && next !== stage.scene) { open(next.id, { hour: hours[ambient.n % hours.length] }); ambient.t = setTimeout(ambientStep, 4000); return; }
+  }
+  if (stage.world && stage.world.tour.length) {
+    stage.tourIndex = Math.floor(XS.h01(ambient.n, 5) * stage.world.tour.length) - 1;
+    stage.tourNext(1);
+    stage.tourIndex = -1;
+    tourCard(null);
+    if (XS.h01(ambient.n, 9) < 0.25) stage.world.hour = hours[ambient.n % hours.length];
+  }
+  ambient.t = setTimeout(ambientStep, 26000);
+}
+function setAmbient(on) {
+  if (on && !ambient) {
+    ambient = { n: 0, t: 0 };
+    hide('contents'); hide('help'); closeCard();
+    document.body.classList.add('ambient');
+    ambientStep();
+  } else if (!on && ambient) {
+    clearTimeout(ambient.t);
+    ambient = null;
+    document.body.classList.remove('ambient');
+  }
+}
+['pointerdown', 'wheel'].forEach((ev) => window.addEventListener(ev, () => setAmbient(false), { capture: true, passive: true }));
 
 $('openContents').onclick = openContents;
 $('brand').onclick = openContents;

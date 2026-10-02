@@ -264,7 +264,7 @@ export function makeSea(opt = {}) {
   const m = new THREE.ShaderMaterial({ glslVersion: THREE.GLSL3, vertexShader: SEA_VERT, fragmentShader: SEA_FRAG, uniforms, side: THREE.DoubleSide });
   const mesh = new THREE.Mesh(g, m);
   mesh.frustumCulled = false;
-  mesh.userData.sea = { uniforms, level, deep: opt.deep || '#2c5a74', shallow: opt.shallow || '#4e8a9a' };
+  mesh.userData.sea = { uniforms, level, deep: opt.deep || '#2c5a74', shallow: opt.shallow || '#4e8a9a', amp0: opt.amp != null ? opt.amp : 1 };
   return mesh;
 }
 // Keep the sea's colours in step with the time of day.

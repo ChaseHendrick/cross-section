@@ -21,6 +21,7 @@ import { InkPass } from './post.js';
 import { Camera3 } from './camera.js';
 import { Labels } from './labels.js';
 import { Audio } from './audio.js';
+import { Weather } from './weather.js';
 
 const { clamp, easeInOut } = XS.math;
 THREE.ColorManagement.enabled = false;
@@ -44,6 +45,7 @@ export class Stage {
     this.sky = new Sky();
     this.labels = new Labels();
     this.audio = new Audio();
+    this.weather = new Weather();
     this.main = new THREE.Scene();
     this.root = new THREE.Group();
     this.root.scale.z = -1; // scene coordinates: z is depth behind the cut
@@ -156,6 +158,8 @@ export class Stage {
     this.camera.fit(this.fitBox(), 0.92, true);
     if (opts.view) Object.assign(this.camera, opts.view);
     this.time = 0;
+    this.weather.set(opts.weather || scene.weather || 'clear');
+    this.weather.mix = { rain: 0, snow: 0, fog: 0, storm: 0 };
     if (this.audio.ctx) this.audio.load(scene, W);
     XS.bus.emit('scene', { scene, world: W, stage: this });
   }
@@ -286,6 +290,7 @@ export class Stage {
     requestAnimationFrame(this._loop);
     let dt = Math.min(0.1, (now - this.last) / 1000);
     this.last = now;
+    this._dt = dt;
     if (dt > 0) this.fps = this.fps * 0.95 + (1 / dt) * 0.05;
     if (!this.scene) return;
     this.frame++;
@@ -367,6 +372,7 @@ export class Stage {
     U.uTime.value = this.time;
     U.uFlicker.value = 0.96 + 0.04 * Math.sin(this.time * 9.0) * Math.sin(this.time * 5.3);
     this.sky.update(W, cam, scene);
+    this.weather.update(this.paused ? 0 : this._dt || 0.016, this);
     if (this.seaMesh) updateSea(this.seaMesh, W);
     this._people();
     const slices = this.slices();

@@ -58,6 +58,7 @@
     <button class="tb" id="bClock" style="min-width:40px;height:36px" title="Clock speed (K)"><span id="clockSpeed">1&times;</span></button>
   </div>
   <div class="sep"></div>
+  <button class="tb" id="bWeather" title="Weather: clear, rain, storm, fog, snow (R)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 16h10a4 4 0 0 0 .5-7.97A6 6 0 0 0 6.2 9.2 3.5 3.5 0 0 0 7 16z"/><path d="M9 19l-1 2M13 19l-1 2M17 19l-1 2"/></svg><span id="weatherName">Clear</span></button>
   <button class="tb" id="bSound" aria-pressed="false" title="Sound on or off (M)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 9h4l5-4v14l-5-4H4z"/><path id="soundWaves" d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg><span>Sound</span></button>
   <button class="tb" id="bAngle" title="Change the viewing angle (V)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg><span id="angleName">Book</span></button>
   <button class="tb" id="bFit" title="See the whole subject (0)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><span>Whole</span></button>
@@ -91,7 +92,9 @@
       <tr><td>Slice</td><td><kbd>S</kbd> opens the slice tool: click to place cuts, drag to move them, &times; to remove. <kbd>O</kbd> opens or closes the slices. Zero cuts is allowed</td></tr>
       <tr><td>Time</td><td>Drag the clock. <kbd>N</kbd> night, <kbd>D</kbd> day, <kbd>K</kbd> clock speed, <kbd>Space</kbd> pause</td></tr>
       <tr><td>Guided tour</td><td><kbd>T</kbd> starts it, <kbd>&larr;</kbd>/<kbd>&rarr;</kbd> step through while it runs</td></tr>
+      <tr><td>Ambient</td><td><kbd>A</kbd> drifts unattended through every subject; any key or click returns</td></tr>
       <tr><td>Contents</td><td><kbd>C</kbd> chooses another subject</td></tr>
+      <tr><td>Weather</td><td><kbd>R</kbd> steps through clear, rain, storm, fog and snow</td></tr>
       <tr><td>Sound</td><td><kbd>M</kbd> turns the soundscape on or off. Zoom in on a machine to hear it</td></tr>
       <tr><td>Picture</td><td><kbd>P</kbd> saves the current view as a PNG at twice screen resolution</td></tr>
     </table>

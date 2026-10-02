@@ -23,6 +23,7 @@ const KINDS = {
   leaf: { life: 6, size: [0.12, 0.12], vy: -0.5, spread: 1, color: '#7a8a3a', alpha: 0.9, drag: 0.5, rise: -0.6, puff: 0 },
   snow: { life: 8, size: [0.05, 0.05], vy: -0.6, spread: 0.4, color: '#ffffff', alpha: 0.9, drag: 0.6, rise: -0.2, puff: 0 },
   mote: { life: 7, size: [0.02, 0.03], vy: 0.05, spread: 0.1, color: '#fff2c8', alpha: 0.6, drag: 0.9, rise: 0.01, glow: 1 },
+  rain: { life: 3, size: [0.035, 0.035], vy: -11, spread: 0.15, color: '#5e6d7e', alpha: 0.7, drag: 0.02, rise: -3, streak: 1 },
 };
 XS.particleKinds = KINDS;
 
@@ -32,6 +33,7 @@ in vec4 iCol; // rgb, alpha
 in vec2 iSize; // size, kind (0 puff, 1 round, 2 glow, 3 ring, 4 flame)
 in float iSeed;
 uniform float uOffset;
+uniform vec2 uRes;
 out vec2 vUv;
 out vec4 vCol;
 out float vKind;
@@ -41,7 +43,11 @@ out float vDepth;
 void main() {
   vec3 wc = vec3(iPos.x + uOffset, iPos.y, -iPos.z);
   vec4 mv = viewMatrix * vec4(wc, 1.0);
-  mv.xy += position.xy * iSize.x;
+  vec2 sc = abs(iSize.y - 5.0) < 0.5 ? vec2(1.0, 14.0) : vec2(1.0);
+  // Never thinner than about a pixel, so rain and snow read at any distance.
+  float pxw = 2.0 * max(-mv.z, 0.01) / (projectionMatrix[1][1] * uRes.y);
+  float sz = max(iSize.x, pxw * (abs(iSize.y - 5.0) < 0.5 ? 0.7 : 0.9));
+  mv.xy += position.xy * sz * sc;
   vDepth = -mv.z;
   vUv = position.xy;
   vCol = iCol;
@@ -87,6 +93,9 @@ void main() {
   } else if (k == 1) {
     if (r > 1.0) discard;
     outColor = vec4(c.rgb, c.a * smoothstep(1.0, 0.7, r) * soft);
+  } else if (k == 5) { // rain streak
+    float a = (1.0 - abs(vUv.x)) * smoothstep(1.0, 0.3, abs(vUv.y));
+    outColor = vec4(c.rgb, c.a * a * soft);
   } else if (k == 3) {
     if (r > 1.0 || r < 0.7) discard;
     outColor = vec4(c.rgb, c.a * soft);
@@ -141,7 +150,7 @@ export class Particles {
       age: 0, life: (e.life || K.life) * (0.75 + r() * 0.5),
       s0: (e.size ? e.size[0] : K.size[0]) * (0.8 + r() * 0.4), s1: (e.size ? e.size[1] : K.size[1]) * (0.8 + r() * 0.4),
       c: toRgb(e.color || K.color), a: e.alpha != null ? e.alpha : K.alpha, seed: r() * 10,
-      sec: world ? world.secOf(e.x) : 0, glow: !!K.glow, kind: K.glow ? (e.kind === 'fire' ? 4 : 2) : K.puff ? 0 : e.kind === 'bubble' ? 3 : 1,
+      sec: world ? world.secOf(e.x) : 0, glow: !!K.glow, kind: K.streak ? 5 : K.glow ? (e.kind === 'fire' ? 4 : 2) : K.puff ? 0 : e.kind === 'bubble' ? 3 : 1,
     };
     this.list.push(p);
     return p;

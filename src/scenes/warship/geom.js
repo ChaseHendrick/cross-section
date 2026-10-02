@@ -61,7 +61,10 @@ export function topY(x) {
 }
 function fBow(x, y) {
   let base = 0, x0 = stemX(Math.min(y, 12.6));
-  if (y >= 12.58) { base = 0.56; x0 = -0.3; }
+  if (y >= 12.58) {
+    if (x < -0.3) return 0.56 * clamp((x - stemX(12.6)) / (-0.3 - stemX(12.6)), 0, 1) * 0.6;
+    base = 0.56; x0 = -0.3;
+  }
   const L = 16 - 7 * clamp(y / 12, 0, 1);
   const u = clamp((x - x0) / L, 0, 1);
   return base + (1 - base) * (1 - Math.pow(1 - u, 2));

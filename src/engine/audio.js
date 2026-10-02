@@ -299,6 +299,23 @@ export class Audio {
     }
   }
 
+  // Weather: a rain bed that follows the rain, thunder on demand.
+  weather(m) {
+    if (!this.ctx) return;
+    const lvl = Math.max(m.rain, m.storm) * 0.9 + m.snow * 0.1;
+    if (lvl > 0.02 && !this.beds.wrain) this.beds.wrain = this._bed('rain', 0);
+    if (this.beds.wrain) this.beds.wrain.level = lvl;
+  }
+  thunder(delay = 1) {
+    if (!this.ctx) return;
+    const c = this.ctx, t = c.currentTime + delay;
+    const s = this._src(this.noise.brown, false);
+    const lp = this._filter('lowpass', 180), g = this._gain(0);
+    s.connect(lp).connect(g).connect(this.bus);
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(1.2, t + 0.15); g.gain.exponentialRampToValueAtTime(0.001, t + 4.5);
+    s.stop(t + 5);
+  }
+
   // Per-frame mix: listener at the camera target, with the zoom setting the audible radius.
   update(stage) {
     if (!this.ctx || !this.on || !this.world) return;

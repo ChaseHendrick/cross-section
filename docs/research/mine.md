@@ -19,10 +19,9 @@ Two period textbooks are used as primary evidence of standard practice: H. W. Hu
 **Why Big Pit, and why 1910.**
 
 1. It is the most complete surviving colliery in South Wales: the listing texts call it "an exceptionally complete colliery site", and many surface buildings carry construction dates (British Listed Buildings, Coflein).
-2. The dates line up neatly for 1910. The **timber headframe** was still standing (replaced by the steel one in 1921). The **steam winding engine with a flat rope** was still working (replaced by an electric winder in 1952-53). A **new fan house with an electrically driven Walker fan** was built in 1909-10. The fitting shop opened in 1910. Wikipedia (citing the Western Mail) says that by 1910 "fans, hauling systems and pumps were electric powered".
+2. The dates suit 1910: **timber headframe** (steel from 1921), **steam winder with a flat rope** (electric from 1952-53), a **new electric Walker fan** (1909-10), a new fitting shop (1910), and electric fans, haulage and pumps "by 1910" (Wikipedia, citing the Western Mail).
 3. The legal framework is clear and documented: the 1887 Act, the 1900 Act (no boys under 13 underground) and the Eight Hours Act (in force 1 July 1909).
 4. Manpower is recorded: 1,122 people in 1908 across Big Pit, Dodd's Slope and Forge Slope (welshcoalmines.co.uk; Wikipedia).
-5. It avoids the later things an illustrator might be tempted to draw: the pithead baths (1939), the steel headframe (1921), the electric winder (1952) and the mid-twentieth-century powder house.
 
 **Named real example and composite elements.** The shaft, headframe, winding engine, fan house, workshops, the Coity upcast shafts and the underground stables are modelled on Big Pit. The layout of the coal face, stables interior, lamp room, screens and haulage follows period textbook practice (Hughes 1904, Pamely 1898) and is therefore a **labelled composite**. Relative positions of buildings and all distances between them are **[illustrative]**.
 
@@ -58,7 +57,7 @@ Coordinate system: **x** = metres from the left edge of the panorama (0 to 420).
 | Main roadway | 2.5 m high x 3 m wide; pit bottom 4 m high | [illustrative] |
 | Old Coal seam thickness | 1.0 m | [illustrative] |
 
-**Proportions to respect.** The shaft is deep and narrow: 89 m deep but only 5.5 m across its long axis, a ratio of about 16 to 1. Surface buildings are low (most single storey, 5 to 9 m to the ridge) against a tall headframe and an even taller chimney. Underground spaces are tiny compared with the rock around them: a 1 m seam in 89 m of cover.
+**Proportions to respect.** The shaft is 89 m deep but only 5.5 m across (about 16 to 1). Surface buildings are low (5 to 9 m to the ridge) beside a tall headframe and taller chimney. A 1 m seam sits under 89 m of rock.
 
 ---
 
@@ -160,7 +159,7 @@ Right of the fault (x > 244), shift every geology band down by the fault throw (
 
 ### 4.2 Clothing and silhouettes (general guidance)
 
-Moleskin trousers were popular British workwear in the late nineteenth century (Wikipedia Moleskin) and flat cloth caps were standard working-class headgear (Wikipedia Flat cap). Draw men in caps, collarless shirts, waistcoats, moleskin or heavy cotton trousers, heavy boots, and a neckerchief **[illustrative]**. No hard hats, no helmets, no electric cap lamps, no self-rescuers. Every man underground carries a flame safety lamp by its hook or ring: a cylinder about 25 cm tall with a brass oil pot at the bottom, a glass ring, a gauze chimney under a tinned-iron bonnet with a carrying hook on top (Wikipedia Safety lamp; Pamely). Colliers at a hot face may work in trousers and vest or bare to the waist **[illustrative]**. Each man carries a tin food box and a tin water can **[illustrative; the South Wales words "tommy box" and "jack" are unverified]**. Faces black with dust except for eyes and lips. Officials wear a jacket and cap and carry a yardstick and a gas-testing lamp **[illustrative]**. The manager wears a dark suit and bowler hat **[illustrative]**. Women at the screens: clogs, trousers covered with a skirt and apron, old flannel jackets or shawls and headscarves (Wikipedia Pit brow women).
+Moleskin trousers were popular British workwear in the late nineteenth century (Wikipedia Moleskin) and flat cloth caps were standard working-class headgear (Wikipedia Flat cap). Draw men in caps, collarless shirts, waistcoats, moleskin or heavy cotton trousers, heavy boots, and a neckerchief **[illustrative]**. No hard hats, no helmets, no electric cap lamps, no self-rescuers. Every man underground carries a flame safety lamp by its hook or ring: a cylinder about 25 cm tall with a brass oil pot at the bottom, a glass ring, a gauze chimney under a tinned-iron bonnet with a carrying hook on top (Wikipedia Safety lamp; Pamely). Colliers at a hot face may work in trousers and vest or bare to the waist **[illustrative]**. Note: an inquest blamed the December 1908 explosion at Big Pit on "a naked light held by one of the miners" (Wikipedia), and Pamely describes open oil lamps used in wet, gas-free South Wales hillside levels, so open lights may have existed in parts of the district. Draw safety lamps for everyone in the Big Pit workings. Each man carries a tin food box and a tin water can **[illustrative; the South Wales words "tommy box" and "jack" are unverified]**. Faces black with dust except for eyes and lips. Officials wear a jacket and cap and carry a yardstick and a gas-testing lamp **[illustrative]**. The manager wears a dark suit and bowler hat **[illustrative]**. Women at the screens: clogs, trousers covered with a skirt and apron, old flannel jackets or shawls and headscarves (Wikipedia Pit brow women).
 
 ### 4.3 Roles
 
@@ -173,7 +172,7 @@ Colliery-wide counts are **[illustrative]** estimates scaled from 1,122 employee
 | 3 | Overman | 2-3 | 1 | Cap, lamp, yardstick | Underground foreman for roads, props, tramways (Wikipedia Senghenydd) |
 | 4 | Fireman (shift examiner) | 6-10 | 2 | Locked safety lamp, report book | Pre-shift gas and roof inspection (1887 Rule 4); writes report |
 | 5 | Shot-firer | 2-3 | 1 | Lamp, canister of explosive (max 5 lb), firing battery, wooden rammer, clay | Fires shots; must not be paid by output (Hughes) |
-| 6 | Collier (hewer) | 300+ | 12 | Mandril (pick), shovel, sledge, wedges, saw, axe | Holes under the coal, brings it down, sets props, fills drams |
+| 6 | Collier (hewer) | 300+ | 12 | Pick (locally "mandril" [gloss unverified]), shovel, sledge, wedges, saw, axe | Holes under the coal, brings it down, sets props, fills drams |
 | 7 | Collier's boy (13+) | 80+ | 5 | Small shovel, lamp | Fills drams, fetches timber, learns the trade (CWM: worked alongside an experienced miner until 21) |
 | 8 | Haulier | 40+ | 5 | Whip or none, lamp hung on dram, sprags | Drives horse with drams between face and parting |
 | 9 | Door boy | 6-10 | 2 | Lamp, bench | Opens and shuts ventilation doors |
@@ -216,9 +215,9 @@ Colliery-wide counts are **[illustrative]** estimates scaled from 1,122 employee
 | 10:00 | Screen hands' half-hour break (required within 5 hours) | 1887 Act s.7 |
 | 10:00-13:30 | Coal winding continues; shot-firer goes round; manager's inspection | [illustrative] |
 | 13:00-14:00 | Day shift wound up; lamps returned; men walk home black (no baths until 1939) | Senghenydd shift to 14:00 (Wikipedia); Big Pit baths 1939 |
+| 14:30 | Screen hands finish when coal winding stops; the law caps them at 10 hours a day | 1887 Act s.7 (finish time [illustrative]) |
 | 14:00-22:00 | Afternoon shift: repairers, rippers, some hauliers; horses fed and rested | [illustrative] |
 | 15:00-17:00 | At home women heat water for the tin bath | CWM women (verified practice, times illustrative) |
-| 17:30 | Screen hands finish (10-hour maximum) | 1887 Act s.7 |
 | about 17:45 | Sunset | [illustrative] |
 | 21:00 | Latest time women and boys may work on the surface | 1887 Act s.7 |
 | 22:00-06:00 | Night shift as above | [illustrative] |
@@ -233,7 +232,7 @@ Routines use simulation time. "Lamp room" = S05, "bank" = S06, "pit bottom" = U0
 |---|---|---|---|---|
 | Evan Prosser | Fireman | U19, U22, U16 | 1) Lamp room, takes locked lamp, 5 min; 2) descends 03:00, 2 min; 3) tests each face for gas, 150 min; 4) writes report at U16, 15 min; 5) walks roads, rest of shift | Keeps a pressed fern in his report book |
 | Thomas Watkins | Overman | U14, U18, U19 | 1) Office, orders, 15 min; 2) descends, 2 min; 3) walks horse roads checking props, 120 min; 4) argues with rippers at U21, 20 min; 5) pit bottom, 30 min | Hums hymn tunes when worried |
-| Richard Gwilym | Collier | U19 | 1) Lamp room, 5 min; 2) cage, 2 min; 3) walks in-bye, 25 min; 4) holes under coal, 150 min; 5) sets props, 40 min; 6) fills drams, rest of shift | Saving to buy his own house in King Street [illustrative street] |
+| Richard Gwilym | Collier | U19 | 1) Lamp room, 5 min; 2) cage, 2 min; 3) walks in-bye, 25 min; 4) holes under coal, 150 min; 5) sets props, 40 min; 6) fills drams, rest of shift | Saving to buy his own house |
 | Dai Pritchard | Collier | U19 | 1) Walks in, 25 min; 2) holing, 120 min; 3) food break, 20 min; 4) wedging down coal, 90 min; 5) filling, 60 min | Sings bass in a chapel choir |
 | Owen Lloyd | Collier | U19 | 1) Holing, 120 min; 2) listens to the roof, 5 min, repeats; 3) props, 30 min; 4) filling, 90 min | Can tell weather above from the roof's creak, he claims |
 | William Harries | Collier | U19 | 1) Walks in, 25 min; 2) clears gob, 40 min; 3) holing, 120 min; 4) filling, 90 min | Lost two fingers in 1904; works left-handed |
@@ -318,6 +317,7 @@ Routines use simulation time. "Lamp room" = S05, "bank" = S06, "pit bottom" = U0
 | Saw mill (S13) | Circular saw bench (listing) | Blade blur, sawdust puffs |
 | Ventilation doors (U13) | Hinged doors in pairs so both are never open at once (Hughes) | Door swing about 1.5 s; door boy pulls it |
 | Shot-firing (U22, U21) | Charge in a drilled hole, clay stemming, fired electrically by an appointed shot-firer with permitted explosive (Hughes; 1887 Rule 12) | Men retreat, a flash and dust cloud, then roof dust settles over 30 s |
+| Conveyor | Wikipedia records a conveyor joining the mine equipment in 1908; its type and place are unknown | Optional: one short face conveyor near U19 [illustrative] |
 | Water | Roof drips, channel flow to sump (Wikipedia) | Random drips; slow surface shimmer |
 | Steam and smoke | Engine exhaust puff each stroke; chimney smoke drifting with wind | Particle plumes |
 
@@ -327,7 +327,7 @@ Routines use simulation time. "Lamp room" = S05, "bank" = S06, "pit bottom" = U0
 
 - **Setting.** Blaenavon lies "high on a hillside on the source of the Afon Lwyd" (Wikipedia Blaenavon), on the north-eastern rim of the coalfield (Wikipedia Blaenavon Industrial Landscape). The surrounding landscape holds mines, quarries, tramroads, inclines, workers' housing and the ironworks (Wikipedia Blaenavon Industrial Landscape).
 - **The ironworks.** By 1910 the Blaenavon ironworks are idle: sources give production ending in 1900, 1902 or 1904 (Wikipedia articles differ). Draw the old furnaces cold and smokeless in the backdrop.
-- **Railway.** The Brynmawr and Blaenavon Railway (opened 1866, worked by the London and North Western Railway) served the pit with sidings (Wikipedia Big Pit).
+- **Railway.** The Brynmawr and Blaenavon Railway (opened 1866, immediately leased to the London and North Western Railway) gave the pit access sidings (Wikipedia Big Pit).
 - **Weather (October, upland Wales).** Low grey cloud on the hilltops, drizzle showers, wet slate roofs shining, puddles black with coal dust, wind from the south-west pushing smoke across the valley [illustrative]. Bracken turning rust-brown [illustrative].
 - **Light.** Day shift goes down in darkness before sunrise (about 06:15 GMT, approximate). Morning daylight thereafter.
 - **Sounds (surface).** Steam exhaust beats from the winder; sheaves humming; cage clanging onto keps; signal bell; trams rattling over plates; tippler crash and screen rattle; hammer ring and bellows wheeze from the smithy; saw whine; boiler-house roar; fan hum; horses' hooves; waggons buffering; crows and sheep.
@@ -356,7 +356,7 @@ Each caption: zone, text, source, confidence.
 15. **U19**: "Firedamp (methane) explodes when it makes up between 4 and 16 per cent of the air. A tester watches for a blue cap rising over his lamp flame." Source: https://en.wikipedia.org/wiki/Firedamp (verified)
 16. **U19**: "Props must stand no more than six feet apart where they are needed, and the company must supply the timber at the face." Source: https://www.legislation.gov.uk/ukpga/Vict/50-51/58/enacted (verified, Rule 22)
 17. **U19**: "A holing pick is light, about 3 pounds, with a 15-inch head, so a collier lying on his side can swing it all day." Source: https://archive.org/details/atextbookcoalmi02hughgoog (verified)
-18. **U19**: "In South Wales the pick is called a mandril. Shovels, mandrils and horse-drawn trams do almost all the work." Source: https://www.agor.org.uk/cwm/themes/Life/life_underground.asp (verified)
+18. **U19**: "South Wales colliers win their coal with shovels and mandrils, and send it away in horse-drawn trams." Source: https://www.agor.org.uk/cwm/themes/Life/life_underground.asp (verified; that "mandril" means the collier's pick is [unverified] in the sources consulted, so do not gloss it in the caption)
 19. **U19**: "Until 1908, when a conveyor arrived, everything at Big Pit was done by hand, including cutting the coal." Source: https://en.wikipedia.org/wiki/Big_Pit_National_Coal_Museum (verified)
 20. **S04**: "Colliers are paid by the weight of coal they send up. The men can pay their own checkweigher to stand beside the company's weigher." Source: https://www.legislation.gov.uk/ukpga/Vict/50-51/58/enacted (verified, sections 12-13)
 21. **S11**: "A collier blunts several pick points a day and sends them up to be sharpened. Big Pit's smithy had nine forges." Source: https://archive.org/details/atextbookcoalmi02hughgoog and http://www.britishlistedbuildings.co.uk/wa-15282 (verified)
@@ -374,7 +374,7 @@ Each caption: zone, text, source, confidence.
 33. **U22**: "Only an appointed shot-firer, whose pay does not depend on output, may fire a shot in a gassy or dusty place, after checking everything within 20 yards." Source: https://archive.org/details/atextbookcoalmi02hughgoog and https://www.legislation.gov.uk/ukpga/Vict/50-51/58/enacted (verified)
 34. **U22**: "Explosives travel in a closed canister holding no more than five pounds, and may not be stored in the mine." Source: https://www.legislation.gov.uk/ukpga/Vict/50-51/58/enacted (verified, Rule 12)
 35. **S06**: "Since July 1909 no man may be underground more than eight hours, counted from the last man down to the first man up. The winding times are posted here." Source: https://www.legislation.gov.uk/ukpga/Edw7/8/57/enacted (verified)
-36. **S06**: "By law a barometer and thermometer hang near the pit entrance: falling air pressure can draw gas out of old workings." Source: https://www.legislation.gov.uk/ukpga/Vict/50-51/58/enacted (verified for the rule, Rule 33; the reason given is [unverified] and may be dropped)
+36. **S06**: "By law a barometer and a thermometer must hang in a conspicuous place above ground, near the entrance to the mine." Source: https://www.legislation.gov.uk/ukpga/Vict/50-51/58/enacted (verified, Rule 33)
 37. **S03**: "Full drams are turned upside down, tipping the coal on to screening belts where stones and dirt are picked out by hand." Source: https://museum.wales/bigpit/tour/ (verified)
 38. **S03**: "Women and girls have been banned from working underground since 1842, but may work on the surface: never before 5 am, never after 9 pm, and never moving railway waggons." Source: https://www.legislation.gov.uk/ukpga/Vict/50-51/58/enacted (verified, section 7)
 39. **U19**: "No boy under 13 may work underground (since 1900). From 1912 the age will rise to 14." Source: https://en.wikipedia.org/wiki/Mines_(Prohibition_of_Child_Labour_Underground)_Act_1900 and https://en.wikipedia.org/wiki/Coal_Mines_Act_1911 (verified)
@@ -401,8 +401,7 @@ Each caption: zone, text, source, confidence.
 10. **Listening to the roof.** An old collier freezes with pick raised, head tilted, listening. *Documented skill* (CWM: miners "learnt how to read the sounds of the mine").
 11. **The cast shoe.** A haulier waits by his horse, which has thrown a shoe, while the farrier comes down. *Documented delay* (Pamely).
 12. **Tin bath at home.** In a terraced cottage window in the backdrop, a woman pours a kettle into a tin bath by the fire. *Documented practice* (CWM women; baths 1939).
-13. **Bread for the horse.** A boy slips his crust to a horse in the stables. *Plausible invention.*
-14. **The old inset.** At y -60 a boarded-up opening in the shaft wall hints at workings from before the 1878 deepening. *Inference from the 1878 deepening; exact position [illustrative].*
+13. **The old inset.** At y -60 a boarded-up opening in the shaft wall hints at workings from before the 1878 deepening. *Inference from the 1878 deepening; exact position [illustrative].*
 
 ---
 
@@ -414,17 +413,17 @@ Each caption: zone, text, source, confidence.
 4. **No later buildings.** Not yet built: Deputies' Lodge (about 1920), Powder House (mid-twentieth century), baths and canteen (1939). Saw mill and electrical workshop are only "before 1920", so treat them as plausible.
 5. **No helmets, cap lamps or self-rescuers.** These are what museum visitors wear today (museum.wales tour page). In 1910 electric lamps were about 0.25 per cent of safety lamps (Wikipedia). No hard hats.
 6. **No women or girls underground**, and no boys under 13 below ground. Women at the screens are lawful.
-7. **No Davy lamps as the standard lamp.** By this date lamps were bonneted Clanny-type, Mueseler or Marsaut lamps (Wikipedia Safety lamp). A plain gauze Davy lamp would be old-fashioned [specific types at Big Pit unverified].
+7. **Prefer a bonneted lamp to a plain Davy.** Shields (bonnets) and locks became required after disasters (Wikipedia Safety lamp), and glass-ringed Clanny, Mueseler and Marsaut designs were in use. The exact lamp model used at Big Pit in 1910 is [unverified].
 8. **Fan, not furnace.** Big Pit was ventilated by a fan on the Coity upcasts from 1895 and by the new electric Walker fan from 1909-10. Do not draw a ventilation furnace.
-9. **Terminology.** South Wales says **dram** or **tram** (Big Pit tour page uses "drams"), **haulier**, **collier**, **mandril**, **fireman** for the gas examiner (Wikipedia Senghenydd). Avoid "tubs", "putters" and "deputies" in Welsh labels.
+9. **Terminology.** South Wales says **dram** or **tram** (Big Pit tour page uses "drams"), **haulier**, **collier**, **mandril** (CWM uses the word; its gloss as "pick" is unverified), **fireman** for the gas examiner (Wikipedia Senghenydd). Avoid "tubs", "putters" and "deputies" in Welsh labels.
 10. **Horses, not Shetland ponies.** South Wales large trams needed horses (Pamely); Big Pit sources speak of horses.
 11. **No NCB signs.** Nationalisation came in 1947.
-12. **No coal-cutting machines or power loading.** Big Pit's museum galleries show 1950s to 1970s machinery; in 1910 coal was cut by hand.
-13. **No modern steel arches or roof bolts.** The museum's "steel bands" are modern support; draw timber props and collars, with brick only near the shaft.
-14. **Rescue stations and Proto teams belong after 1911** (Wikipedia Coal Mines Act 1911). No rescue brigade in 1910.
+12. **No coal-cutting machines or power loading.** Big Pit's museum galleries show 1950s to 1970s machinery. Wikipedia records that until 1908 "everything at Big Pit was done by manpower", including cutting the coal; no cutting machine is recorded for 1910.
+13. **Timber, not steel.** Draw timber props and collars, with brick only near the shaft. The steel supports seen in the museum today may be later additions [unverified]; roof bolts certainly do not belong.
+14. **Rescue stations became compulsory only with the 1911 Act** (Wikipedia Coal Mines Act 1911). Do not show a Big Pit rescue team with breathing apparatus [Big Pit-specific absence unverified].
 15. **Not Tonypandy, not Senghenydd.** The 1910 Tonypandy riots were in the Rhondda and the 1913 Senghenydd disaster near Caerphilly; do not stage them at Blaenavon.
 16. **No "Mabon's Day".** The monthly first-Monday holiday was lost after the 1898 strike (Wikipedia South Wales Miners' Federation).
-17. **No British Summer Time.** Do not add an hour to the day's clock [illustrative note: Summer Time was introduced in 1916, not checked against a source here].
+17. **Clock time.** Keep the day on Greenwich time; British Summer Time is believed to date from 1916 [unverified], so do not add an hour.
 
 ---
 

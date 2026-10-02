@@ -12,6 +12,7 @@
  *     --wait 2500             ms to let the scene run before capture
  *     --labels off            hide captions
  *     --select "Name"         follow a named person
+ *     --weather rain          clear, rain, storm, fog or snow
  *     --spec shots.json       many shots in one browser: [{scene, hour, zoom, angle, out, wait, cuts, open, labels, select}]
  *     --file dist/cross-sections.html   test the portable build instead of the folder
  *
@@ -46,6 +47,7 @@ function args() {
     else if (k === '--wait') o.wait = parseInt(v(), 10);
     else if (k === '--labels') o.labels = v() !== 'off';
     else if (k === '--select') o.select = v();
+    else if (k === '--weather') o.weather = v();
     else if (k === '--spec') o.spec = JSON.parse(fs.readFileSync(v(), 'utf8'));
     else if (k === '--file') o.file = v();
     else if (!k.startsWith('--')) o.scene = k;
@@ -89,6 +91,7 @@ async function main() {
     if (s.cuts) q.push('cuts=' + s.cuts.join(','));
     if (s.open) q.push('open=1');
     if (s.hour != null) q.push('h=' + s.hour);
+    if (s.weather) q.push('w=' + s.weather);
     await page.goto(base + '?nocontents' + (s.scene && !s.all ? '&only=' + s.scene : '') + (s.scene ? '#' + s.scene + (q.length ? '?' + q.join('&') : '') : ''));
     try {
       await page.waitForFunction(() => window.XS && XS.app && XS.app.stage && XS.app.stage.world, null, { timeout: 60000 });

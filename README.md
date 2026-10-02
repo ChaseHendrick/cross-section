@@ -42,18 +42,18 @@ The subjects are drawn from real places and machines, researched from museum, ar
 
 **Follow anyone.** Click a person to follow them: their name, their job, a line about their life, and what they are doing right now.
 
-**A soundscape.** Optional, and entirely synthesised: surf, wind, engines, steam, crowds, bells on the hour, a dance band in the lounge, an organ in the nave. Zoom in on a machine to hear it.
+**Weather and a soundscape.** Rain, storms with lightning, fog and snow. The sound is optional and entirely synthesised: surf, wind, engines, steam, crowds, bells on the hour, a dance band in the lounge, an organ in the nave. Zoom in on a machine to hear it.
 
 **One file.** The portable edition carries three.js, every scene and every caption. It runs from a USB stick.
 
 | Subject | Moment | Look for |
 |---|---|---|
-| The Atlantic Liner | A transatlantic crossing, 1936 | Stokers at the boilers, the turbines, the first-class dining saloon, the kennels |
+| The Atlantic Liner | A westbound crossing, 1938 | Stokers at the boilers, the turbines, the first-class dining saloon, the kennels |
 | The Castle | A great stone castle, about 1300 | The kitchen fires, the great hall at dinner, the garderobes, the guard on the wall walk |
 | The Man-of-War | A first-rate ship of the line, 1805 | Hammocks slung over the guns, the galley stove, the surgeon's cockpit, sailors aloft |
 | The Express | A streamlined steam express, 1937 | The fireman's shovel, the valve gear, the dining car at speed |
-| The Coal Mine | A deep colliery, about 1905 | The winding engine, the cage, the pit ponies' stables, the coal face by lamplight |
-| The Cathedral | A Gothic cathedral rising, 13th century | The treadwheel crane, the masons' lodge, a service in the finished choir |
+| The Coal Mine | A deep Welsh colliery, 1910 | The winding engine, the cage, the pit ponies' stables, the coal face by lamplight |
+| The Cathedral | A Gothic cathedral rising, 1245 | The treadwheel crane, the masons' lodge, a service in the finished choir |
 | The Rock Lighthouse | A keepers' tower, about 1890 | The turning lens, curved bunks, the beams sweeping the night sea |
 | The Jumbo Jet | A transatlantic night flight, 1970s | The flight deck, the upper-deck lounge, the galleys, the cargo hold |
 | The Space Station | The International Space Station | Floating crew, the Cupola, sixteen sunrises a day |
@@ -70,16 +70,18 @@ The subjects are drawn from real places and machines, researched from museum, ar
 | Look around | Drag, or the arrow keys |
 | Zoom | Scroll, pinch, double-click, or <kbd>+</kbd> <kbd>&minus;</kbd>; <kbd>0</kbd> shows the whole subject |
 | Turn the view | Right-drag or Shift-drag; <kbd>V</kbd> steps through viewing angles |
-| Follow someone | Click them; <kbd>Esc</kbd> lets them go |
+| Follow someone | Click them, or pick from the People list (<kbd>W</kbd>); <kbd>Esc</kbd> lets them go |
 | Captions | Click a framed caption for its fact card and source; <kbd>L</kbd> hides them |
 | Slice | <kbd>S</kbd> for the slice tool, click to cut, drag to move, &times; to remove; <kbd>O</kbd> opens and closes the slices |
 | Time | Drag the clock; <kbd>N</kbd> night, <kbd>D</kbd> day, <kbd>K</kbd> clock speed, <kbd>Space</kbd> pause |
+| Weather | <kbd>R</kbd> steps through clear, rain, storm, fog and snow |
 | Tour | <kbd>T</kbd>, then <kbd>&larr;</kbd> <kbd>&rarr;</kbd> |
+| Ambient | <kbd>A</kbd> drifts unattended through every subject, by day and night |
 | Sound | <kbd>M</kbd> |
 | Picture | <kbd>P</kbd> saves the view as a PNG at twice screen resolution, captions included |
 | Contents | <kbd>C</kbd> |
 
-The address bar carries the view: `#liner?cuts=60,120,180&open=1&h=21.5` opens the liner, cut in three places, opened, at half past nine at night.
+The address bar carries the view: `#liner?cuts=60,120,180&open=1&h=21.5&w=rain` opens the liner, cut in three places, opened, at half past nine on a rainy night.
 
 ---
 

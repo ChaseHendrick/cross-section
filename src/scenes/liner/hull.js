@@ -40,14 +40,16 @@ export function buildHull(k) {
     if (i === L) return M.hullBlack;
     return M.hullIn;
   };
-  const secs = stations(0, LOA).map((x) => shellSection(x));
+  const secs = stations(0.6, LOA).map((x) => shellSection(x));
   k.loft(secs, M.hullBlack, { matFn, cap: M.hullBlack });
 
   // Near-side plating at the two ends, drawn whole, to frame the picture as in the books.
   const prev = k.whole;
   k.whole = true;
-  k.loft(stations(0, 9).map((x) => shellSection(x, -1)), M.hullBlack, { matFn, cap: M.hullBlack });
-  k.loft(stations(303, LOA).map((x) => shellSection(x, -1)), M.hullBlack, { matFn, cap: M.hullBlack });
+  const n = LEVELS.length * 2 + 2;
+  const mirFn = (s, i, A) => { const j = n - 1 - i; const y = (A.pts[j][1] + A.pts[(j + 1) % n][1]) / 2; return y < BOOT ? M.hullRed : M.hullBlack; };
+  k.loft(stations(0.6, 9).map((x) => shellSection(x, -1)), M.hullBlack, { matFn: mirFn, cap: M.hullBlack });
+  k.loft(stations(303, LOA).map((x) => shellSection(x, -1)), M.hullBlack, { matFn: mirFn, cap: M.hullBlack });
   // The keel bar and bilge strake on the near side, so the bottom line reads.
   const keel = [];
   for (const x of stations(13, 266)) keel.push({ x, pts: [[0, -0.05], [-Math.max(0.6, hb(x, 1.2)), 1.2], [-Math.max(0.6, hb(x, 1.2)) + 0.4, 1.5], [0, 0.45]] });
