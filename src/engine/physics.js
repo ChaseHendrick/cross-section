@@ -71,6 +71,8 @@ export class Physics {
     const h = 1 / 60;
     let n = 0;
     while (this.acc >= h && n < 4) { this.world.step(h); this.acc -= h; n++; }
+    // Drop time the substep cap could not cover, so slow frames never queue a fast-forward.
+    this.acc = Math.min(this.acc, h);
     for (const { body, object } of this.links) {
       object.position.set(body.position.x, body.position.y, body.position.z);
       object.quaternion.set(body.quaternion.x, body.quaternion.y, body.quaternion.z, body.quaternion.w);

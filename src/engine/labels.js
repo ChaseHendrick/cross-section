@@ -37,10 +37,15 @@ function wrap(ctx, text, maxW, font) {
 class Labels {
   constructor() { this.hits = []; this.enabled = true; this.hover = null; }
 
-  // view: { S, W, H, cx, cy, secOff, world }, defs: world.labels
+  // view: { S, W, H, project, subjectBox, insets, reserved }, defs: world.labels.
+  // insets ({top, right, bottom, left}) and reserved ([x0, y0, x1, y1] rectangles) are the
+  // screen space taken by the page's chrome; captions are never set there.
   draw(ctx, view, defs, theme) {
     this.hits.length = 0;
     if (!this.enabled || !defs.length) return;
+    const I = Object.assign({ top: 70, right: 0, bottom: 86, left: 0 }, view.insets || {});
+    this.area = { x0: I.left, y0: I.top, x1: view.W - I.right, y1: view.H - I.bottom };
+    this.reserved = view.reserved || [];
     const cand = [];
     for (const L of defs) {
       if (L.min != null && view.S < L.min) continue;
@@ -49,6 +54,7 @@ class Labels {
       if (!q) continue;
       const [sx, sy] = q;
       if (sx < 0 || sy < 0 || sx > view.W || sy > view.H) continue;
+      if (this._covered([sx - 2, sy - 2, sx + 2, sy + 2])) continue; // its anchor is under a panel
       const d = Math.hypot(sx - view.W / 2, sy - view.H / 2);
       cand.push({ L, sx, sy, pri: (L.priority || 0) * 1000 - d });
     }
@@ -67,9 +73,10 @@ class Labels {
     const box = view.subjectBox ? view.subjectBox() : null;
     let placedAny = false;
     if (box) {
+      const A = this.area;
       const left = box[0], right = box[2];
-      const gutL = left - 28, gutR = view.W - right - 28;
-      if (right - left < view.W * 0.66 && Math.max(gutL, gutR) > 150) {
+      const gutL = left - 28 - A.x0, gutR = A.x1 - right - 28;
+      if (right - left < (A.x1 - A.x0) * 0.66 && Math.max(gutL, gutR) > 150) {
         placedAny = this._margins(ctx, view, cand, theme, left, right, gutL, gutR);
       }
     }
@@ -87,6 +94,11 @@ class Labels {
     if (c.wt) { ctx.font = FONT_T; for (const l of c.wt.lines) { ctx.fillText(l, x, y); y += LINE_H; } }
     if (c.wb) { ctx.font = FONT_B; ctx.fillStyle = theme.inkSoft; for (const l of c.wb.lines) { ctx.fillText(l, x, y); y += LINE_H; } }
     this.hits.push({ r, L });
+  }
+  // True when a rectangle overlaps any reserved rectangle.
+  _covered(r) {
+    for (const q of this.reserved) if (!(r[2] < q[0] || r[0] > q[2] || r[3] < q[1] || r[1] > q[3])) return true;
+    return false;
   }
   _dot(ctx, theme, x, y) {
     ctx.fillStyle = theme.ink;
@@ -106,11 +118,9 @@ class Labels {
       cols[side].push(c);
     }
     let any = false;
-    for (const side of ['L', 'R']) {
-      const list = cols[side].sort((a, b) => a.sy - b.sy);
-      if (!list.length) continue;
+    const top = this.area.y0, bottom = this.area.y1, gap = 8;
+    const layout = (list) => {
       // 1D layout: ideal y centred on the anchor, then push apart.
-      const top = 70, bottom = view.H - 86, gap = 8;
       for (const c of list) c.y = Math.max(top, c.sy - c.h / 2);
       for (let i = 1; i < list.length; i++) list[i].y = Math.max(list[i].y, list[i - 1].y + list[i - 1].h + gap + 6);
       const over = list.length ? list[list.length - 1].y + list[list.length - 1].h - bottom : 0;
@@ -118,10 +128,24 @@ class Labels {
         list[list.length - 1].y -= over;
         for (let i = list.length - 2; i >= 0; i--) list[i].y = Math.min(list[i].y, list[i + 1].y - list[i].h - gap - 6);
       }
+    };
+    for (const side of ['L', 'R']) {
+      const list = cols[side].sort((a, b) => a.sy - b.sy);
+      if (!list.length) continue;
+      // When the column does not fit between the top and bottom bands, drop the least
+      // important caption and lay out again, rather than pushing captions under the chrome.
+      layout(list);
+      while (list.length > 1 && list[0].y < top) {
+        let k = 0;
+        for (let i = 1; i < list.length; i++) if (list[i].pri < list[k].pri) k = i;
+        list.splice(k, 1);
+        layout(list);
+      }
       for (const c of list) {
-        if (c.y < 8 || c.y + c.h > view.H - 70) continue;
+        if (c.y < top || c.y + c.h > bottom + 16) continue;
         const x = side === 'L' ? left - 22 - c.w : right + 22;
         const r = [x - 5, c.y - 3, x + c.w + 5, c.y + c.h + 3];
+        if (this._covered(r)) continue;
         // Elbow leader: from the anchor out to the gutter, then to the caption.
         const ex = side === 'L' ? r[2] : r[0], ey = c.y + Math.min(c.h / 2, 8);
         const kx = side === 'L' ? Math.min(c.sx - 10, left - 8) : Math.max(c.sx + 10, right + 8);
@@ -150,7 +174,9 @@ class Labels {
         const x = hs > 0 ? c.sx + ax : c.sx - ax - w;
         const y = vs < 0 ? c.sy - ay - h : c.sy + ay;
         const r = [x - 5, y - 3, x + w + 5, y + h + 3];
-        if (r[0] < 4 || r[1] < 60 || r[2] > view.W - 4 || r[3] > view.H - 80) continue;
+        const A = this.area;
+        if (r[0] < A.x0 + 4 || r[1] < A.y0 - 10 || r[2] > A.x1 - 4 || r[3] > A.y1 + 6) continue;
+        if (this._covered(r)) continue;
         let hit = false;
         for (const q of placed) if (!(r[2] < q[0] || r[0] > q[2] || r[3] < q[1] || r[1] > q[3])) { hit = true; break; }
         if (!hit) { box = { x, y, r }; break; }

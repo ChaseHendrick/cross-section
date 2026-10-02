@@ -358,6 +358,7 @@ export function inkMaterial(opts = {}) {
     vertexColors: !opts.instanced,
     side: THREE.DoubleSide,
   });
+  m.userData.shared = true; // interned: the stage never disposes it
   cache.set(key, m);
   return m;
 }
@@ -432,6 +433,7 @@ export function overlayMaterial() {
     depthTest: false,
     side: THREE.DoubleSide,
   });
+  overlayMat.userData.shared = true;
   return overlayMat;
 }
 

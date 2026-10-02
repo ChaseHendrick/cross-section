@@ -64,7 +64,11 @@ export class Audio {
   }
   stop() {
     this.on = false;
-    if (this.ctx) this.master.gain.setTargetAtTime(0, this.ctx.currentTime, 0.25);
+    if (!this.ctx) return;
+    this.master.gain.setTargetAtTime(0, this.ctx.currentTime, 0.25);
+    // Once faded, suspend the graph so the beds and voices stop costing CPU; start() resumes.
+    clearTimeout(this._suspendT);
+    this._suspendT = setTimeout(() => { if (!this.on && this.ctx.state === 'running') this.ctx.suspend(); }, 1200);
   }
 
   _impulse(size) {

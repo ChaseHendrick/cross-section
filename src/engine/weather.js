@@ -8,6 +8,7 @@ import { XS, h01 } from './core.js';
 import { U } from './materials.js';
 
 export const WEATHERS = ['clear', 'rain', 'storm', 'fog', 'snow'];
+const WEATHER_SHARE = 0.65;
 
 export class Weather {
   constructor() {
@@ -36,8 +37,12 @@ export class Weather {
     const behind = (b.z1 || 20) + 2;
     const rate = (m.rain * 220 + m.snow * 90) * Math.min(3, span / 30);
     this.acc = (this.acc || 0) + rate * dt;
+    // Weather shares the world's particle pool but never takes more than WEATHER_SHARE of it,
+    // so a scene's own smoke, steam and spray keep flowing in a storm.
+    const P = W.particles, cap = P.max * WEATHER_SHARE;
     while (this.acc > 1) {
       this.acc -= 1;
+      if (P.list.length >= cap) { this.acc = 0; break; }
       const r = (s) => h01(this.seed++, s);
       const front = r(1) < 0.55;
       const z = front ? -(1 + r(2) * Math.min(30, cam.dist * 0.5)) : behind + r(2) * 40;

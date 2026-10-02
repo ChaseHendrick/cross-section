@@ -8,17 +8,11 @@ A liner at sea, a castle, a man-of-war, a steam express, a coal mine, a cathedra
 
 Open the portable file in any current desktop or mobile browser. It is one self-contained HTML file: no install, no account, no network. Rendering needs WebGL 2.
 
+<!-- Gallery: add each subject's frame here once tools/thumbs.cjs has rendered gallery/<id>.jpg. -->
 <p align="center">
-  <img src="gallery/liner.jpg" width="32%" alt="The Atlantic Liner cut open from bow to stern" />
-  <img src="gallery/warship.jpg" width="32%" alt="The Man-of-War with its gun decks exposed" />
-  <img src="gallery/castle.jpg" width="32%" alt="The Castle, its great hall and kitchens cut away" />
+  <img src="gallery/lighthouse.jpg" width="48%" alt="The Rock Lighthouse at dusk" />
 </p>
-<p align="center">
-  <img src="gallery/train.jpg" width="32%" alt="The Express: locomotive, tender and dining car" />
-  <img src="gallery/lighthouse.jpg" width="32%" alt="The Rock Lighthouse at dusk" />
-  <img src="gallery/jet.jpg" width="32%" alt="The Jumbo Jet above the clouds" />
-</p>
-<p align="center"><sub>Frames from the live scenes. Every image is the running simulation, drawn by the ink pass.</sub></p>
+<p align="center"><sub>A frame from the live scene. Every image is the running simulation, drawn by the ink pass.</sub></p>
 
 Inspired by the cross-section picture books of the 1990s, above all *Stephen Biesty's Incredible Cross-Sections* (illustrated by Stephen Biesty, text by Richard Platt, Dorling Kindersley, 1992). This is an independent, original work. It contains no illustrations or text from those books, and it is not affiliated with or endorsed by their authors or publisher.
 
@@ -68,10 +62,10 @@ The subjects are drawn from real places and machines, researched from museum, ar
 | | |
 |---|---|
 | Look around | Drag, or the arrow keys |
-| Zoom | Scroll, pinch, double-click, or <kbd>+</kbd> <kbd>&minus;</kbd>; <kbd>0</kbd> shows the whole subject |
-| Turn the view | Right-drag or Shift-drag; <kbd>V</kbd> steps through viewing angles |
-| Follow someone | Click them, or pick from the People list (<kbd>W</kbd>); <kbd>Esc</kbd> lets them go |
-| Captions | Click a framed caption for its fact card and source; <kbd>L</kbd> hides them |
+| Zoom | Scroll, pinch, double-click or double-tap, or <kbd>+</kbd> <kbd>&minus;</kbd>; <kbd>0</kbd> shows the whole subject |
+| Turn the view | Right-drag, Shift-drag or a two-finger twist; <kbd>V</kbd> steps through viewing angles |
+| Follow someone | Click or tap them, or pick from the People list (<kbd>W</kbd>); <kbd>Esc</kbd> lets them go |
+| Captions | Click a framed caption for its fact card and source, or find it under Facts in the People list; <kbd>L</kbd> hides them |
 | Slice | <kbd>S</kbd> for the slice tool, click to cut, drag to move, &times; to remove; <kbd>O</kbd> opens and closes the slices |
 | Time | Drag the clock; <kbd>N</kbd> night, <kbd>D</kbd> day, <kbd>K</kbd> clock speed, <kbd>Space</kbd> pause |
 | Weather | <kbd>R</kbd> steps through clear, rain, storm, fog and snow |
@@ -80,8 +74,13 @@ The subjects are drawn from real places and machines, researched from museum, ar
 | Sound | <kbd>M</kbd> |
 | Picture | <kbd>P</kbd> saves the view as a PNG at twice screen resolution, captions included |
 | Contents | <kbd>C</kbd> |
+| Full screen | <kbd>F</kbd> |
+| Step back | <kbd>Esc</kbd> closes the top panel, leaves the slice tool, ends the tour, or lets the person you follow go |
+| Help | <kbd>?</kbd> |
 
-The address bar carries the view: `#liner?cuts=60,120,180&open=1&h=21.5&w=rain` opens the liner, cut in three places, opened, at half past nine on a rainy night.
+On a phone the main tools sit in one row with the clock above them; **More** holds captions, viewing angle, whole view, picture and full screen.
+
+The address bar carries the view and keeps up with the clock: `#liner?cuts=60,120,180&open=1&h=21.5&w=rain` opens the liner, cut in three places, opened, at half past nine on a rainy night. Cuts are ignored for a subject shown whole.
 
 ---
 
@@ -114,7 +113,7 @@ The source runs directly as ES modules; there is no build step while you work. `
 |---|---|---|
 | Lint | `node tools/lint.js` | Scenes are registered and loaded; no `Math.random`; no em dashes; every fact card names a source |
 | Portable build | `node tools/build.js --check` | The committed portable file matches the source exactly |
-| Every subject in a browser | `node tools/check.cjs --dist` | Each scene loads and runs; following, slicing, the tour, captions, sound, pictures, contents and help work with no console error; budgets hold |
+| Every subject in a browser | `node tools/check.cjs --dist` | Each scene loads and runs; following, slicing, the tour, captions, sound, pictures, contents and help work with no console error, and <kbd>Esc</kbd> backs out of each; budgets hold (rendered at half scale for speed; `--full-quality` for full) |
 | Phone viewport | `node tools/check.cjs --dist --mobile` | The same, at 390 by 844 with touch |
 | Looking | `node tools/shot.cjs <id> --hour 22 --zoom x,y,w` | Nothing automatic: a person looked at the picture |
 

@@ -143,6 +143,7 @@ world.crowd(positions, { act: ['sitEat', 'sitTalk'], costume: (i, r) => ({...}),
 - `at`: a nav node id, a station name, or `[x, y, z]`. People walk the nav graph to the node nearest the target, then straight to it.
 - `act`: an animation (below). `prop`: something held. `seat`: for sitting animations, the seat's height in metres above the point given in `at` (default 0.46; chairs and benches return it). `face`: `1` (towards +x), `-1`, `'out'` (towards the viewer), `'in'`, or radians. `dur`: seconds or `[min, max]`. `when`: `[fromHour, toHour]`, may wrap midnight. `label`: shown when the viewer follows them. `onArrive(person, world)`: optional hook.
 - A person with no routine stands at `at` doing `act` forever (good for crowds).
+- Height, pace, skin and the other unspecified looks are seeded from the person's place in the scene's own list, so a subject looks the same every time it opens, whatever was opened before it.
 - Sleepers: their feet are at the point given; the body lies towards the opposite of their heading. Bunk and bed props return anchors.
 
 Costume keys: `skin, hair, hairStyle ('short'|'long'|'bun'|'bald'|'queue'), top, bottom, shoes, coat ('jacket'|'long'|'tail'), coatColor, dress ('long'|'knee'), dressColor, stockings, apron, sleeves ('short'), beard, build (0.8..1.3), child, hat, hatColor`.
@@ -170,9 +171,13 @@ world.particles.emit({ kind: 'spark', x, y, z }, world);
 
 Kinds: `smoke, soot, steam, spark, ember, fire, splash, spray, dust, bubble, leaf, snow, mote`. `when`: `'night'`, `'day'`, `[h0, h1]` or a function of the world.
 
+The pool holds 3000 particles. Rain and snow share it but stop adding drops once it is 65% full, so a scene's own emitters always have room, even in a storm.
+
 ### Captions
 
-`kit.label({ x, y, z, title, text, body, source, min, max, priority, side })` or `world.label(...)`. `min`/`max` limit the zoom (CSS pixels per metre) at which it shows; at overview, captions stand in the margins with elbow leader lines. `body` and `source` make the caption clickable for a fact card. Only verified facts go in `body`, with a source URL you actually opened.
+`kit.label({ x, y, z, title, text, body, source, min, max, priority, side })` or `world.label(...)`. `min`/`max` limit the zoom (CSS pixels per metre) at which it shows; at overview, captions stand in the margins with elbow leader lines. `body` and `source` make the caption clickable for a fact card; such captions are also listed under Facts in the People panel, so a keyboard can reach them. Only verified facts go in `body`, with a source URL you actually opened.
+
+Captions keep clear of the page's chrome. The shell reports it to the stage as `stage.insets` (`{ top, right, bottom, left }` bands in CSS pixels) and `stage.reserved` (`[x0, y0, x1, y1]` rectangles for open cards and panels). A caption whose anchor is under a panel is not drawn; when a margin column does not fit between the top and bottom bands, the lowest-priority caption is dropped. Cut handles stay below the top band too.
 
 ### Guided tour
 
@@ -208,7 +213,17 @@ Everything is synthesised; there are no recordings. Sound starts only when the v
 
 ## Slicing
 
-The viewer places cuts anywhere along x; zero cuts is the default. Cuts are clipping ranges, so nothing is rebuilt: every closed solid crossing a cut shows a hatched cut face. Make sure the hull or outer shell is a closed solid with thickness, give important materials a characterful `cut` colour (black plating, red antifouling, honey timber), and offer `suggestedCuts` at structural frames.
+The viewer places cuts anywhere along x; zero cuts is the default. A scene with `slice: false` has no cuts at all: the stage ignores cuts from `setCuts`, `load` and shared links, and the shell leaves slice mode when such a subject opens. Every way in (`setCuts`, `addCut`, `load({ cuts })`) applies the same rules: inside `cutRange`, at least a metre apart, at most `maxCuts` (8). A dragged cut stays between its neighbours. `addCut` returns false and the bus emits `cutlimit` at the limit. Cuts are clipping ranges, so nothing is rebuilt: every closed solid crossing a cut shows a hatched cut face. Make sure the hull or outer shell is a closed solid with thickness, give important materials a characterful `cut` colour (black plating, red antifouling, honey timber), and offer `suggestedCuts` at structural frames.
+
+## Stage behaviour scenes can rely on
+
+- `stage.load(id, opts)` builds the new drawing and runs `setup` before clearing the old subject. If either throws, the previous subject stays on stage untouched and the error is rethrown. While `build` runs, `stage.scene` is already the new subject; while `setup` runs, `stage.world` is the new world as well.
+- On every load the stage frees the old subject's geometry, its per-scene materials (anything not interned by `mat()` or the overlay material) and the textures those materials hold in their own uniforms (a sea's mask, say). Keep nothing GPU-side across loads in module scope that you expect to stay uploaded.
+- Selecting a person (`stage.select(p)`) ends the guided tour. Pausing (`stage.paused`) holds the tour on its stop.
+- Wheel and pinch zoom keep following the selected person. Dragging looks away and emits `follow` `{ person, following: false }`.
+- `prefers-reduced-motion`: camera flights become cuts and pans have no inertia (`stage.camera.reduced`).
+- A resize that changes the aspect (a rotated phone) refits the subject unless the viewer has moved the camera since the last fit (`stage.camera.moved`).
+- Sound is suspended a moment after it is turned off and while the tab is hidden. Physics drops time it cannot simulate rather than fast-forwarding after slow frames.
 
 ## Budgets
 

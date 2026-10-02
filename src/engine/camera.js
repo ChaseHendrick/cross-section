@@ -27,6 +27,11 @@ export class Camera3 {
     this.fly = null;
     this.followFn = null;
     this.focusDepth = 3;
+    // True once the view has been moved away from the last fit (by the viewer or a flight);
+    // the stage refits on resize only while this is false.
+    this.moved = false;
+    // Reduced motion: flights become cuts and pans have no inertia.
+    this.reduced = false;
   }
   setSize(W, H) { this.W = W; this.H = H; this.cam.aspect = W / Math.max(1, H); this.cam.updateProjectionMatrix(); }
 
@@ -43,8 +48,9 @@ export class Camera3 {
   }
   fit(b, pad, instant = true) {
     const f = this.fitParams(b, pad);
-    if (instant) { this.target.copy(f.target); this.dist = f.dist; this.fly = null; this.zoom = null; }
+    if (instant) { this.target.copy(f.target); this.dist = f.dist; this.fly = null; this.zoom = null; this.v.set(0, 0); }
     else this.flyTo(f, 1.3);
+    this.moved = false;
   }
 
   right() { return new THREE.Vector3(Math.cos(this.yaw), 0, -Math.sin(this.yaw)); }
@@ -57,12 +63,14 @@ export class Camera3 {
     this.target.addScaledVector(this.right(), -dx * k);
     this.target.addScaledVector(this.up(), dy * k);
     this.fly = null; this.zoom = null;
+    this.moved = true;
     this._clamp();
   }
   orbitBy(dx, dy) {
     this.yaw = clamp(this.yaw - dx * 0.006, this.yawLim[0], this.yawLim[1]);
     this.pitch = clamp(this.pitch + dy * 0.005, this.pitchLim[0], this.pitchLim[1]);
     this.fly = null;
+    this.moved = true;
   }
   // The point under a screen position on a plane parallel to the cut, `focusDepth` behind it.
   pointUnder(sx, sy, depth = this.focusDepth) {
@@ -80,7 +88,8 @@ export class Camera3 {
     const d1 = clamp(base * k, this.minDist, this.maxDist);
     const P = this.pointUnder(sx, sy);
     this.fly = null;
-    if (smooth) this.zoom = { dist: d1, P };
+    this.moved = true;
+    if (smooth && !this.reduced) this.zoom = { dist: d1, P };
     else this._applyZoom(d1, P);
   }
   _applyZoom(d1, P) {
@@ -90,6 +99,8 @@ export class Camera3 {
     this._clamp();
   }
   flyTo(t, dur = 1.6, done) {
+    if (this.reduced) dur = 0.001;
+    this.moved = true;
     const d0 = this.dist, d1 = clamp(t.dist || this.dist, this.minDist, this.maxDist);
     const gap = this.target.distanceTo(t.target);
     const bump = clamp(Math.log2(1 + gap / Math.min(d0, d1)) * 0.55, 0, 2.2);
@@ -100,7 +111,7 @@ export class Camera3 {
     this.zoom = null;
     this.v.set(0, 0);
   }
-  follow(fn) { this.followFn = fn; }
+  follow(fn) { this.followFn = fn; if (fn) this.moved = true; }
   setBounds(b) { this.bounds = b; }
   _clamp() {
     if (!this.bounds) return;
@@ -131,6 +142,7 @@ export class Camera3 {
         const p = this.followFn();
         if (p) this.target.lerp(p, 1 - Math.exp(-dt * 3.5));
       }
+      if (this.reduced) this.v.set(0, 0);
       if (this.v.lengthSq() > 1) {
         this.panBy(this.v.x * dt, this.v.y * dt);
         this.v.multiplyScalar(Math.exp(-dt * 5));

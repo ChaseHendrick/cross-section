@@ -106,11 +106,13 @@ function faceToHeading(f) {
 }
 XS.faceToHeading = faceToHeading;
 
-let pid = 0;
+// Each world numbers its own people, so a subject looks the same however many subjects were
+// opened before it (seeds come from this per-world counter, never from a global one).
 class Person {
   constructor(world, def) {
     this.world = world;
-    this.id = def.id || 'p' + ++pid;
+    const pid = world._pid = (world._pid || 0) + 1;
+    this.id = def.id || 'p' + pid;
     this.name = def.name || null;
     this.role = def.role || null;
     this.bio = def.bio || null;
@@ -168,7 +170,7 @@ class Person {
   _startStep(i) {
     this.step = i;
     const st = this.routine[i];
-    const d = st.dur == null ? 20 : Array.isArray(st.dur) ? st.dur[0] + h01(pid++, 5) * (st.dur[1] - st.dur[0]) : st.dur;
+    const d = st.dur == null ? 20 : Array.isArray(st.dur) ? st.dur[0] + h01(this.world._pid++, 5) * (st.dur[1] - st.dur[0]) : st.dur;
     this.stepDur = d;
     this.stepT = 0;
     const target = this.world.resolve(st.at);
