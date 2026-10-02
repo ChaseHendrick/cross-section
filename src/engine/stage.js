@@ -20,6 +20,7 @@ import { Sky, applyLighting, updateSea } from './sky.js';
 import { InkPass } from './post.js';
 import { Camera3 } from './camera.js';
 import { Labels } from './labels.js';
+import { Audio } from './audio.js';
 
 const { clamp, easeInOut } = XS.math;
 THREE.ColorManagement.enabled = false;
@@ -42,6 +43,7 @@ export class Stage {
     this.ink = new InkPass();
     this.sky = new Sky();
     this.labels = new Labels();
+    this.audio = new Audio();
     this.main = new THREE.Scene();
     this.root = new THREE.Group();
     this.root.scale.z = -1; // scene coordinates: z is depth behind the cut
@@ -67,7 +69,12 @@ export class Stage {
     this.tourTimer = 0;
     this.showLabels = true;
     this.fps = 60;
-    this.quality = 1;
+    // Render scale: lower on small touch screens; adapted to the frame rate as we go.
+    const small = window.matchMedia && window.matchMedia('(pointer: coarse)').matches && Math.min(screen.width, screen.height) < 820;
+    const qp = parseFloat(new URLSearchParams(location.search).get('quality'));
+    this.quality = isFinite(qp) ? Math.max(0.3, Math.min(2, qp)) : small ? 0.75 : 1;
+    this.adaptive = !isFinite(qp);
+    this.fpsWin = { t: 0, n: 0, good: 0 };
     this.stats = { buildMs: 0, tris: 0, people: 0, drawMs: 0, setupMs: 0 };
     this.pointers = new Map();
     this._resize();
@@ -149,6 +156,7 @@ export class Stage {
     this.camera.fit(this.fitBox(), 0.92, true);
     if (opts.view) Object.assign(this.camera, opts.view);
     this.time = 0;
+    if (this.audio.ctx) this.audio.load(scene, W);
     XS.bus.emit('scene', { scene, world: W, stage: this });
   }
 
@@ -295,9 +303,24 @@ export class Stage {
       if (this.tourTimer <= 0) this.tourNext(1);
     }
     this.camera.update(dt);
+    this.audio.update(this);
+    this._adapt(dt);
     const t0 = performance.now();
     this.render();
     this.stats.drawMs = this.stats.drawMs * 0.9 + (performance.now() - t0) * 0.1;
+  }
+
+  // Keep the frame rate up on modest hardware by lowering the render scale, and raise it back.
+  _adapt(dt) {
+    if (!this.adaptive || document.hidden) return;
+    const w = this.fpsWin;
+    w.t += dt; w.n++;
+    if (w.t < 2.5) return;
+    const fps = w.n / w.t;
+    w.t = 0; w.n = 0;
+    if (fps < 26 && this.quality > 0.5) { this.quality = Math.max(0.5, this.quality * 0.85); this._resize(); w.good = 0; }
+    else if (fps > 52) { if (++w.good >= 3 && this.quality < 1) { this.quality = Math.min(1, this.quality + 0.1); this._resize(); w.good = 0; } }
+    else w.good = 0;
   }
 
   _people() {
@@ -566,6 +589,14 @@ export class Stage {
     const p = this.pick(x, y);
     if (p) { this.select(p); this.tourIndex = -1; return; }
     if (this.selected) this.select(null);
+  }
+
+  // ------------------------------------------------------------ sound
+  setSound(on) {
+    if (on) { if (this.audio.start()) this.audio.load(this.scene, this.world); }
+    else this.audio.stop();
+    XS.bus.emit('sound', { on: this.audio.on });
+    return this.audio.on;
   }
 
   // ------------------------------------------------------------ pictures

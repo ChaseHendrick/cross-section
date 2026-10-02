@@ -9,6 +9,7 @@ import { XS, h01, hash, rng } from './core.js';
 import { costume } from './figures.js';
 import { Particles } from './particles.js';
 import { sun as sunAt } from './sky.js';
+import { Physics } from './physics.js';
 const { clamp, inHours, angleLerp } = XS.math;
 
 // ------------------------------------------------------------ navigation graph
@@ -121,7 +122,7 @@ class Person {
     this.targetHeading = this.heading;
     this.anim = def.act || def.anim || 'stand';
     this.prop = def.prop || null;
-    this.seat = def.seat || null;
+    this.seat = def.seat != null ? def.seat : null;
     this.routine = def.routine || null;
     this.step = -1;
     this.stepT = 0;
@@ -242,7 +243,7 @@ class Person {
         this.anim = st.act || 'stand';
         if (st.face != null) this.targetHeading = faceToHeading(st.face);
         this.prop = st.prop !== undefined ? st.prop : this.prop;
-        this.seat = st.seat || null;
+        this.seat = st.seat != null ? st.seat : null;
         if (st.onArrive) st.onArrive(this, this.world);
       }
     } else {
@@ -328,6 +329,10 @@ class World {
   // { kind, x, y, z, rate, ...particle opts, when }
   emitter(e) { e.acc = 0; this.emitters.push(e); return e; }
   label(def) { this.labels.push(def); return def; }
+  // An optional physics world (cannon-es), created on first use. See physics.js.
+  physics(opt) { if (!this._phys) this._phys = new Physics(opt || {}); return this._phys; }
+  // A sound source (see audio.js): { kind, x, y, z, r, gain, when, ...params }.
+  sound(spec) { (this.sounds || (this.sounds = [])).push(spec); return spec; }
   // { x, y, S (zoom, CSS px per metre) or w (metres wide to show), title, text, hold }
   stop(def) { this.tour.push(def); return def; }
 
@@ -344,6 +349,7 @@ class World {
     for (const p of this.people) p.update(dt, t);
     for (const a of this.actors) if (a.update) a.update(dt, t, this);
     for (const m of this.machines) m.fn(dt, t, this);
+    if (this._phys) this._phys.step(dt);
     for (const e of this.emitters) {
       if (e.when && !this.when(e.when)) continue;
       e.acc += dt * (typeof e.rate === 'function' ? e.rate(this) : e.rate || 4);

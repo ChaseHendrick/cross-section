@@ -83,7 +83,7 @@ A.climb = (p, t, P) => {
   return P;
 };
 A.sit = (p, t, P) => {
-  P.rootY = p.seat || 0.46; P.lean = -0.04 + sin(t * 0.9 + p.ph) * 0.01;
+  P.rootY = (p.seat != null ? p.seat : 0.46) / (p.H || 1.7); P.lean = -0.04 + sin(t * 0.9 + p.ph) * 0.01; // seat in metres above the feet
   P.thF = 1.5; P.shF = -1.45; P.thB = 1.45; P.shB = -1.4;
   P.uaF = 0.25; P.faF = 1.1; P.uaB = 0.2; P.faB = 1.0;
   P.head = sin(t * 0.33 + p.ph * 2) * 0.06;

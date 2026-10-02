@@ -107,6 +107,19 @@ button { font: inherit; color: inherit; }
 .close { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border: 0; background: none; border-radius: 8px; cursor: pointer; font-size: 18px; line-height: 1; color: var(--ink-soft); }
 .close:hover { background: var(--btn-hover); }
 
+/* People panel */
+.people { position: fixed; right: 16px; top: 66px; bottom: 90px; z-index: 7; width: min(330px, calc(100vw - 32px)); padding: 14px 14px 10px; border-radius: var(--radius); background: var(--panel); box-shadow: var(--shadow); display: none; flex-direction: column; }
+.people.on { display: flex; }
+.people h2 { margin: 0 24px 2px 0; font-size: 18px; color: var(--navy); }
+.people .hint { margin: 0 0 8px; font-style: italic; font-size: 13px; color: var(--ink-soft); }
+.people input { font: inherit; font-size: 14px; padding: 6px 9px; border-radius: 8px; border: 1px solid var(--line); background: transparent; color: var(--ink); margin-bottom: 8px; }
+.people ul { list-style: none; margin: 0; padding: 0; overflow: auto; flex: 1; }
+.people li button { display: block; width: 100%; text-align: left; border: 0; background: transparent; padding: 6px 8px; border-radius: 8px; cursor: pointer; }
+.people li button:hover, .people li button:focus-visible { background: var(--btn-hover); }
+.people .n { font-weight: 600; font-size: 14px; color: var(--ink); }
+.people .r { font-style: italic; font-size: 12.5px; color: var(--ink-soft); }
+.people .a { font-size: 12.5px; color: var(--accent); }
+
 /* Tour card */
 .tourcard { position: fixed; left: 16px; bottom: 78px; z-index: 5; width: min(380px, calc(100vw - 32px)); padding: 12px 14px; border-radius: var(--radius); background: var(--panel); box-shadow: var(--shadow); display: none; }
 .tourcard.on { display: block; }
@@ -127,6 +140,7 @@ button { font: inherit; color: inherit; }
 .scene { display: flex; flex-direction: column; text-align: left; border: 1px solid var(--line); border-radius: 10px; background: transparent; cursor: pointer; padding: 0; overflow: hidden; }
 .scene:hover { border-color: var(--accent); }
 .scene .thumb { height: 110px; background: var(--paper); display: block; width: 100%; object-fit: cover; }
+.scene .thumb.ph { background: repeating-linear-gradient(135deg, rgba(42,34,28,0.06) 0 2px, transparent 2px 9px), var(--paper); }
 .scene .meta { padding: 10px 12px 12px; }
 .scene .t { font-size: 17px; color: var(--navy); font-weight: 600; }
 .scene .e { font-style: italic; font-size: 13px; color: var(--ink-soft); }
@@ -161,6 +175,7 @@ button { font: inherit; color: inherit; }
   .slicebar { bottom: 62px; }
   .card { top: auto; bottom: 64px; right: 8px; left: 8px; width: auto; max-height: 40dvh; overflow: auto; }
   .tourcard { left: 8px; right: 8px; width: auto; bottom: 62px; }
+  .people { left: 8px; right: 8px; width: auto; top: 56px; bottom: 64px; }
 }
 @media (prefers-reduced-motion: reduce) {
   * { scroll-behavior: auto !important; }

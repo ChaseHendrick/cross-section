@@ -1,0 +1,19 @@
+# Cross-Sections
+
+Living, hand-drawn 3D cutaways of great buildings and machines, in the tradition of 1990s cross-section picture books. Static web app: three.js scenes drawn through an ink and watercolour pass, with people on hour-by-hour routines, live slicing, day and night, and a synthesised soundscape.
+
+## Read
+
+- README.md: what it is, how to run and explore it, what the checks establish.
+- AGENTS.md: rules for contributors and agents.
+- docs/ENGINE-API.md: every engine call a scene can make.
+- docs/SCENE-GUIDE.md: art direction, quality bar and process for a scene.
+- docs/research/<id>.md: research dossiers with sources, one per subject.
+- src/scenes/lighthouse.js: a complete small scene to copy.
+
+## Do not
+
+- Parse dist/cross-sections.html; it is generated and minified. Read src/.
+- Use Math.random, network assets or recordings in a scene.
+- State facts in captions that the dossier's sources do not support. Named characters are fictional.
+- Use em dashes.

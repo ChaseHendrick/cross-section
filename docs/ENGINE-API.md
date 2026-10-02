@@ -50,6 +50,7 @@ Inside three.js the scene root is mirrored in z, so the numbers you type are the
 | `focusDepth` | metres | Depth of the plane zoom aims at (default 3) |
 | `minDist`, `maxDist` | metres | Camera distance limits |
 | `lampGain` | number | Scales all baked lamp light |
+| `ambience` | object | Ambient sound beds (see Sound) |
 | `halos(list, world, stage)` | function | Add extra glow sprites each frame `{x,y,z,r,color,a}` |
 
 ## Materials
@@ -140,7 +141,7 @@ world.crowd(positions, { act: ['sitEat', 'sitTalk'], costume: (i, r) => ({...}),
 ```
 
 - `at`: a nav node id, a station name, or `[x, y, z]`. People walk the nav graph to the node nearest the target, then straight to it.
-- `act`: an animation (below). `prop`: something held. `face`: `1` (towards +x), `-1`, `'out'` (towards the viewer), `'in'`, or radians. `dur`: seconds or `[min, max]`. `when`: `[fromHour, toHour]`, may wrap midnight. `label`: shown when the viewer follows them. `onArrive(person, world)`: optional hook.
+- `act`: an animation (below). `prop`: something held. `seat`: for sitting animations, the seat's height in metres above the point given in `at` (default 0.46; chairs and benches return it). `face`: `1` (towards +x), `-1`, `'out'` (towards the viewer), `'in'`, or radians. `dur`: seconds or `[min, max]`. `when`: `[fromHour, toHour]`, may wrap midnight. `label`: shown when the viewer follows them. `onArrive(person, world)`: optional hook.
 - A person with no routine stands at `at` doing `act` forever (good for crowds).
 - Sleepers: their feet are at the point given; the body lies towards the opposite of their heading. Bunk and bed props return anchors.
 
@@ -183,6 +184,27 @@ Kinds: `smoke, soot, steam, spark, ember, fire, splash, spray, dust, bubble, lea
 - `kit.sheet(x0, x1, y0, y1, 0.01, { c, alpha })` draws the cut face of a body of water.
 - The sun follows the clock. Lamps (`kit.lamp`, `props.lamp`) pool warm light at night; `always: true` lamps (fires, furnaces) light in the day too. Windows with `glow: 'night'` light up after dusk.
 - `glowMaterial(color)`: additive material for beams and shafts of light (uv.y runs from the source to the far end); use with `kit.object(mesh, { overlay: true })` and set `material.uniforms.uIntensity.value`.
+
+## Sound
+
+Everything is synthesised; there are no recordings. Sound starts only when the viewer turns it on.
+
+- `ambience: { sea, wind, rain, crowd, room, reverb, size }` on the scene: levels 0 to 1 for the ambient beds, the reverb amount, and the room size in seconds (a cathedral is 5, a cabin 0.6).
+- `world.sound({ kind, x, y, z, r, gain, when, ...params })` adds a point source. It grows louder as the camera closes in (within `r` metres plus the viewing distance) and pans with its screen position.
+
+| Kind | Params | Sounds like |
+|---|---|---|
+| `engine` | `hz` | A low turbine or diesel note with rumble |
+| `hum` | `hz` | Electric hum, fans |
+| `machine` | `rate` (per second, number or `w => n`), `pitch` | Rhythmic clanks of a mechanism |
+| `chuff` | `rate` | Steam exhaust beats |
+| `fire` | | Crackle and roar |
+| `drip`, `creak`, `clock` | `rate` | Water drips, timber creaks, a ticking clock |
+| `bell` | `hz`, `ship: true` | Strikes the hours (or ship's bells every half hour) |
+| `gulls` | | Gull cries by day |
+| `organ`, `strings` | `hz`, `chords`, `beat` | A slow chord progression |
+| `band` | `hz`, `bpm` | A small dance band playing a waltz |
+| `voice` | `hz`, `notes` | A distant singer |
 
 ## Slicing
 

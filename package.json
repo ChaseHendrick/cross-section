@@ -6,13 +6,16 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "serve": "python3 run/serve.py",
+    "serve": "python3 run/cross-sections.py --dev",
     "build": "node tools/build.js",
     "build:check": "node tools/build.js --check",
     "lint": "node tools/lint.js",
     "test": "node tools/lint.js && node tools/build.js --check",
-    "test:browser": "node tools/check.js",
-    "shot": "node tools/shot.js"
+    "test:browser": "node tools/check.cjs",
+    "shot": "node tools/shot.cjs",
+    "test:mobile": "node tools/check.cjs --mobile",
+    "test:dist": "node tools/check.cjs --dist",
+    "thumbs": "node tools/thumbs.cjs"
   },
   "dependencies": {
     "cannon-es": "0.20.0",

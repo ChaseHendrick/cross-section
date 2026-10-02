@@ -327,6 +327,13 @@ function setup(W, stage, k) {
   W.emitter({ kind: 'spray', x: -9, y: SEA + 0.3, z: 2, w: 3, d: 4, rate: (w) => 3 + 8 * Math.max(0, Math.sin(w.time * 0.7)), vx: -1.5, vy: 3.5 });
   W.emitter({ kind: 'spray', x: 10, y: SEA + 0.3, z: 3, w: 3, d: 4, rate: (w) => 3 + 8 * Math.max(0, Math.sin(w.time * 0.7 + 2)), vx: 1.5, vy: 3.2 });
 
+  // Sound: surf and wind all round, gulls by day, the clockwork and the range inside.
+  W.sound({ kind: 'gulls', x: 0, y: 26, z: 8, r: 60, gain: 0.35 });
+  W.sound({ kind: 'clock', x: -0.2, y: 33, z: 2.5, r: 4, gain: 0.25 });
+  W.sound({ kind: 'machine', x: 0.15, y: 33, z: 2.2, r: 5, gain: 0.2, pitch: 2200, rate: (w) => (w.sun().night > 0.5 ? 2 : 0) });
+  W.sound({ kind: 'fire', x: -0.9, y: 23.3, z: 1.9, r: 4, gain: 0.3 });
+  W.sound({ kind: 'bell', x: 0, y: 32, z: 1, r: 40, gain: 0.25, hz: 520 });
+
   // Guided tour.
   W.stop({ x: 0, y: 20, z: 2, w: 70, title: 'A tower in the sea', text: 'Three keepers live on a reef miles from shore, keeping a light burning every night of the year. Zoom into any room to see what they are doing.', hold: 10 });
   W.stop({ x: 0, y: 8, z: 1, w: 22, title: 'Built to take a beating', text: 'The base is solid granite, the blocks locked together so the waves strike one mass rather than many stones.', hold: 9 });
@@ -364,5 +371,6 @@ XS.scenes.register({
   view: { yaw: -0.5, pitch: 0.22 },
   focusDepth: 1.5,
   fog: [140, 900, 0.7],
+  ambience: { sea: 0.9, wind: 0.5, reverb: 0.12, size: 1.2 },
   build, setup, update,
 });

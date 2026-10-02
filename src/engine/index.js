@@ -20,3 +20,5 @@ export { Camera3 } from './camera.js';
 export { Labels } from './labels.js';
 export { props } from './props.js';
 export { Stage, THEME } from './stage.js';
+export { Audio } from './audio.js';
+export { Physics, CANNON } from './physics.js';

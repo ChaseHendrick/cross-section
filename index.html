@@ -21,10 +21,18 @@
 
 <nav class="topnav">
   <button class="chip" id="openContents" title="Choose a subject (C)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 5h7a3 3 0 0 1 3 3v12a2 2 0 0 0-2-2H4z"/><path d="M20 5h-5a3 3 0 0 0-3 3"/><path d="M20 5v13h-6"/></svg><span>Contents</span></button>
+  <button class="chip" id="openPeople" title="Who is here (W)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="8" r="3"/><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"/><circle cx="17" cy="9" r="2.3"/><path d="M15.5 14.2c2.3.2 4.1 1.8 4.6 4.8"/></svg><span>People</span></button>
   <button class="chip" id="openHelp" title="How to explore (?)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7"/><circle cx="12" cy="17" r=".6" fill="currentColor"/></svg><span>Help</span></button>
 </nav>
 
 <aside class="card" id="card" aria-live="polite"></aside>
+<aside class="people" id="people" aria-label="Who is here">
+  <button class="close" id="closePeople" aria-label="Close">&times;</button>
+  <h2>Who is here</h2>
+  <p class="hint">Choose someone to follow them through their day.</p>
+  <input type="search" id="peopleFilter" placeholder="Find by name or job" aria-label="Find by name or job">
+  <ul id="peopleList"></ul>
+</aside>
 <section class="tourcard" id="tourcard" aria-live="polite"></section>
 
 <section class="slicebar" id="slicebar">
@@ -50,6 +58,7 @@
     <button class="tb" id="bClock" style="min-width:40px;height:36px" title="Clock speed (K)"><span id="clockSpeed">1&times;</span></button>
   </div>
   <div class="sep"></div>
+  <button class="tb" id="bSound" aria-pressed="false" title="Sound on or off (M)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 9h4l5-4v14l-5-4H4z"/><path id="soundWaves" d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg><span>Sound</span></button>
   <button class="tb" id="bAngle" title="Change the viewing angle (V)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg><span id="angleName">Book</span></button>
   <button class="tb" id="bFit" title="See the whole subject (0)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><span>Whole</span></button>
   <button class="tb" id="bSave" title="Save a picture of this view (P)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h4l2-2h4l2 2h4v12H4z"/><circle cx="12" cy="13" r="3.5"/></svg><span>Picture</span></button>
@@ -77,12 +86,13 @@
       <tr><td>Look around</td><td>Drag, or use the arrow keys</td></tr>
       <tr><td>Turn the view</td><td>Right-drag or Shift-drag, or <kbd>V</kbd> for the next viewing angle</td></tr>
       <tr><td>Zoom</td><td>Scroll, pinch, double-click, or <kbd>+</kbd> <kbd>&minus;</kbd>. <kbd>0</kbd> shows the whole subject</td></tr>
-      <tr><td>Follow someone</td><td>Click or tap a person. <kbd>Esc</kbd> lets them go</td></tr>
+      <tr><td>Follow someone</td><td>Click or tap a person, or choose from <kbd>W</kbd> (who is here). <kbd>Esc</kbd> lets them go</td></tr>
       <tr><td>Captions</td><td>Click a framed caption for the full story. <kbd>L</kbd> hides or shows captions</td></tr>
       <tr><td>Slice</td><td><kbd>S</kbd> opens the slice tool: click to place cuts, drag to move them, &times; to remove. <kbd>O</kbd> opens or closes the slices. Zero cuts is allowed</td></tr>
       <tr><td>Time</td><td>Drag the clock. <kbd>N</kbd> night, <kbd>D</kbd> day, <kbd>K</kbd> clock speed, <kbd>Space</kbd> pause</td></tr>
       <tr><td>Guided tour</td><td><kbd>T</kbd> starts it, <kbd>&larr;</kbd>/<kbd>&rarr;</kbd> step through while it runs</td></tr>
       <tr><td>Contents</td><td><kbd>C</kbd> chooses another subject</td></tr>
+      <tr><td>Sound</td><td><kbd>M</kbd> turns the soundscape on or off. Zoom in on a machine to hear it</td></tr>
       <tr><td>Picture</td><td><kbd>P</kbd> saves the current view as a PNG at twice screen resolution</td></tr>
     </table>
   </div>

@@ -68,14 +68,24 @@ function open(id, opts = {}) {
   }, 16));
 }
 
+// Thumbnails: inline in the portable edition (XS_THUMBS); listed in gallery/index.json in the folder.
+let thumbs = window.XS_THUMBS || null;
+function thumbFor(s) { return thumbs && thumbs[s.id] ? thumbs[s.id] : null; }
+if (!thumbs) {
+  fetch('gallery/index.json').then((r) => (r.ok ? r.json() : [])).then((ids) => {
+    thumbs = {};
+    for (const id of ids) thumbs[id] = 'gallery/' + id + '.jpg';
+    buildContents();
+  }).catch(() => {});
+}
 function buildContents() {
   const list = $('sceneList');
   list.innerHTML = '';
   for (const s of XS.scenes.list.filter((q) => !q.hidden)) {
     const b = document.createElement('button');
     b.className = 'scene';
-    const src = (window.XS_THUMBS && window.XS_THUMBS[s.id]) || s.thumb || ('gallery/' + s.id + '.jpg');
-    b.innerHTML = '<img class="thumb" alt="" loading="lazy" src="' + esc(src) + '" onerror="this.style.visibility=\'hidden\'"><div class="meta"><div class="t">' + esc(s.title) + '</div><div class="e">' + esc(s.subtitle || '') + '</div><div class="d">' + esc(s.blurb || '') + '</div></div>';
+    const src = thumbFor(s);
+    b.innerHTML = (src ? '<img class="thumb" alt="" loading="lazy" src="' + esc(src) + '">' : '<div class="thumb ph"></div>') + '<div class="meta"><div class="t">' + esc(s.title) + '</div><div class="e">' + esc(s.subtitle || '') + '</div><div class="d">' + esc(s.blurb || '') + '</div></div>';
     b.addEventListener('click', () => { hide('contents'); open(s.id); });
     list.appendChild(b);
   }
@@ -164,6 +174,7 @@ $('cutOpen').onclick = () => stage.setOpen(!stage.explodeTarget);
 $('bOpen').onclick = () => stage.setOpen(!stage.explodeTarget);
 
 // ------------------------------------------------------------ toolbar
+$('bSound').onclick = () => { const on = stage.setSound(!stage.audio.on); $('bSound').setAttribute('aria-pressed', String(on)); };
 $('bTour').onclick = () => (stage.tourIndex >= 0 ? stage.tourStop() : stage.tourStart());
 $('bLabels').onclick = () => { stage.showLabels = !stage.showLabels; $('bLabels').setAttribute('aria-pressed', String(stage.showLabels)); };
 $('bPause').onclick = () => { stage.paused = !stage.paused; $('bPause').setAttribute('aria-pressed', String(stage.paused)); };
@@ -229,6 +240,7 @@ window.addEventListener('keydown', (e) => {
   let used = true;
   if (k === 'Escape') {
     if ($('contents').classList.contains('on')) hide('contents');
+    else if ($('people').classList.contains('on')) { hide('people'); clearInterval(peopleTimer); }
     else if ($('help').classList.contains('on')) hide('help');
     else if (stage.sliceMode) sliceMode(false);
     else if (stage.tourIndex >= 0) stage.tourStop();
@@ -237,6 +249,8 @@ window.addEventListener('keydown', (e) => {
   } else if (k === 'ArrowLeft' && stage.tourIndex >= 0) stage.tourNext(-1);
   else if (k === 'ArrowRight' && stage.tourIndex >= 0) stage.tourNext(1);
   else if (k === 'v' || k === 'V') $('bAngle').click();
+  else if (k === 'm' || k === 'M') $('bSound').click();
+  else if (k === 'w' || k === 'W') togglePeople();
   else if (k === 'ArrowLeft') cam.panBy(120, 0);
   else if (k === 'ArrowRight') cam.panBy(-120, 0);
   else if (k === 'ArrowUp') cam.panBy(0, 120);
@@ -260,6 +274,36 @@ window.addEventListener('keydown', (e) => {
   else used = false;
   if (used) e.preventDefault();
 });
+
+// ------------------------------------------------------------ who is here
+let peopleTimer = null;
+function renderPeople() {
+  if (!stage.world) return;
+  const q = $('peopleFilter').value.trim().toLowerCase();
+  const named = stage.world.people.filter((p) => p.name && (!q || (p.name + ' ' + (p.role || '')).toLowerCase().includes(q)));
+  named.sort((a, b) => a.name.localeCompare(b.name));
+  const ul = $('peopleList');
+  ul.innerHTML = '';
+  for (const p of named) {
+    const li = document.createElement('li');
+    const b = document.createElement('button');
+    b.innerHTML = '<div class="n">' + esc(p.name) + '</div><div class="r">' + esc(p.role || '') + '</div><div class="a">' + esc(p.currentLabel()) + '</div>';
+    b.onclick = () => { stage.select(p); if (window.innerWidth < 720) hide('people'); };
+    li.appendChild(b);
+    ul.appendChild(li);
+  }
+  if (!named.length) ul.innerHTML = '<li class="r" style="padding:6px 8px">Nobody by that name here.</li>';
+}
+function togglePeople() {
+  const on = !$('people').classList.contains('on');
+  $('people').classList.toggle('on', on);
+  clearInterval(peopleTimer);
+  if (on) { closeCard(); renderPeople(); peopleTimer = setInterval(renderPeople, 1500); }
+}
+$('openPeople').onclick = togglePeople;
+$('closePeople').onclick = () => { hide('people'); clearInterval(peopleTimer); };
+$('peopleFilter').addEventListener('input', renderPeople);
+XS.bus.on('scene', () => { if ($('people').classList.contains('on')) renderPeople(); });
 
 $('openContents').onclick = openContents;
 $('brand').onclick = openContents;
