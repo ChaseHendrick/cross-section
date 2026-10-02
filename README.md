@@ -4,7 +4,7 @@
 
 A liner at sea, a castle, a man-of-war, a steam express, a coal mine, a cathedral rising, a rock lighthouse, a jumbo jet, a space station, a submarine, a car factory and an opera house, each sliced open with everyone inside going about their day.
 
-**[Open Cross-Sections](https://www.hendrickresearch.com/sims/cross-sections/)** · **[Download the portable file](dist/cross-sections.html)** · **[How to explore](#how-to-explore)** · **[Add a scene](docs/SCENE-GUIDE.md)**
+**[Open Cross-Sections](https://www.hendrickresearch.com/play/cross-sections/)** · **[Download the portable file](dist/cross-sections.html)** · **[How to explore](#how-to-explore)** · **[Add a scene](docs/SCENE-GUIDE.md)**
 
 Open the portable file in any current desktop or mobile browser. It is one self-contained HTML file: no install, no account, no network. Rendering needs WebGL 2.
 

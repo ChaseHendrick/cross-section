@@ -21,8 +21,12 @@ const SCENES = {
   opera: () => import('./scenes/opera.js'),
 };
 
-const only = new URLSearchParams(location.search).get('only');
-const wanted = only && SCENES[only] ? [only] : Object.keys(SCENES);
-const results = await Promise.allSettled(wanted.map((id) => SCENES[id]()));
-results.forEach((r, i) => { if (r.status === 'rejected') console.warn('Scene ' + wanted[i] + ' failed to load:', r.reason); });
-await import('./app/ui.js');
+// No top-level await: the portable file must also survive hosts that compile it to ES2020.
+async function start() {
+  const only = new URLSearchParams(location.search).get('only');
+  const wanted = only && SCENES[only] ? [only] : Object.keys(SCENES);
+  const results = await Promise.allSettled(wanted.map((id) => SCENES[id]()));
+  results.forEach((r, i) => { if (r.status === 'rejected') console.warn('Scene ' + wanted[i] + ' failed to load:', r.reason); });
+  await import('./app/ui.js');
+}
+start().catch((e) => console.error('Cross-Sections failed to start:', e));

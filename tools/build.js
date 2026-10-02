@@ -21,7 +21,7 @@ const res = await build({
   entryPoints: [path.join(root, 'src', 'main.js')],
   bundle: true,
   format: 'esm',
-  target: 'es2022',
+  target: 'es2020',
   minify: true,
   write: false,
   legalComments: 'eof',
