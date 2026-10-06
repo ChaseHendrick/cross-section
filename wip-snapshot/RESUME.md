@@ -1,6 +1,6 @@
 # Resume notes
 
-The project stopped here and was released unfinished (October 2026). These notes are kept as the handover for anyone who picks it up.
+The project is paused here, unfinished (October 2026). These notes are kept for picking it back up.
 
 This folder is a snapshot of unfinished work, saved when the build paused and never resumed. The app never loads it: lint, the build and the browser checks ignore `wip-snapshot/`.
 

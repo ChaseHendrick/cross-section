@@ -2,7 +2,7 @@
 
 **Living, hand-drawn 3D cutaways of great buildings and machines.**
 
-> **Status: unfinished, and no longer being worked on.** The engine, the shell and one scene (the Rock Lighthouse) are complete. The other eleven subjects have finished research dossiers but their scenes are placeholders or partly built. The code is released under the MIT license as it stands, for anyone who wants to use it, learn from it or carry it on. Pull requests and issues are unlikely to get a reply: fork it and make it yours. See [Picking it up](#picking-it-up).
+> **Status: paused, unfinished.** The engine, the shell and one scene (the Rock Lighthouse) are complete. The other eleven subjects have finished research dossiers but their scenes are placeholders or partly built. See [Picking it up](#picking-it-up) for where each part stands.
 
 The plan was twelve subjects: a liner at sea, a castle, a man-of-war, a steam express, a coal mine, a cathedral rising, a rock lighthouse, a jumbo jet, a space station, a submarine, a car factory and an opera house, each sliced open with everyone inside going about their day.
 
@@ -30,7 +30,7 @@ The subjects are drawn from real places and machines, researched from museum, ar
 
 ## What is actually different
 
-This is the design, and the engine supports all of it. In the released build you can see it working in the lighthouse; the bigger crowds and set pieces mentioned below were for scenes that were not finished.
+This is the design, and the engine supports all of it. In the current build you can see it working in the lighthouse; the bigger crowds and set pieces mentioned below were for scenes that were not finished.
 
 **The picture is alive.** Hundreds of people follow hour-by-hour routines over a walkable network of decks, stairs and ladders. Engines turn, pistons drive, smoke drifts downwind, the sea moves, and the clock runs from dawn through dusk to a lamplit night.
 

@@ -1,9 +1,5 @@
 # Contributing
 
-**This project is no longer maintained.** It was released unfinished. Issues and pull requests here may never be answered or merged. The best way to carry it on is to fork it; the MIT license lets you do anything with it as long as the notice stays. [README: Picking it up](README.md#picking-it-up) says what is finished and what is not.
-
-The rest of this file is how the project was run, kept as a guide for forks.
-
 You can help without writing code: suggest a subject, report something wrong in a drawing or a caption, or point to a better source. Use the [issue tracker](https://github.com/ChaseHendrick/cross-section/issues).
 
 ## What belongs here

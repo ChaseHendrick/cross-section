@@ -1,8 +1,8 @@
 # Changelog
 
-## 0.1.0: released unfinished (October 2026)
+## Paused, unfinished (October 2026)
 
-- **Work stopped; released as open source.** The engine, the shell and the Rock Lighthouse are complete. The other eleven subjects have research dossiers; ten have partly built scenes in `wip-snapshot/`, not loaded by the app. The project is not maintained.
+- **Work paused.** The engine, the shell and the Rock Lighthouse are complete. The other eleven subjects have research dossiers; ten have partly built scenes in `wip-snapshot/`, not loaded by the app.
 
 - **Cross-Sections begins.** Twelve living 3D cutaways planned: the Atlantic Liner, the Castle, the Man-of-War, the Express, the Coal Mine, the Cathedral, the Rock Lighthouse, the Jumbo Jet, the Space Station, the Submarine, the Car Factory and the Opera House.
 - **An engine for living cutaways.** three.js geometry drawn through an ink and watercolour pass; shader-drawn surface patterns; hatched cut faces; lamp light baked into a 3D light volume; people with hour-by-hour routines on a walkable network; sky, sea, smoke and steam; a synthesised soundscape; captions in the margins with fact cards and sources; guided tours.
