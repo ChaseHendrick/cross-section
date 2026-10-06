@@ -1,6 +1,8 @@
-# Resume notes (temporary, delete before merging)
+# Resume notes
 
-This folder is a snapshot of unfinished work, saved because the session paused for a usage limit. The app never loads it: lint, the build and the browser checks ignore `wip-snapshot/`.
+The project stopped here and was released unfinished (October 2026). These notes are kept as the handover for anyone who picks it up.
+
+This folder is a snapshot of unfinished work, saved when the build paused and never resumed. The app never loads it: lint, the build and the browser checks ignore `wip-snapshot/`.
 
 ## What is in here
 
@@ -17,11 +19,12 @@ This folder is a snapshot of unfinished work, saved because the session paused f
 - Submarine, car factory, opera: builders about halfway.
 - Jumbo jet: not started (dossier ready).
 - QA round 1: committed (621ba3c), 59 of 62 fixed and verified. QA round 2 (10 remaining problems) was running.
-- hendrickresearch.com: integration ready on branch `claude/optimistic-tesla-buoi0n` of that repo, waiting for the final portable file and a hero preview image.
 
 ## To resume
+
+Steps 2 and 3 used an agent orchestration harness that is not part of this repository. Without it, do the same by hand: copy a scene's files into `src/`, then build, look and fix with `node tools/shot.cjs <id>`.
 
 1. If the container was reset, copy `wip-snapshot/src` and `wip-snapshot/docs` back over the repo (`cp -r wip-snapshot/src wip-snapshot/docs .`).
 2. Relaunch each unfinished scene with `workflows/wf-build.js`, telling the builder the scene is partly built and to continue from the existing code rather than start over. Then the director pass, then `workflows/wf-ambiance.js` (one combined sound, life, lighting and fact-check pass per scene).
 3. Relaunch QA round 2 from `workflows/qa-round-2.js` if its report never arrived.
-4. Commit each scene with a rebuilt `dist/` once `node tools/lint.js`, `node tools/build.js` and `node tools/check.cjs <id>` pass. Delete this folder before merging.
+4. Commit each scene with a rebuilt `dist/` once `node tools/lint.js`, `node tools/build.js` and `node tools/check.cjs <id>` pass.

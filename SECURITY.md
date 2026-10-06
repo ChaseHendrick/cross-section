@@ -14,4 +14,7 @@ Not a vulnerability: a drawing that is wrong, a caption that is inaccurate, a sc
 
 ## How to report
 
+This project is no longer maintained, so a report may not get a response or a fix. If you are running a fork, check it yourself.
+
+
 Use GitHub's private advisory on this repository: **[Report a vulnerability](https://github.com/ChaseHendrick/cross-section/security/advisories/new)**. Do not open a public issue for a real one.
