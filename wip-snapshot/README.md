@@ -2,11 +2,9 @@
 
 **Living, hand-drawn 3D cutaways of great buildings and machines.**
 
-> **Status: paused, unfinished.** The engine, the shell and one scene (the Rock Lighthouse) are complete. The other eleven subjects have finished research dossiers but their scenes are placeholders or partly built. See [Picking it up](#picking-it-up) for where each part stands.
+A liner at sea, a castle, a man-of-war, a steam express, a coal mine, a cathedral rising, a rock lighthouse, a jumbo jet, a space station, a submarine, a car factory and an opera house, each sliced open with everyone inside going about their day.
 
-The plan was twelve subjects: a liner at sea, a castle, a man-of-war, a steam express, a coal mine, a cathedral rising, a rock lighthouse, a jumbo jet, a space station, a submarine, a car factory and an opera house, each sliced open with everyone inside going about their day.
-
-**[Download the portable file](dist/cross-sections.html)** · **[How to explore](#how-to-explore)** · **[Picking it up](#picking-it-up)** · **[Add a scene](docs/SCENE-GUIDE.md)**
+**[Open Cross-Sections](https://www.hendrickresearch.com/play/cross-sections/)** · **[Download the portable file](dist/cross-sections.html)** · **[How to explore](#how-to-explore)** · **[Add a scene](docs/SCENE-GUIDE.md)**
 
 Open the portable file in any current desktop or mobile browser. It is one self-contained HTML file: no install, no account, no network. Rendering needs WebGL 2.
 
@@ -30,8 +28,6 @@ The subjects are drawn from real places and machines, researched from museum, ar
 
 ## What is actually different
 
-This is the design, and the engine supports all of it. In the current build you can see it working in the lighthouse; the bigger crowds and set pieces mentioned below were for scenes that were not finished.
-
 **The picture is alive.** Hundreds of people follow hour-by-hour routines over a walkable network of decks, stairs and ladders. Engines turn, pistons drive, smoke drifts downwind, the sea moves, and the clock runs from dawn through dusk to a lamplit night.
 
 **Slice it wherever you like.** The Slice tool places cuts anywhere along the subject, from none to eight. Open the slices and the pieces pull apart, each cut face drawn as solid section, the way the classic books split a liner into slabs. Cuts are live: drag one and the section moves with it.
@@ -44,22 +40,20 @@ This is the design, and the engine supports all of it. In the current build you 
 
 **One file.** The portable edition carries three.js, every scene and every caption. It runs from a USB stick.
 
-What each subject was meant to show, and how far it got:
-
-| Subject | Moment | Look for | State |
-|---|---|---|---|
-| The Atlantic Liner | A westbound crossing, 1938 | Stokers at the boilers, the turbines, the first-class dining saloon, the kennels | Partial: hull, sea and funnels in `src/`; rooms and people in `wip-snapshot/` |
-| The Castle | A great stone castle, about 1300 | The kitchen fires, the great hall at dinner, the garderobes, the guard on the wall walk | Placeholder in `src/`; partly built in `wip-snapshot/` |
-| The Man-of-War | A first-rate ship of the line, 1805 | Hammocks slung over the guns, the galley stove, the surgeon's cockpit, sailors aloft | Partial: hull in `src/`; the rest in `wip-snapshot/` |
-| The Express | A streamlined steam express, 1937 | The fireman's shovel, the valve gear, the dining car at speed | Built in `wip-snapshot/`, not yet reviewed or wired in |
-| The Coal Mine | A deep Welsh colliery, 1910 | The winding engine, the cage, the pit ponies' stables, the coal face by lamplight | Placeholder in `src/`; partly built in `wip-snapshot/` |
-| The Cathedral | A Gothic cathedral rising, 1245 | The treadwheel crane, the masons' lodge, a service in the finished choir | Placeholder in `src/`; partly built in `wip-snapshot/` |
-| The Rock Lighthouse | A keepers' tower, about 1890 | The turning lens, curved bunks, the beams sweeping the night sea | **Complete** |
-| The Jumbo Jet | A transatlantic night flight, 1970s | The flight deck, the upper-deck lounge, the galleys, the cargo hold | Dossier only |
-| The Space Station | The International Space Station | Floating crew, the Cupola, sixteen sunrises a day | Placeholder in `src/`; partly built in `wip-snapshot/` |
-| The Submarine | A fleet submarine of the 1940s | Hot bunks, the control room, diesels charging the batteries at night | Placeholder in `src/`; partly built in `wip-snapshot/` |
-| The Car Factory | The moving assembly line, 1914 | The chassis line, belts and line shafts, the cars driving off the end | Placeholder in `src/`; partly built in `wip-snapshot/` |
-| The Opera House | A grand opera house, 1875 | The fly tower, the understage machinery, the cistern, the gods | Placeholder in `src/`; partly built in `wip-snapshot/` |
+| Subject | Moment | Look for |
+|---|---|---|
+| The Atlantic Liner | A westbound crossing, 1938 | Stokers at the boilers, the turbines, the first-class dining saloon, the kennels |
+| The Castle | A great stone castle, about 1300 | The kitchen fires, the great hall at dinner, the garderobes, the guard on the wall walk |
+| The Man-of-War | A first-rate ship of the line, 1805 | Hammocks slung over the guns, the galley stove, the surgeon's cockpit, sailors aloft |
+| The Express | A streamlined steam express, 1937 | The fireman's shovel, the valve gear, the dining car at speed |
+| The Coal Mine | A deep Welsh colliery, 1910 | The winding engine, the cage, the pit ponies' stables, the coal face by lamplight |
+| The Cathedral | A Gothic cathedral rising, 1245 | The treadwheel crane, the masons' lodge, a service in the finished choir |
+| The Rock Lighthouse | A keepers' tower, about 1890 | The turning lens, curved bunks, the beams sweeping the night sea |
+| The Jumbo Jet | A transatlantic night flight, 1970s | The flight deck, the upper-deck lounge, the galleys, the cargo hold |
+| The Space Station | The International Space Station | Floating crew, the Cupola, sixteen sunrises a day |
+| The Submarine | A fleet submarine of the 1940s | Hot bunks, the control room, diesels charging the batteries at night |
+| The Car Factory | The moving assembly line, 1914 | The chassis line, belts and line shafts, the cars driving off the end |
+| The Opera House | A grand opera house, 1875 | The fly tower, the understage machinery, the cistern, the gods |
 
 ---
 
@@ -84,7 +78,7 @@ What each subject was meant to show, and how far it got:
 | Step back | <kbd>Esc</kbd> closes the top panel, leaves the slice tool, ends the tour, or lets the person you follow go |
 | Help | <kbd>?</kbd> |
 
-On a phone the main tools sit in one row with the clock above them; **More** holds captions, viewing angle, whole view, picture and full screen.
+On a phone the main tools sit in one row with the clock above them; **More** opens a second row with captions, viewing angle, whole view, picture and full screen. <kbd>Space</kbd> pauses even after you click a toolbar button or the clock; a button reached with <kbd>Tab</kbd> takes <kbd>Space</kbd> and <kbd>Enter</kbd> itself.
 
 The address bar carries the view and keeps up with the clock: `#liner?cuts=60,120,180&open=1&h=21.5&w=rain` opens the liner, cut in three places, opened, at half past nine on a rainy night. Cuts are ignored for a subject shown whole.
 
@@ -142,15 +136,6 @@ If you are an agent:
 5. Before a pull request: `node tools/lint.js`, `node tools/build.js`, `node tools/check.cjs <id>`.
 
 ---
-
-## Picking it up
-
-Everything that exists is in the repository; nothing is held back.
-
-- **`src/`** is what the app loads. The engine (`src/engine/`) and shell (`src/app/`) are finished and have been through a QA pass on desktop and phones. `src/scenes/lighthouse.js` is the one complete scene and the best reference. The other scene modules are placeholders that draw a "Being drawn" card, except the liner and warship, which draw their hulls.
-- **`wip-snapshot/`** is the unfinished scene code for ten subjects, saved mid-build and never loaded by the app, lint or CI. [`wip-snapshot/RESUME.md`](wip-snapshot/RESUME.md) records how far each one got. To pick a subject up, copy its files from `wip-snapshot/src/scenes/` over `src/scenes/`, run `node tools/shot.cjs <id>` and expect to fix things. Engine requests the scene builders filed are in `wip-snapshot/docs/requests/`; edits to the shell in that folder are an unfinished second QA round.
-- **`docs/research/`** has a dossier for every subject, including the jet, which never got any scene code. These stand on their own as research.
-- **`wip-snapshot/workflows/`** are the scripts that drove the AI agents that wrote most of this. They need an orchestration harness that is not part of this repository, so read them as notes on process rather than tools you can run.
 
 ## License
 
